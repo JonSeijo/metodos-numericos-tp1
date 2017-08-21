@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "Matriz.cpp"
+#include "Imagen.cpp"
 
 using std::string;
 using std::vector;
@@ -65,5 +66,10 @@ int main() {
     });
 
     S.print();
+
+    // 512 x 340 px
+    Imagen foto1(filepathsFotos[ indexes[0] ]);
+    Imagen foto2(filepathsFotos[ indexes[1] ]);
+    Imagen foto3(filepathsFotos[ indexes[2] ]);
 
 }

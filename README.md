@@ -14,6 +14,15 @@ Por ejemplo:
 python makepdf.py --p=3
 ```
 
+## Compilacion y ejecucion
+
+Hay un Makefile naive que deberia bastar por ahora.
+
+```
+make && ./main
+```
+
+
 ## Y ahora que?
 
 ```

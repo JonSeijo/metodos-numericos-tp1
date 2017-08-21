@@ -1,3 +1,6 @@
+#ifndef MATRIZ_CPP
+#define MATRIZ_CPP
+
 #include <bits/stdc++.h>
 
 using std::string;
@@ -8,6 +11,11 @@ class Matriz {
     public:
         vector<vector<double> > m;
         int filas, columnas;
+
+    Matriz() {
+        filas = 0;
+        columnas = 0;
+    }
 
     Matriz (int _filas, int _columnas) {
         filas = _filas;
@@ -25,6 +33,12 @@ class Matriz {
         return m[fila];
     }
 
+    void redimensionar(int _filas, int _columnas) {
+        filas = _filas;
+        columnas = _columnas;
+        m.assign(filas, vector<double>(columnas, 0));
+    }
+
     void print() {
         std::cout << "Debug matriz: \n";
         for (int f = 0; f < filas; f++) {
@@ -36,3 +50,5 @@ class Matriz {
     }
 
 };
+
+#endif
