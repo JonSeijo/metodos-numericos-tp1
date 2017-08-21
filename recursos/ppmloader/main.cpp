@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include "ppmloader.h"
 
+#include <bits/stdc++.h>
+
 using namespace std;
 
 typedef unsigned char uchar;
