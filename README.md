@@ -16,13 +16,16 @@ python makepdf.py --p=3
 
 ## Y ahora que?
 
+```
 Para un objeto fijo, por ejemplo "gato":
 
 - Tomemos luces.txt como las direcciones de las luces. Mas adelante tenemos que ver como calcularlas nosotros mismos.
 
 - Elegimos 3 figuras, digamos la 1, 2 y 3.
 
+
 Para cada pixel:
+
     S = la matriz de luces, de 3x3
 
     I_i = El brillo de la imagen i en el pixel actual
@@ -40,8 +43,4 @@ Para cada pixel:
 
     Tarán!
     Ya tenemos las normales estimadas para el pixel actual
-
-
-
-
-
+```
