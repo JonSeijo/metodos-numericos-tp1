@@ -73,6 +73,6 @@ int main() {
     Imagen foto2(filepathsFotos[ indexes[1] ]);
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
-    //testDeMatrices();
+    testDeMatrices();
 
 }

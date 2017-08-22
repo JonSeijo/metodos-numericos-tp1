@@ -39,6 +39,19 @@ class Matriz {
         m.assign(filas, vector<double>(columnas, 0));
     }
 
+    //Traspone en la misma matriz
+    void trasponerCuadrada(){
+        if(this->filas > 1){
+            for(int i = 1; i < filas; i++){
+                for(int j = 0; j < i; j++){
+                    double temp = this->m[i][j];
+                    this->m[i][j] = this->m[j][i];
+                    this->m[j][i] = temp;
+                }
+            }
+        }
+    }
+
     void print() {
         std::cout << "Debug matriz: \n";
         for (int f = 0; f < filas; f++) {
