@@ -72,4 +72,60 @@ int main() {
     Imagen foto2(filepathsFotos[ indexes[1] ]);
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
+    //Pequeño test
+
+    std::cout << std::endl << "Test producto matricial" << std::endl;
+
+    vector<double> e1 = {1, 0, 0};
+    vector<double> e2 = {0, 1, 0};
+    vector<double> e3 = {0, 0, 1};
+    vector<double> nulo = {0, 0, 0};
+    vector<double> uno = {1, 1, 1};
+
+    vector<vector<double> > coeficientes1;
+    vector<vector<double> > coeficientes2;
+    vector<vector<double> > coeficientes3;
+    vector<vector<double> > coeficientes4;
+
+    //identidad
+    coeficientes1.push_back(e1);
+    coeficientes1.push_back(e2);
+    coeficientes1.push_back(e3);
+
+    Matriz id = Matriz(coeficientes1);
+
+    /*
+	1 0 0
+	0 1 0
+	1 1 1
+    */
+    coeficientes2.push_back(e1);
+    coeficientes2.push_back(e2);
+    coeficientes2.push_back(uno);
+
+    Matriz matr = Matriz(coeficientes2);
+
+    //nula
+    coeficientes3.push_back(nulo);
+    coeficientes3.push_back(nulo);
+    coeficientes3.push_back(nulo);
+
+    Matriz nula = Matriz(coeficientes3);
+
+    //uno
+    coeficientes4.push_back(uno);
+    coeficientes4.push_back(uno);
+    coeficientes4.push_back(uno);
+
+    Matriz deUnos = Matriz(coeficientes4);
+
+    std::cout << "Matriz de unos \n" << deUnos << std::endl;
+
+    std::cout << "Porducto id * unos \n" << std::endl;
+
+    Matriz producto = deUnos.productoM(id, deUnos);
+    std::cout << "prod hecho" << std::endl;
+    std::cout << producto << std::endl;
+
+
 }

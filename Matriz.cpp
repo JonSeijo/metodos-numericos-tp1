@@ -49,6 +49,56 @@ class Matriz {
         }
     }
 
+    Matriz productoM(const Matriz A, const Matriz B){
+        if(A.columnas != B.filas){
+            std::cout << "Producto indefinido para estas dos matrices \n";
+            return Matriz();
+        }
+        else{
+            vector<vector<double> > coeficientes;
+            for(int i = 0; i < A.filas; i++){
+                vector<double> vectorFila;
+                for(int j = 0; j < B.columnas; j++){
+                    double suma = A.m[i][0] * B.m[0][j];
+                    for(int k = 1; k < A.columnas; k++){
+                        suma += A.m[i][k] * B.m[k][j];
+                    }
+                    vectorFila.push_back(suma);
+                }
+                coeficientes.push_back(vectorFila);
+            }
+            return Matriz(coeficientes);
+        }
+    }
+
+    private:
+        void mostrar(std::ostream& os) const{
+            os << std::endl;
+            if(filas == 0 || columnas == 0){
+                os << "[]" << std::endl;
+            }
+            else{
+                for(int i = 0; i < filas; i++){
+                    for(int j = 0; j < columnas; j++){
+                        os << m[i][j] << " ";
+                    }
+                    os << std::endl;
+                }
+                os << std::endl;   
+            }
+            
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, const Matriz &c){
+            c.mostrar(os);
+            return os;
+        };
+
+
+
 };
+
+
+
 
 #endif
