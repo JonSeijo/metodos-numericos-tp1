@@ -49,25 +49,41 @@ class Matriz {
         }
     }
 
-    Matriz productoM(const Matriz A, const Matriz B){
-        if(A.columnas != B.filas){
+    Matriz productoM(const Matriz B){
+        if(this->columnas != B.filas){
             std::cout << "Producto indefinido para estas dos matrices \n";
             return Matriz();
         }
         else{
             vector<vector<double> > coeficientes;
-            for(int i = 0; i < A.filas; i++){
+            for(int i = 0; i < this->filas; i++){
                 vector<double> vectorFila;
                 for(int j = 0; j < B.columnas; j++){
-                    double suma = A.m[i][0] * B.m[0][j];
-                    for(int k = 1; k < A.columnas; k++){
-                        suma += A.m[i][k] * B.m[k][j];
+                    double suma = this->m[i][0] * B.m[0][j];
+                    for(int k = 1; k < this->columnas; k++){
+                        suma += this->m[i][k] * B.m[k][j];
                     }
                     vectorFila.push_back(suma);
                 }
                 coeficientes.push_back(vectorFila);
             }
             return Matriz(coeficientes);
+        }
+    }
+
+    bool operator==(const Matriz B){
+        if(this->filas != B.filas || this->columnas != B.columnas){
+            return false;
+        }
+        else{
+            for(int i = 0; i < this->filas; i++){
+                for(int j = 0; j < this->columnas; j++){
+                    if(this->m[i][j] != B.m[i][j]){
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 

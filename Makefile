@@ -1,4 +1,4 @@
-SOURCES = main.cpp
+SOURCES = main.cpp 
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS = Imagen.cpp Matriz.cpp recursos/ppmloader/ppmloader.cpp
