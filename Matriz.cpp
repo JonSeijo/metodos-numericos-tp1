@@ -87,6 +87,10 @@ class Matriz {
         }
     }
 
+    bool operator!=(const Matriz B){
+        return !(*this == B);
+    }
+
     private:
         void mostrar(std::ostream& os) const{
             os << std::endl;
