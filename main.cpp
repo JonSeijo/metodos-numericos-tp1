@@ -74,7 +74,6 @@ int main() {
     Imagen foto2(filepathsFotos[ indexes[1] ]);
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
-    testDeMatrices();
 
     std::cout << "Mini test norma vectorial: " << std::endl;
     vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
@@ -85,5 +84,5 @@ int main() {
         std::cout << "TODO MAL" << std::endl;
     }
 
-    
+    testDeMatrices();
 }

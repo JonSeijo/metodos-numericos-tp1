@@ -159,4 +159,43 @@ void testDeMatrices(){
     	std::cout << "TODO MAL" << std::endl;
     }
 
+
+
+
+
+    vector<double> v4 = {1, 2, 3};
+    vector<double> v5 = {4, 5, 6};
+    vector<double> v6 = {7, 8, 9};
+
+    vector<vector<double> > coeficientes7;
+    coeficientes7.push_back(v4);
+    coeficientes7.push_back(v5);
+    coeficientes7.push_back(v6);
+
+    Matriz m1 = Matriz(coeficientes7);
+
+    std::cout << "Matriz armada: \n" << m1 << std::endl;
+    std::cout << "Le agrego el vector nulo" << std::endl;
+
+    m1.AgregarVectorColumna(nulo);
+
+    std::cout << m1 << std::endl;
+    std::cout << "Le saco el vector nulo" << std::endl;
+
+    m1.EliminarVectoresColumna(1);
+
+    std::cout << m1 << std::endl;
+    std::cout << "Le agrego varios vectores" << std::endl;
+
+    m1.AgregarVectorColumna(nulo);
+    m1.AgregarVectorColumna(e1);
+    m1.AgregarVectorColumna(v4);
+    m1.AgregarVectorColumna(v6);
+
+    std::cout << m1 << std::endl;
+    std::cout << "Le saco 6 vectores columna, debería quedar el (1, 4, 7) traspuesto" << std::endl;
+
+    m1.EliminarVectoresColumna(6);
+
+    std::cout << m1 << std::endl;
 }

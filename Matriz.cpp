@@ -122,6 +122,39 @@ class Matriz {
         }
     }
 
+    //Modifica la matriz original OJO!!!
+    void AgregarVectorColumna(vector<double>& v){
+    	if(this->filas == 0 || this->columnas == 0 || v.size() == 0 || v.size() != this->filas){
+    		throw std::runtime_error("Tamaño de matriz/vector indefinido para esta operación");
+    	}
+    	else{
+    		this->columnas++;
+    		for(int k = 0; k < v.size(); k++){
+    			this->m[k].push_back(v[k]);
+    		}
+    	}
+    }
+
+    //Modifica la matriz OJO!!!
+    //Elimina los vectores de DERECHA a IZQUIERDA i.e. empieza a eliminar desde la ÚLTIMA COLUMNA
+    void EliminarVectoresColumna(int cantVectores){
+    	if(cantVectores > this->columnas || cantVectores < 0 || this->filas <= 0 || this->columnas <= 0){
+    		throw std::runtime_error("No se puede eliminar esa cantidad de columnas en esta matriz");
+    	}
+    	else{
+    		if(cantVectores != 0){ //Para no iterar al pedo por las filas
+    			for(int l = 0; l < this->filas; l++){
+    				for(int k = 0; k < cantVectores; k++){
+    					this->m[l].pop_back();
+    				}
+    			}
+    			this->columnas -= cantVectores;
+    		}
+    	}
+    }
+
+
+
     bool operator==(const Matriz B){
         if(this->filas != B.filas || this->columnas != B.columnas){
             return false;
