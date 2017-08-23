@@ -82,11 +82,16 @@ void testDeMatrices(){
 
     std::cout << "Porducto id * rectangular2x3 \n" << std::endl;
 
-    Matriz producto2 = id.productoM(rectangular2x3);
-    std::cout << "prod hecho" << std::endl;
-    std::cout << producto2 << std::endl;
+    try{
+        Matriz producto2 = id.productoM(rectangular2x3);
+    }
+    catch(const runtime_error& error){
+        std::cout << "Producto indefinido detectado\n";
+    }
+    
+        
 
-    std::cout << "Porducto rectangular3x2 * rectangular2x3 \n" << std::endl;
+    std::cout  << "\n" << "Porducto rectangular3x2 * rectangular2x3 \n" << std::endl;
 
     Matriz producto3 = rectangular3x2.productoM(rectangular2x3);
     std::cout << "prod hecho" << std::endl;

@@ -18,24 +18,12 @@ class Matriz {
 
     //Perdón por meterle esos ifs pero no me agradan los seg fault
     Matriz (int _filas, int _columnas) {
+        if(_filas < 0 || _columnas < 0){
+        	throw std::runtime_error("NO SE PUEDEN CREAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
+        }
         filas = _filas;
         columnas = _columnas;
-        if(filas < 0){
-        	if(columnas < 0){
-        		m.assign(0, vector<double>(0, 0));
-        	}
-        	else{
-        		m.assign(0, vector<double>(columnas, 0));
-        	}
-        }
-        else{
-        	if(columnas < 0){
-        		m.assign(filas, vector<double>(0, 0));	
-        	}
-        	else{
-        		m.assign(filas, vector<double>(columnas, 0));	
-        	}
-        }
+        m.assign(filas, vector<double>(columnas, 0));
     }
 
     Matriz (vector<vector<double> > _m) {
@@ -46,31 +34,19 @@ class Matriz {
 
     vector<double> &operator [] (int fila) {
         if(fila < 0 || fila >= filas){
-        	std::cout << "Fuera de rango\n";
+        	throw std::runtime_error("FILA FUERA DE RANGO");
         }
         return m[fila];
     }
 
     //Perdón por meterle esos ifs pero no me agradan los seg fault
     void redimensionar(int _filas, int _columnas) {
+        if(_filas < 0 || _columnas < 0){
+        	throw std::runtime_error("NO SE PUEDEN REDIMENSIONAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
+        }
         filas = _filas;
         columnas = _columnas;
-        if(filas < 0){
-        	if(columnas < 0){
-        		m.assign(0, vector<double>(0, 0));
-        	}
-        	else{
-        		m.assign(0, vector<double>(columnas, 0));
-        	}
-        }
-        else{
-        	if(columnas < 0){
-        		m.assign(filas, vector<double>(0, 0));	
-        	}
-        	else{
-        		m.assign(filas, vector<double>(columnas, 0));	
-        	}
-        }
+        m.assign(filas, vector<double>(columnas, 0));
     }
 
     //Traspone en la misma matriz OJO!!
@@ -127,8 +103,7 @@ class Matriz {
 
     Matriz productoM(const Matriz B){
         if(this->columnas != B.filas || this->filas <= 0 || this->columnas <= 0 || B.columnas <= 0){
-            std::cout << "Producto indefinido para estas dos matrices \n";
-            return Matriz();
+        	throw std::runtime_error("PRODUCTO MATRICIAL INDEFINIDO");
         }
         else{
             vector<vector<double> > coeficientes;
