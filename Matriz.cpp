@@ -135,6 +135,20 @@ class Matriz {
     	}
     }
 
+    vector<double> EliminarUltimaColumnaYDevolver(){
+    	if(this->filas <= 0 || this->columnas <= 0){
+    		throw std::runtime_error("No se puede eliminar una columna de esta matriz");
+    	}
+    	else{
+    		vector<double> ult_col;
+    		for(int i = 0; i < this->filas; i++){
+    			ult_col.push_back(this->m[i][this->columnas - 1]);
+    			this->m[i].pop_back();
+    		}
+    		return ult_col;
+    	}
+    }
+
     //Modifica la matriz OJO!!!
     //Elimina los vectores de DERECHA a IZQUIERDA i.e. empieza a eliminar desde la ÚLTIMA COLUMNA
     void EliminarVectoresColumna(int cantVectores){

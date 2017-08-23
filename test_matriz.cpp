@@ -198,4 +198,15 @@ void testDeMatrices(){
     m1.EliminarVectoresColumna(6);
 
     std::cout << m1 << std::endl;
+
+    std::cout << "Eliminar Vector y Devolver, lo pruebo con el vector de recien" << std::endl;
+
+    vector<double> unocuatrosiete = m1.EliminarUltimaColumnaYDevolver();
+    vector<double> oraculo = {1, 4, 7};
+    if(unocuatrosiete == oraculo){
+        std::cout << "Todo bien\n" << std::endl;
+    }
+    else{
+        std::cout << "Todo mal" << std::endl;
+    }
 }
