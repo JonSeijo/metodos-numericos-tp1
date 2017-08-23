@@ -9,18 +9,33 @@ using std::ifstream;
 
 class Matriz {
     public:
-        vector<vector<double> > m;
-        int filas, columnas;
+        
 
     Matriz() {
         filas = 0;
         columnas = 0;
     }
 
+    //Perdón por meterle esos ifs pero no me agradan los seg fault
     Matriz (int _filas, int _columnas) {
         filas = _filas;
         columnas = _columnas;
-        m.assign(filas, vector<double>(columnas, 0));
+        if(filas < 0){
+        	if(columnas < 0){
+        		m.assign(0, vector<double>(0, 0));
+        	}
+        	else{
+        		m.assign(0, vector<double>(columnas, 0));
+        	}
+        }
+        else{
+        	if(columnas < 0){
+        		m.assign(filas, vector<double>(0, 0));	
+        	}
+        	else{
+        		m.assign(filas, vector<double>(columnas, 0));	
+        	}
+        }
     }
 
     Matriz (vector<vector<double> > _m) {
@@ -30,13 +45,32 @@ class Matriz {
     }
 
     vector<double> &operator [] (int fila) {
+        if(fila < 0 || fila >= filas){
+        	std::cout << "Fuera de rango\n";
+        }
         return m[fila];
     }
 
+    //Perdón por meterle esos ifs pero no me agradan los seg fault
     void redimensionar(int _filas, int _columnas) {
         filas = _filas;
         columnas = _columnas;
-        m.assign(filas, vector<double>(columnas, 0));
+        if(filas < 0){
+        	if(columnas < 0){
+        		m.assign(0, vector<double>(0, 0));
+        	}
+        	else{
+        		m.assign(0, vector<double>(columnas, 0));
+        	}
+        }
+        else{
+        	if(columnas < 0){
+        		m.assign(filas, vector<double>(0, 0));	
+        	}
+        	else{
+        		m.assign(filas, vector<double>(columnas, 0));	
+        	}
+        }
     }
 
     //Traspone en la misma matriz OJO!!
@@ -133,7 +167,19 @@ class Matriz {
         return !(*this == B);
     }
 
+    int cantFilas(){
+    	return filas;
+    }
+
+    int cantColumnas(){
+    	return columnas;
+    }
+
     private:
+
+    	vector<vector<double> > m;
+        int filas, columnas;
+
         void mostrar(std::ostream& os) const{
             os << std::endl;
             if(filas == 0 || columnas == 0){

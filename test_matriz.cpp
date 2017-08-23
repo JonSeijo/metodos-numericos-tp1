@@ -70,7 +70,7 @@ void testDeMatrices(){
 
     std::cout << "Matriz rectangular 3x2: " << std::endl << rectangular3x2 << std::endl;
 
-/*
+
     std::cout << std::endl << "Test producto matricial" << std::endl;
 
     std::cout << "Porducto id * unos \n" << std::endl;
@@ -120,7 +120,7 @@ void testDeMatrices(){
 		std::cout << "Son distintos" << std::endl;
 	}
 
-*/
+
     std::cout << "Trasponer cuadrada: " << std::endl;
     std::cout << "Original: \n" << matr << std::endl;
     matr.trasponerCuadrada();
@@ -153,6 +153,5 @@ void testDeMatrices(){
     else{
     	std::cout << "TODO MAL" << std::endl;
     }
-
 
 }
