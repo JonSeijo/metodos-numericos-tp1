@@ -39,7 +39,7 @@ class Matriz {
         m.assign(filas, vector<double>(columnas, 0));
     }
 
-    //Traspone en la misma matriz
+    //Traspone en la misma matriz OJO!!
     void trasponerCuadrada(){
         if(this->filas > 1){
             for(int i = 1; i < filas; i++){
@@ -50,6 +50,35 @@ class Matriz {
                 }
             }
         }
+    }
+
+    //La matriz original se pierde OJO!!
+    void trasponerGeneral(){
+        vector<vector<double> > coeficientes;
+        for(int c = 0; c < columnas; c++){
+            vector<double> NuevaFila;    
+            for(int f = 0; f < filas; f++){
+                NuevaFila.push_back(this->m[f][c]);
+            }
+        coeficientes.push_back(NuevaFila);
+        }
+        this->m = coeficientes;
+        int temp = this->filas;
+        this->filas = this->columnas;
+        this->columnas = temp;
+    }
+
+    //La matriz original se mantiene, y retorna otra (que es la traspuesta de la original)
+    Matriz trasponerYMantenerOrig(){
+        vector<vector<double> > coeficientes;
+        for(int c = 0; c < columnas; c++){
+            vector<double> NuevaFila;    
+            for(int f = 0; f < filas; f++){
+                NuevaFila.push_back(this->m[f][c]);
+            }
+        coeficientes.push_back(NuevaFila);
+        }
+        return Matriz(coeficientes);
     }
 
     void print() {
@@ -63,7 +92,7 @@ class Matriz {
     }
 
     Matriz productoM(const Matriz B){
-        if(this->columnas != B.filas){
+        if(this->columnas != B.filas || this->filas <= 0 || this->columnas <= 0 || B.columnas <= 0){
             std::cout << "Producto indefinido para estas dos matrices \n";
             return Matriz();
         }

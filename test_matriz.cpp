@@ -127,4 +127,32 @@ void testDeMatrices(){
     std::cout << "Traspuesta: \n" << matr << std::endl;
 		
 
+    std::cout << "Trasponer rectangular: " << std::endl;
+    std::cout << "Original: \n" << rectangular2x3 << std::endl;
+    rectangular2x3.trasponerGeneral();
+    std::cout << "Traspuesta: \n" << rectangular2x3 << std::endl;
+
+    std::cout << "Trasponer rectangular: " << std::endl;
+    std::cout << "Original: \n" << rectangular3x2 << std::endl;
+    rectangular3x2.trasponerGeneral();
+    std::cout << "Traspuesta: \n" << rectangular3x2 << std::endl;
+
+    std::cout << "Trasponer y mantener original: " << std::endl;
+    std::cout << "Original: \n" << rectangular3x2 << std::endl;
+    Matriz pepe = rectangular3x2.trasponerYMantenerOrig();
+    std::cout << "Traspuesta: \n" << pepe << std::endl;
+    std::cout << "Original luego de trasponer: \n" << rectangular3x2 << std::endl;
+
+    std::cout << "Traspuesta de traspuesta es original: \n";
+    Matriz trasp = matr.trasponerYMantenerOrig();
+    trasp.trasponerGeneral();
+    
+    if(matr == trasp){
+    	std::cout << "Dio bien" << std::endl;
+    }
+    else{
+    	std::cout << "TODO MAL" << std::endl;
+    }
+
+
 }
