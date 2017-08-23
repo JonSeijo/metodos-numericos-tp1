@@ -2,6 +2,7 @@
 #include "Matriz.cpp"
 #include "Imagen.cpp"
 #include "test_matriz.cpp"
+#include "Auxiliares.cpp"
 
 using std::string;
 using std::vector;
@@ -74,5 +75,14 @@ int main() {
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
     testDeMatrices();
+
+    std::cout << "Mini test norma vectorial: " << std::endl;
+    vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
+    if(10 == NormaVectorial(v0)){
+        std::cout << "TODO BIEN" << std::endl;
+    }
+    else{
+        std::cout << "TODO MAL" << std::endl;
+    }
 
 }
