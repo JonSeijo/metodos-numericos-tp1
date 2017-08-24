@@ -71,6 +71,24 @@ class Matriz {
         }
     }
 
+    // Ax = b, devuelve x dado un b
+    // @TODO: FUNCIONA SI EXISTE UNA UNICA SOLUCION
+    vector<double> resolverSistema(vector<double> &b) {
+        this->AgregarVectorColumna(b);
+        this->triangular();
+
+        vector<double> x(columnas-1);
+
+        // m tiene una columna extra
+        for (int i = columnas-2; i >= 0; i--) {
+            x[i] = m[i][columnas-1] / m[i][i];
+            for (int k = i-1; k >= 0; k--) {
+                m[k][columnas-1] -= m[k][i] * x[i];
+            }
+        }
+        return x;
+    }
+
     //Traspone en la misma matriz OJO!!
     void trasponerCuadrada(){
         if(filas != columnas){
@@ -138,7 +156,7 @@ class Matriz {
     }
 
     //Modifica la matriz original OJO!!!
-    void AgregarVectorColumna(vector<double>& v){
+    void AgregarVectorColumna(vector<double> v) {
         if(this->filas == 0 || this->columnas == 0 || v.size() == 0 || v.size() != this->filas){
             throw std::runtime_error("Tamaño de matriz/vector indefinido para esta operación");
         }

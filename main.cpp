@@ -76,16 +76,29 @@ int main() {
 
     // TEST Triangulacion
     Matriz A({
-        {2, 1, -1},
-        {-3, -1, 2},
-        {-2, 1, 2}
+        {1, 1, 1},
+        {2, 3, 5},
+        {4, 0, 5}
     });
 
+    cout << "A: \n";
     cout << A;
 
-    A.triangular();
+    vector<double> b = {5, 8, 2};
+    cout << "B:  ";
+    for (int i = 0; i < b.size(); i++) {
+        cout << b[i] << " ";
+    }
+    cout << "\n";
 
-    cout << A;
+    auto rta = A.resolverSistema(b);
+
+    cout << "X:   ";
+    for (int i = 0; i < rta.size(); i++) {
+        cout << rta[i] << " ";
+    }
+    cout << "\n";
+
 
     // ------TESTING-----------------------------------------------------
 
