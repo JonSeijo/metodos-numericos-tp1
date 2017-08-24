@@ -55,7 +55,7 @@ void testDeMatrices(){
 
     Matriz deUnos = Matriz(coeficientes4);
 
-    coeficientes5.push_back(uno); 
+    coeficientes5.push_back(uno);
     coeficientes5.push_back(e3);
 
     Matriz rectangular2x3 = Matriz(coeficientes5);
@@ -88,8 +88,8 @@ void testDeMatrices(){
     catch(const runtime_error& error){
         std::cout << "Producto indefinido detectado\n";
     }
-    
-        
+
+
 
     std::cout  << "\n" << "Porducto rectangular3x2 * rectangular2x3 \n" << std::endl;
 
@@ -116,7 +116,7 @@ void testDeMatrices(){
 	}
 
 	std::cout << "Id == nula?" << std::endl;
-	
+
 
 	if((id == nula || nula == id) && id != nula && nula != id){
 		std::cout << "HAY UN PROBLEMA" << std::endl;
@@ -130,28 +130,28 @@ void testDeMatrices(){
     std::cout << "Original: \n" << matr << std::endl;
     matr.trasponerCuadrada();
     std::cout << "Traspuesta: \n" << matr << std::endl;
-		
+
 
     std::cout << "Trasponer rectangular: " << std::endl;
     std::cout << "Original: \n" << rectangular2x3 << std::endl;
-    rectangular2x3.trasponerGeneral();
+    rectangular2x3.trasponer();
     std::cout << "Traspuesta: \n" << rectangular2x3 << std::endl;
 
     std::cout << "Trasponer rectangular: " << std::endl;
     std::cout << "Original: \n" << rectangular3x2 << std::endl;
-    rectangular3x2.trasponerGeneral();
+    rectangular3x2.trasponer();
     std::cout << "Traspuesta: \n" << rectangular3x2 << std::endl;
 
     std::cout << "Trasponer y mantener original: " << std::endl;
     std::cout << "Original: \n" << rectangular3x2 << std::endl;
-    Matriz pepe = rectangular3x2.trasponerYMantenerOrig();
+    Matriz pepe = rectangular3x2.traspuesta();
     std::cout << "Traspuesta: \n" << pepe << std::endl;
     std::cout << "Original luego de trasponer: \n" << rectangular3x2 << std::endl;
 
     std::cout << "Traspuesta de traspuesta es original: \n";
-    Matriz trasp = matr.trasponerYMantenerOrig();
-    trasp.trasponerGeneral();
-    
+    Matriz trasp = matr.traspuesta();
+    trasp.trasponer();
+
     if(matr == trasp){
     	std::cout << "Dio bien" << std::endl;
     }

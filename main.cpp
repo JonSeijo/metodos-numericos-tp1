@@ -75,6 +75,8 @@ int main() {
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
 
+    // ------TESTING-----------------------------------------------------
+
     std::cout << "Mini test norma vectorial: " << std::endl;
     vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
     if(10 == NormaVectorial(v0)){
@@ -83,6 +85,5 @@ int main() {
     else{
         std::cout << "TODO MAL" << std::endl;
     }
-
     testDeMatrices();
 }

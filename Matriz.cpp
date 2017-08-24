@@ -66,10 +66,10 @@ class Matriz {
     }
 
     //La matriz original se pierde OJO!!
-    void trasponerGeneral(){
+    void trasponer(){
         vector<vector<double> > coeficientes;
         for(int c = 0; c < columnas; c++){
-            vector<double> NuevaFila;    
+            vector<double> NuevaFila;
             for(int f = 0; f < filas; f++){
                 NuevaFila.push_back(this->m[f][c]);
             }
@@ -82,10 +82,10 @@ class Matriz {
     }
 
     //La matriz original se mantiene, y retorna otra (que es la traspuesta de la original)
-    Matriz trasponerYMantenerOrig(){
+    Matriz traspuesta(){
         vector<vector<double> > coeficientes;
         for(int c = 0; c < columnas; c++){
-            vector<double> NuevaFila;    
+            vector<double> NuevaFila;
             for(int f = 0; f < filas; f++){
                 NuevaFila.push_back(this->m[f][c]);
             }
