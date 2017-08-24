@@ -83,7 +83,7 @@ int main() {
     int alto = foto1.alto;
 
     // Normales es una tabla ancho*alto con valor (x,y,z)
-    vector<double> normales[ancho][alto];
+    vector<double> normales[alto][ancho];
 
     for (int f = 0; f < alto; f++) {
         for (int c = 0; c < ancho; c++) {
