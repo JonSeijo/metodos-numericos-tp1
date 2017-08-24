@@ -38,43 +38,48 @@ vector<luz> leerLuces() {
     return luces;
 }
 
-// Por ej, "recursos/ppmImagenes/caballo/caballo.0.ppm"
+// Por ej, (caballo, 0) -> "recursos/ppmImagenes/caballo/caballo.0.ppm"
 string getFotoPath(string figura, int i) {
+    return getFotoPath(figura, std::to_string(i));
+}
+
+string getFotoPath(string figura, string i) {
     string s = "";
-    s += pathImages + figura + "/" + figura + "." + std::to_string(i) + ".ppm";
+    s += pathImages + figura + "/" + figura + "." + i + ".ppm";
     return s;
 }
 
+template <typename T>
+void debug(vector<T> &v, string msg = "Debug: ") {
+    cout << msg << ": \n";
+    for (auto e : v) {
+        cout << e << " ";
+    }
+    cout << "\n";
+}
 
 int main() {
     // Indices de las luces que voy a usar
     vector<int> indexes = {0, 1, 2};
 
-    // Obtengo los paths de las fotos
-    vector<string> filepathsFotos({
-        getFotoPath("caballo", indexes[0]),
-        getFotoPath("caballo", indexes[1]),
-        getFotoPath("caballo", indexes[2])
-    });
-
     // Leo el archivo de luces
     vector<luz> luces = leerLuces();
 
-    // Ahora luces es un vector que tiene todas las luces
+    // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
     Matriz S({
         luces[ indexes[0] ],
         luces[ indexes[1] ],
         luces[ indexes[2] ]
     });
 
-    // S.print();
 
     // 512 x 340 px
-    Imagen foto1(filepathsFotos[ indexes[0] ]);
-    Imagen foto2(filepathsFotos[ indexes[1] ]);
-    Imagen foto3(filepathsFotos[ indexes[2] ]);
+    Imagen foto1(getFotoPath("caballo", indexes[0]));
+    Imagen foto2(getFotoPath("caballo", indexes[1]));
+    Imagen foto3(getFotoPath("caballo", indexes[2]));
+    Imagen mascara(getFotoPath("caballo", "mask"));
 
-    // TEST Triangulacion
+    // TEST : Resolucion de sistema
     Matriz A({
         {1, 2, -3},
         {6, 3, -9},
@@ -85,30 +90,8 @@ int main() {
     cout << "A: \n";
     cout << A;
 
-    cout << "B:  ";
-    for (int i = 0; i < b.size(); i++) {
-        cout << b[i] << " ";
-    }
-    cout << "\n";
-
+    // resolverSistema modifica la matriz A
     auto rta = A.resolverSistema(b);
-
-    cout << "X:   ";
-    for (int i = 0; i < rta.size(); i++) {
-        cout << rta[i] << " ";
-    }
-    cout << "\n";
-
-
-    // ------TESTING-----------------------------------------------------
-
-    // std::cout << "Mini test norma vectorial: " << std::endl;
-    // vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
-    // if(10 == NormaVectorial(v0)){
-    //     std::cout << "TODO BIEN" << std::endl;
-    // }
-    // else{
-    //     std::cout << "TODO MAL" << std::endl;
-    // }
-    // testDeMatrices();
+    debug(b, "B");
+    debug(rta, "X");
 }

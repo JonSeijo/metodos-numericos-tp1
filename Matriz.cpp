@@ -80,7 +80,8 @@ class Matriz {
         this->AgregarVectorColumna(b);
         this->triangular();
 
-        std::cout << *this << "\n";
+        // @DEBUG luego de triangular
+        // std::cout << *this << "\n";
 
         if (this->existeAlgunaSolucion()) {
             // La matriz tiene una columna extra por el b
