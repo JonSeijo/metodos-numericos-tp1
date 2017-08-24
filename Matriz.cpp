@@ -9,7 +9,6 @@ using std::ifstream;
 
 class Matriz {
     public:
-        
 
     Matriz() {
         filas = 0;
@@ -177,7 +176,7 @@ class Matriz {
         else{
             for(int i = 0; i < this->filas; i++){
                 for(int j = 0; j < this->columnas; j++){
-                    if(this->m[i][j] != B.m[i][j]){
+                    if(abs(this->m[i][j] - B.m[i][j]) > EPSILON){
                         return false;
                     }
                 }
@@ -199,8 +198,8 @@ class Matriz {
     }
 
     private:
-
-    	vector<vector<double> > m;
+        double EPSILON = -1e10;
+        vector<vector<double> > m;
         int filas, columnas;
 
         void mostrar(std::ostream& os) const{
@@ -215,9 +214,9 @@ class Matriz {
                     }
                     os << std::endl;
                 }
-                os << std::endl;   
+                os << std::endl;
             }
-            
+
         }
 
         friend std::ostream& operator<<(std::ostream& os, const Matriz &c){
