@@ -51,6 +51,9 @@ class Matriz {
 
     //Traspone en la misma matriz OJO!!
     void trasponerCuadrada(){
+        if(filas != columnas){
+            throw std::runtime_error("LA MATRIZ NO ES CUADRADA");
+        }
         if(this->filas > 1){
             for(int i = 1; i < filas; i++){
                 for(int j = 0; j < i; j++){
