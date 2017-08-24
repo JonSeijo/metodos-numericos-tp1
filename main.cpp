@@ -39,15 +39,15 @@ vector<luz> leerLuces() {
 }
 
 // Por ej, (caballo, 0) -> "recursos/ppmImagenes/caballo/caballo.0.ppm"
-string getFotoPath(string figura, int i) {
-    return getFotoPath(figura, std::to_string(i));
-}
-
 string getFotoPath(string figura, string i) {
     string s = "";
     s += pathImages + figura + "/" + figura + "." + i + ".ppm";
     return s;
 }
+string getFotoPath(string figura, int i) {
+    return getFotoPath(figura, std::to_string(i));
+}
+
 
 template <typename T>
 void debug(vector<T> &v, string msg = "Debug: ") {
