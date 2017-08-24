@@ -229,7 +229,7 @@ class Matriz {
     }
 
     private:
-        double EPSILON = -1e10;
+        double EPSILON = 1e-10;
         vector<vector<double> > m;
         int filas, columnas;
 
