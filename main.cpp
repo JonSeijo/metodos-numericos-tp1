@@ -76,15 +76,15 @@ int main() {
 
     // TEST Triangulacion
     Matriz A({
-        {1, 1, 1},
-        {2, 3, 5},
-        {4, 0, 5}
+        {1, 2, -3},
+        {6, 3, -9},
+        {7, 14, -21}
     });
+    vector<double> b = {2, 6, 13};
 
     cout << "A: \n";
     cout << A;
 
-    vector<double> b = {5, 8, 2};
     cout << "B:  ";
     for (int i = 0; i < b.size(); i++) {
         cout << b[i] << " ";

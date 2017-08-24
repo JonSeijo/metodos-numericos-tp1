@@ -6,6 +6,7 @@
 using std::string;
 using std::vector;
 using std::ifstream;
+using std::cout;
 
 class Matriz {
     public:
@@ -54,39 +55,66 @@ class Matriz {
     // @TODO: Faltaria que guarde la factorizacion LU
     void triangular() {
         for (int k = 0; k < filas-1; k++) {
+
+            if (fabs(m[k][k] - 0) <= EPSILON) {
+                std::cerr << "k: " << k << "    m[k][k]: " << m[k][k] << "\n";
+                std::cerr << *this;
+                throw std::runtime_error("CERO EN LA DIAGONAL!");
+            }
+
             for (int i = k+1; i < filas; i++) {
-
-                if (m[k][k] == 0) {
-                    throw std::runtime_error("CERO EN LA DIAGONAL!");
-                }
-
                 double mult = m[i][k] / m[k][k];
 
                 // @TODO: Revisar que pasa con el resto de la matriz
                 for (int j = k; j < columnas; j++) {
                     m[i][j] -= mult * m[k][j];
                 }
-
             }
         }
     }
 
     // Ax = b, devuelve x dado un b
-    // @TODO: FUNCIONA SI EXISTE UNA UNICA SOLUCION
+    // @TODO: Ver cuando hay infinitas soluciones
+    // retorna: <solucion>, vacio si no existe solucion
     vector<double> resolverSistema(vector<double> &b) {
         this->AgregarVectorColumna(b);
         this->triangular();
 
-        vector<double> x(columnas-1);
+        std::cout << *this << "\n";
 
-        // m tiene una columna extra
-        for (int i = columnas-2; i >= 0; i--) {
-            x[i] = m[i][columnas-1] / m[i][i];
-            for (int k = i-1; k >= 0; k--) {
-                m[k][columnas-1] -= m[k][i] * x[i];
+        if (this->existeAlgunaSolucion()) {
+            // La matriz tiene una columna extra por el b
+            vector<double> x(columnas-1);
+            for (int i = columnas-2; i >= 0; i--) {
+                x[i] = m[i][columnas-1] / m[i][i];
+                for (int k = i-1; k >= 0; k--) {
+                    m[k][columnas-1] -= m[k][i] * x[i];
+                }
+            }
+            return x;
+        }
+
+        return vector<double>();
+    }
+
+    bool existeAlgunaSolucion() {
+        for (int f = 0; f < filas; f++) {
+            bool filaCero = true;
+
+            for (int c = 0; c < columnas-1; c++) {
+                if (fabs(m[f][c] - 0) > EPSILON) {  // Si no es cero
+                    filaCero = false;
+                    break;
+                }
+            }
+
+            // Si toda la fila es 0 y el b no es cero, entonce no hay solucion
+            if (filaCero && fabs(m[f][columnas-1] - 0) > EPSILON) {
+                return false;
             }
         }
-        return x;
+
+        return true;
     }
 
     //Traspone en la misma matriz OJO!!
@@ -207,7 +235,7 @@ class Matriz {
         else{
             for(int i = 0; i < this->filas; i++){
                 for(int j = 0; j < this->columnas; j++){
-                    if(abs(this->m[i][j] - B.m[i][j]) > EPSILON){
+                    if(fabs(this->m[i][j] - B.m[i][j]) > EPSILON){
                         return false;
                     }
                 }
