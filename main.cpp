@@ -102,6 +102,11 @@ int main() {
             Matriz A = S;
             vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
             normales[f][c] = A.resolverSistema(b);
+
+            double norma = NormaVectorial(normales[f][c]);
+            normales[f][c][0] /= norma;
+            normales[f][c][1] /= norma;
+            normales[f][c][2] /= norma;
         }
     }
 
