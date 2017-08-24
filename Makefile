@@ -1,16 +1,16 @@
-SOURCES = main.cpp
-CXX = g++ -std=c++11
-OBJS = $(SOURCES:.cpp=.o)
+CPP=g++
+FLAGS= -std=c++11
+LIBS = Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp
 
-LIBS = Imagen.cpp Matriz.cpp recursos/ppmloader/ppmloader.cpp
+all: main
+	./main
 
-TARGET = main
+main: main.cpp $(LIBS)
+	$(CPP) $(FLAGS) -o $@ $(LIBS) $<
 
-$(TARGET): $(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
-	./$(TARGET)
-
-all: $(TARGET)
+%.o: %.cpp
+	$(CPP) $(FLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJS) $(TARGET) *.o
+	rm -f *.o
+	rm -f main

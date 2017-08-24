@@ -48,6 +48,29 @@ class Matriz {
         m.assign(filas, vector<double>(columnas, 0));
     }
 
+    // Modifica la matriz actual
+    // @TODO: Testear con diferentes tamaños
+    // @TODO: Faltaria que no se rompa cuando encuentra ceros.
+    // @TODO: Faltaria que guarde la factorizacion LU
+    void triangular() {
+        for (int k = 0; k < filas-1; k++) {
+            for (int i = k+1; i < filas; i++) {
+
+                if (m[k][k] == 0) {
+                    throw std::runtime_error("CERO EN LA DIAGONAL!");
+                }
+
+                double mult = m[i][k] / m[k][k];
+
+                // @TODO: Revisar que pasa con el resto de la matriz
+                for (int j = k; j < columnas; j++) {
+                    m[i][j] -= mult * m[k][j];
+                }
+
+            }
+        }
+    }
+
     //Traspone en la misma matriz OJO!!
     void trasponerCuadrada(){
         if(filas != columnas){
@@ -91,16 +114,6 @@ class Matriz {
         coeficientes.push_back(NuevaFila);
         }
         return Matriz(coeficientes);
-    }
-
-    void print() {
-        std::cout << "Debug matriz: \n";
-        for (int f = 0; f < filas; f++) {
-            for (int c = 0; c < columnas; c++) {
-                std::cout << m[f][c] << " ";
-            }
-            std::cout << "\n";
-        }
     }
 
     Matriz productoM(const Matriz B){
@@ -206,17 +219,17 @@ class Matriz {
             os << std::endl;
             if(filas == 0 || columnas == 0){
                 os << "[]" << std::endl;
+                return;
             }
-            else{
-                for(int i = 0; i < filas; i++){
-                    for(int j = 0; j < columnas; j++){
-                        os << m[i][j] << " ";
-                    }
-                    os << std::endl;
+
+            for(int i = 0; i < filas; i++){
+                for(int j = 0; j < columnas; j++){
+                    os << (m[i][j] >= 0 ? " " : "");
+                    os << std::fixed << std::setprecision(10) << m[i][j] << " ";
                 }
                 os << std::endl;
             }
-
+            os << std::endl;
         }
 
         friend std::ostream& operator<<(std::ostream& os, const Matriz &c){
@@ -227,8 +240,5 @@ class Matriz {
 
 
 };
-
-
-
 
 #endif

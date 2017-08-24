@@ -1,3 +1,6 @@
+#ifndef IMAGEN_CPP
+#define IMAGEN_CPP
+
 #include <bits/stdc++.h>
 #include "recursos/ppmloader/ppmloader.h"
 #include "Matriz.cpp"
@@ -71,3 +74,5 @@ class Imagen {
     }
     /* ----------------------------------------- */
 };
+
+#endif

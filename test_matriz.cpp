@@ -1,6 +1,8 @@
+#ifndef TESTMATRICES_CPP
+#define TESTMATRICES_CPP
+
 #include <bits/stdc++.h>
 #include "Matriz.cpp"
-
 
 using std::string;
 using std::vector;
@@ -85,11 +87,10 @@ void testDeMatrices(){
     try{
         Matriz producto2 = id.productoM(rectangular2x3);
     }
-    catch(const runtime_error& error){
+    catch (const std::runtime_error& error) {
         std::cout << "Producto indefinido detectado\n";
+        return;
     }
-
-
 
     std::cout  << "\n" << "Porducto rectangular3x2 * rectangular2x3 \n" << std::endl;
 
@@ -210,3 +211,5 @@ void testDeMatrices(){
         std::cout << "Todo mal" << std::endl;
     }
 }
+
+#endif

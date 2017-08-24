@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 #include "Matriz.cpp"
 #include "Imagen.cpp"
-#include "test_matriz.cpp"
 #include "Auxiliares.cpp"
+#include "test_matriz.cpp"
 
 using std::string;
 using std::vector;
@@ -31,7 +31,7 @@ vector<luz> leerLuces() {
             fileLuces >> x >> y >> z;
             luces[i] = luz({x, y, z});
             // @DEBUG
-            std::cout << "luz: " << i << "     (" << x << ", " << y << ", " << z << ")\n";
+            // std::cout << "luz: " << i << "     (" << x << ", " << y << ", " << z << ")\n";
         }
     }
 
@@ -67,23 +67,35 @@ int main() {
         luces[ indexes[2] ]
     });
 
-    S.print();
+    // S.print();
 
     // 512 x 340 px
     Imagen foto1(filepathsFotos[ indexes[0] ]);
     Imagen foto2(filepathsFotos[ indexes[1] ]);
     Imagen foto3(filepathsFotos[ indexes[2] ]);
 
+    // TEST Triangulacion
+    Matriz A({
+        {2, 1, -1},
+        {-3, -1, 2},
+        {-2, 1, 2}
+    });
+
+    cout << A;
+
+    A.triangular();
+
+    cout << A;
 
     // ------TESTING-----------------------------------------------------
 
-    std::cout << "Mini test norma vectorial: " << std::endl;
-    vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
-    if(10 == NormaVectorial(v0)){
-        std::cout << "TODO BIEN" << std::endl;
-    }
-    else{
-        std::cout << "TODO MAL" << std::endl;
-    }
-    testDeMatrices();
+    // std::cout << "Mini test norma vectorial: " << std::endl;
+    // vector<double> v0 = {4, 3, 3, 3, 4, 4, 3, 4};
+    // if(10 == NormaVectorial(v0)){
+    //     std::cout << "TODO BIEN" << std::endl;
+    // }
+    // else{
+    //     std::cout << "TODO MAL" << std::endl;
+    // }
+    // testDeMatrices();
 }

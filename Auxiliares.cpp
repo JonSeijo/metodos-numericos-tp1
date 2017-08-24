@@ -1,3 +1,6 @@
+#ifndef AUXILIARES_CPP
+#define AUXILIARES_CPP
+
 #include <bits/stdc++.h>
 
 using std::string;
@@ -16,3 +19,5 @@ double NormaVectorial(const vector<double>& v){
 		return sqrt(suma);
 	}
 }
+
+#endif
