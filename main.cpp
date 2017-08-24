@@ -3,6 +3,7 @@
 #include "Imagen.cpp"
 #include "Auxiliares.cpp"
 #include "test_matriz.cpp"
+#include "cholesky.cpp"
 
 using std::string;
 using std::vector;
@@ -111,16 +112,28 @@ int main() {
     }
 
     // TEST : Resolucion de sistema
-    // Matriz A({
-    //     {1, 2, -3},
-    //     {6, 3, -9},
-    //     {7, 14, -21}
-    // });
+    Matriz A({
+        {6, 15, 55},
+        {15, 55, 225},
+       {55, 225, 979}
+    });
     // vector<double> b = {2, 6, 13};
 
-    // cout << "A: \n";
-    // cout << A;
+    cout << "A: \n";
+    cout << A;
 
+    Cholesky decomp = Cholesky(A);
+
+    cout << "L: \n";
+    cout << decomp;
+
+    Matriz Lt = decomp.L.traspuesta();
+    cout << "Lt: \n";
+    cout << Lt;
+
+    cout << "LxLt: \n";
+
+    cout << decomp.L.productoM(Lt);
     // // resolverSistema modifica la matriz A
     // auto rta = A.resolverSistema(b);
     // debug(b, "B");
