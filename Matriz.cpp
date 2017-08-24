@@ -19,7 +19,7 @@ class Matriz {
     //Perdón por meterle esos ifs pero no me agradan los seg fault
     Matriz (int _filas, int _columnas) {
         if(_filas < 0 || _columnas < 0){
-        	throw std::runtime_error("NO SE PUEDEN CREAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
+            throw std::runtime_error("NO SE PUEDEN CREAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
         }
         filas = _filas;
         columnas = _columnas;
@@ -34,7 +34,7 @@ class Matriz {
 
     vector<double> &operator [] (int fila) {
         if(fila < 0 || fila >= filas){
-        	throw std::runtime_error("FILA FUERA DE RANGO");
+            throw std::runtime_error("FILA FUERA DE RANGO");
         }
         return m[fila];
     }
@@ -42,7 +42,7 @@ class Matriz {
     //Perdón por meterle esos ifs pero no me agradan los seg fault
     void redimensionar(int _filas, int _columnas) {
         if(_filas < 0 || _columnas < 0){
-        	throw std::runtime_error("NO SE PUEDEN REDIMENSIONAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
+            throw std::runtime_error("NO SE PUEDEN REDIMENSIONAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
         }
         filas = _filas;
         columnas = _columnas;
@@ -103,7 +103,7 @@ class Matriz {
 
     Matriz productoM(const Matriz B){
         if(this->columnas != B.filas || this->filas <= 0 || this->columnas <= 0 || B.columnas <= 0){
-        	throw std::runtime_error("PRODUCTO MATRICIAL INDEFINIDO");
+            throw std::runtime_error("PRODUCTO MATRICIAL INDEFINIDO");
         }
         else{
             vector<vector<double> > coeficientes;
@@ -124,50 +124,48 @@ class Matriz {
 
     //Modifica la matriz original OJO!!!
     void AgregarVectorColumna(vector<double>& v){
-    	if(this->filas == 0 || this->columnas == 0 || v.size() == 0 || v.size() != this->filas){
-    		throw std::runtime_error("Tamaño de matriz/vector indefinido para esta operación");
-    	}
-    	else{
-    		this->columnas++;
-    		for(int k = 0; k < v.size(); k++){
-    			this->m[k].push_back(v[k]);
-    		}
-    	}
+        if(this->filas == 0 || this->columnas == 0 || v.size() == 0 || v.size() != this->filas){
+            throw std::runtime_error("Tamaño de matriz/vector indefinido para esta operación");
+        }
+        else{
+            this->columnas++;
+            for(int k = 0; k < v.size(); k++){
+                this->m[k].push_back(v[k]);
+            }
+        }
     }
 
     vector<double> EliminarUltimaColumnaYDevolver(){
-    	if(this->filas <= 0 || this->columnas <= 0){
-    		throw std::runtime_error("No se puede eliminar una columna de esta matriz");
-    	}
-    	else{
-    		vector<double> ult_col;
-    		for(int i = 0; i < this->filas; i++){
-    			ult_col.push_back(this->m[i][this->columnas - 1]);
-    			this->m[i].pop_back();
-    		}
-    		return ult_col;
-    	}
+        if(this->filas <= 0 || this->columnas <= 0){
+            throw std::runtime_error("No se puede eliminar una columna de esta matriz");
+        }
+        else{
+            vector<double> ult_col;
+            for(int i = 0; i < this->filas; i++){
+                ult_col.push_back(this->m[i][this->columnas - 1]);
+                this->m[i].pop_back();
+            }
+            return ult_col;
+        }
     }
 
     //Modifica la matriz OJO!!!
     //Elimina los vectores de DERECHA a IZQUIERDA i.e. empieza a eliminar desde la ÚLTIMA COLUMNA
     void EliminarVectoresColumna(int cantVectores){
-    	if(cantVectores > this->columnas || cantVectores < 0 || this->filas <= 0 || this->columnas <= 0){
-    		throw std::runtime_error("No se puede eliminar esa cantidad de columnas en esta matriz");
-    	}
-    	else{
-    		if(cantVectores != 0){ //Para no iterar al pedo por las filas
-    			for(int l = 0; l < this->filas; l++){
-    				for(int k = 0; k < cantVectores; k++){
-    					this->m[l].pop_back();
-    				}
-    			}
-    			this->columnas -= cantVectores;
-    		}
-    	}
+        if(cantVectores > this->columnas || cantVectores < 0 || this->filas <= 0 || this->columnas <= 0){
+            throw std::runtime_error("No se puede eliminar esa cantidad de columnas en esta matriz");
+        }
+        else{
+            if(cantVectores != 0){ //Para no iterar al pedo por las filas
+                for(int l = 0; l < this->filas; l++){
+                    for(int k = 0; k < cantVectores; k++){
+                        this->m[l].pop_back();
+                    }
+                }
+                this->columnas -= cantVectores;
+            }
+        }
     }
-
-
 
     bool operator==(const Matriz B){
         if(this->filas != B.filas || this->columnas != B.columnas){
@@ -190,11 +188,11 @@ class Matriz {
     }
 
     int cantFilas(){
-    	return filas;
+        return filas;
     }
 
     int cantColumnas(){
-    	return columnas;
+        return columnas;
     }
 
     private:
