@@ -3,6 +3,7 @@
 #include "Imagen.cpp"
 #include "Auxiliares.cpp"
 #include "test_matriz.cpp"
+#include "cholesky.cpp"
 
 using std::string;
 using std::vector;
@@ -79,19 +80,62 @@ int main() {
     Imagen foto3(getFotoPath("caballo", indexes[2]));
     Imagen mascara(getFotoPath("caballo", "mask"));
 
+    int ancho = foto1.ancho;
+    int alto = foto1.alto;
+
+    // Normales es una tabla ancho*alto con valor (x,y,z)
+    vector<double> normales[alto][ancho];
+
+    for (int f = 0; f < alto; f++) {
+        for (int c = 0; c < ancho; c++) {
+
+            // Si (x,y) NO esta en la mascara, no resuelvo nada, la normal es 0
+            if (mascara.prom[f][c] == 0) {
+                normales[f][c] = vector<double>(3, 0);
+                continue;
+            }
+
+            // (x,y) esta en la mascara, asi que resuelvo el sistema
+
+            // @TODO: Usar factorizacion LU
+            // Resolver el sistema arruina la matriz original, entonces uso una copia
+            // Haciendo factorizacion LU este problema se soluciona
+            Matriz A = S;
+            vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
+            normales[f][c] = A.resolverSistema(b);
+
+            double norma = NormaVectorial(normales[f][c]);
+            normales[f][c][0] /= norma;
+            normales[f][c][1] /= norma;
+            normales[f][c][2] /= norma;
+        }
+    }
+
     // TEST : Resolucion de sistema
     Matriz A({
-        {1, 2, -3},
-        {6, 3, -9},
-        {7, 14, -21}
+        {6, 15, 55},
+        {15, 55, 225},
+       {55, 225, 979}
     });
-    vector<double> b = {2, 6, 13};
+    // vector<double> b = {2, 6, 13};
 
     cout << "A: \n";
     cout << A;
 
-    // resolverSistema modifica la matriz A
-    auto rta = A.resolverSistema(b);
-    debug(b, "B");
-    debug(rta, "X");
+    Cholesky decomp = Cholesky(A);
+
+    cout << "L: \n";
+    cout << decomp;
+
+    Matriz Lt = decomp.L.traspuesta();
+    cout << "Lt: \n";
+    cout << Lt;
+
+    cout << "LxLt: \n";
+
+    cout << decomp.L.productoM(Lt);
+    // // resolverSistema modifica la matriz A
+    // auto rta = A.resolverSistema(b);
+    // debug(b, "B");
+    // debug(rta, "X");
 }
