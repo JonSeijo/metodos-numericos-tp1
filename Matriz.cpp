@@ -73,12 +73,53 @@ class Matriz {
         }
     }
 
+    void triangularConPiboteo() {
+        for (int k = 0; k < filas-1; k++) {
+
+
+
+            double biggest = m[k][k];
+            int pivot = k;
+            for (int i = k+1; i < filas; i++) {
+                if(biggest < m[i][k]){
+                    pivot = i;
+                    biggest=m[i][k];
+                }
+            }
+
+            if (fabs(biggest - 0) <= EPSILON) {
+                std::cerr << *this;
+                throw std::runtime_error("NO PUDE SALVAR EL 0 EN LA DIAGONAL!");
+            }
+
+            if(pivot != k){
+                for(int i = k; i < columnas; i++){
+                    int temp = m[pivot][i];
+                    m[pivot][i] = m[k][i];
+                    m[k][i] = temp;
+                }
+            }
+
+            for (int i = k+1; i < filas; i++) {
+                double mult = m[i][k] / m[k][k];
+                for (int j = k; j < columnas; j++) {
+                    m[i][j] -= mult * m[k][j];
+                }
+            }
+        }
+    }
+
     // Ax = b, devuelve x dado un b
     // @TODO: Ver cuando hay infinitas soluciones
     // retorna: <solucion>, vacio si no existe solucion
-    vector<double> resolverSistema(vector<double> &b) {
+    vector<double> resolverSistema(vector<double> &b, bool pivoteo = false) {
         this->AgregarVectorColumna(b);
-        this->triangular();
+        if(pivoteo){
+            this->triangularConPiboteo();
+        }else{
+            this->triangular();
+        }
+        
 
         // @DEBUG luego de triangular
         // std::cout << *this << "\n";
@@ -97,6 +138,7 @@ class Matriz {
 
         return vector<double>();
     }
+
 
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
