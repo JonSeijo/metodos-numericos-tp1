@@ -78,15 +78,15 @@ class Matriz {
 
 
 
-            double biggest = m[k][k];
+            double biggest = fabs(m[k][k]);
             int pivot = k;
             for (int i = k+1; i < filas; i++) {
-                if(biggest < m[i][k]){
+                if(biggest < fabs(m[i][k])){
                     pivot = i;
-                    biggest=m[i][k];
+                    biggest=fabs(m[i][k]);
                 }
             }
-
+            std::cout<<"el biggest es" << biggest<<std::endl;
             if (fabs(biggest - 0) <= EPSILON) {
                 std::cerr << *this;
                 throw std::runtime_error("NO PUDE SALVAR EL 0 EN LA DIAGONAL!");
