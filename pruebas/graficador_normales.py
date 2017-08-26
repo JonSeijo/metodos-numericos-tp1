@@ -90,7 +90,10 @@ ny = [ a[::step] for a in normas[direcciones[1]][::step] ]
 u = np.array(nx)
 v = np.array(ny)
 
-fig = plt.figure()
+# Ploteo
+# ----------------------
+
+plt.title("Normales - Luces 1,4,11")
 
 mult = 2
 escala = None
@@ -100,7 +103,13 @@ if (normales_catedra):
     escala = 150
 
 plt.quiver(x, y, mult*u, mult*v, scale=escala)
+axes = plt.gca()
+
 if not normales_catedra:
     plt.gca().invert_yaxis()
+
+# Plot de caballo consistente
+axes.set_xlim([200,500])
+axes.set_ylim([250,50])
 
 plt.show()
