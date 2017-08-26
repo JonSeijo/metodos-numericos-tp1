@@ -40,13 +40,13 @@ vector<luz> leerLuces() {
 }
 
 // Por ej, (caballo, 0) -> "recursos/ppmImagenes/caballo/caballo.0.ppm"
-string getFotoPath(string figura, string i) {
+string getFotoPath(string figura, string i, bool test=false) {
     string s = "";
-    s += pathImages + figura + "/" + figura + "." + i + ".ppm";
+    s += (test ? "pruebas/" : pathImages + figura + "/") + figura + "." + i + ".ppm";
     return s;
 }
-string getFotoPath(string figura, int i) {
-    return getFotoPath(figura, std::to_string(i));
+string getFotoPath(string figura, int i, bool test=false) {
+    return getFotoPath(figura, std::to_string(i), test);
 }
 
 
@@ -75,10 +75,11 @@ int main() {
 
 
     // 512 x 340 px
-    Imagen foto1(getFotoPath("caballo", indexes[0]));
-    Imagen foto2(getFotoPath("caballo", indexes[1]));
-    Imagen foto3(getFotoPath("caballo", indexes[2]));
-    Imagen mascara(getFotoPath("caballo", "mask"));
+    bool testPath = false;
+    Imagen foto1(getFotoPath("caballo", indexes[0], testPath));
+    Imagen foto2(getFotoPath("caballo", indexes[1], testPath));
+    Imagen foto3(getFotoPath("caballo", indexes[2], testPath));
+    Imagen mascara(getFotoPath("caballo", "mask", testPath));
 
     int ancho = foto1.ancho;
     int alto = foto1.alto;
@@ -111,7 +112,15 @@ int main() {
         }
     }
 
-    // TEST : Resolucion de sistema
+    for (int i = 0; i < alto; i++) {
+        for (int j = 0; j < ancho; j++) {
+            cout << normales[i][j][0] << (j + 1 == ancho ? "" : ",");
+        }
+        cout << "\n";
+    }
+
+    /*
+    TEST : Resolucion de sistema
     Matriz A({
         {6, 15, 55},
         {15, 55, 225},
@@ -134,8 +143,9 @@ int main() {
     cout << "LxLt: \n";
 
     cout << decomp.L.productoM(Lt);
-    // // resolverSistema modifica la matriz A
-    // auto rta = A.resolverSistema(b);
-    // debug(b, "B");
-    // debug(rta, "X");
+    // resolverSistema modifica la matriz A
+    auto rta = A.resolverSistema(b);
+    debug(b, "B");
+    debug(rta, "X");
+    */
 }
