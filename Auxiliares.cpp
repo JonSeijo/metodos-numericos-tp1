@@ -26,6 +26,10 @@ void debug(vector<T> &v, string msg = "Debug: ") {
     cout << "\n";
 }
 
+void debug(double &v, string msg = "Debug: ") {
+    cout << msg << ": " << v << "\n";
+}
+
 double NormaVectorial(const vector<double>& v){
 	if(v.size() <= 0){
 		return 0;
