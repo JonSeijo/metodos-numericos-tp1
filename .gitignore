@@ -1,3 +1,9 @@
+# tex
+*.aux
+*.log
+*.toc
+*.pdf
+
 # Ejecutable
 calibracion
 main
