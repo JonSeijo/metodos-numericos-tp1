@@ -95,7 +95,19 @@ int main() {
     
     B.triangular();
 
-    std::cout << "B: \n" << B;
+    std::cout << "B triangular normal: \n" << B;
+
+    Matriz B1({
+        {1, 1, 0},
+        {2, 3, 4},
+       {0, 1, 1}
+    });
+    
+    std::cout << "B1: \n" << B1;
+    
+    B1.triangularConPivoteo();
+
+    std::cout << "B1 triangular con pivoteo: \n" << B1;
 
     Matriz C({
         {1, 1, 0},
@@ -109,6 +121,18 @@ int main() {
 
     std::cout << "C: \n" << C;
 
+    Matriz C1({
+        {1, 1, 0},
+        {4, 4, 4},
+       {1, 0, 0}
+    });
+    
+    std::cout << "C1: \n" << C1;
+    
+    C1.triangularConPivoteo();
+
+    std::cout << "C1 triangular con pivoteo: \n" << C1;
+
     Matriz D({
         {1, 1, 0, 0},
         {4, 4, 4, 1},
@@ -120,6 +144,18 @@ int main() {
     D.triangular();
 
     std::cout << "D: \n" << D;
+
+    Matriz D1({
+        {1, 1, 0, 0},
+        {4, 4, 4, 1},
+       {1, 0, 0, 0, 0}
+    });
+    
+    std::cout << "D1: \n" << D1;
+    
+    D1.triangularConPivoteo();
+
+    std::cout << "D1 triangular con pivoteo \n" << D1;
 
     Matriz E({
         {1, 0, 0, 1},
@@ -133,6 +169,20 @@ int main() {
     E.triangular();
 
     std::cout << "E: \n" << E;
+
+    Matriz E1({
+        {1, 0, 0, 1},
+        {0, 0, 7, 8},
+        {1, 0, 1, 2},
+        {1, 0, 0, 4}
+    });
+    
+    std::cout << "E1: \n" << E1;
+    
+    E1.triangularConPivoteo();
+
+    std::cout << "E1 triangular con pivoteo \n" << E1;
+
 
     //std::cout << "B triangulada \n" << B <<"\n";
     /*cout << A;

@@ -51,10 +51,12 @@ class Matriz {
 
     // Modifica la matriz actual
     // @TODO: Testear con diferentes tamaños
-    // @TODO: Faltaria que no se rompa cuando encuentra ceros.
     // @TODO: Faltaria que guarde la factorizacion LU
     void triangular() {
-		//Esto por el caso en que hay una columna de 0s
+		if(filas <= 0 || columnas <= 0){
+            throw std::runtime_error("No se puede triangular esta matriz");
+        }
+        //Esto por el caso en que hay una columna de 0s
     	int colum = 0;
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
@@ -96,7 +98,7 @@ class Matriz {
                 //y tengo que pasar a (k, k+1) para continuar el proceso
                 //En el caso general estoy en (k, columna) y tengo que pasar a
                 //(k, columna+1) entonces como en el primer for se hace k++, acá
-                //resto uno para compensar, y salgo del ciclo.
+                //resto uno para compensar.
                 k--;
             }
            	else{
@@ -108,43 +110,73 @@ class Matriz {
                		}
                 }
             }
-            colum++;
+            //No es solo colum++ porque puede pasar que haya todos 0s y se puede armar un segfault
+            if(colum < columnas - 1){
+                colum++;
+            }
+            else{
+                break;
+            }
        	}	
     }
     
 
-    void triangularConPiboteo() {
+    void triangularConPivoteo() {
+        if(filas <= 0 || columnas <= 0){
+            throw std::runtime_error("No se puede triangular esta matriz");
+        }
+        int colum = 0;
         for (int k = 0; k < filas-1; k++) {
 
-
-
-            double biggest = fabs(m[k][k]);
+            double biggest = fabs(m[k][colum]);
             int pivot = k;
             for (int i = k+1; i < filas; i++) {
-                if(biggest < fabs(m[i][k])){
+                if(biggest < fabs(m[i][colum])){
                     pivot = i;
-                    biggest=fabs(m[i][k]);
+                    biggest=fabs(m[i][colum]);
                 }
             }
-            std::cout<<"el biggest es" << biggest<<std::endl;
-            if (fabs(biggest - 0) <= EPSILON) {
-                std::cerr << *this;
-                throw std::runtime_error("NO PUDE SALVAR EL 0 EN LA DIAGONAL!");
+            //Agrego caso en que hay columna de 0s, la idea es la misma que en el triangular solo
+            //Le resto uno al índice de la fila para que se compense con el k++ del for
+            //y así sigo en la misma fila
+            if (fabs(biggest) < EPSILON) {
+                k--;
             }
-
-            if(pivot != k){
-                for(int i = k; i < columnas; i++){
-                    int temp = m[pivot][i];
-                    m[pivot][i] = m[k][i];
-                    m[k][i] = temp;
+            else{
+               if(pivot != k){
+                    //OJO CON FACTORIZACION LU, ACA SE ASUME QUE HAY CEROS ABAJO DE LA DIAGONAL
+                    //DESPUÉS DE HACER GAUSS, POR ESO i=colum Y NO i=0
+                    //SWAP DE FILAS EN MATRIZ
+                    for(int i = colum; i < columnas; i++){
+                        int temp = m[pivot][i];
+                        m[pivot][i] = m[k][i];
+                        m[k][i] = temp;
+                    }
+                    //SI ES LA PRIMER PERMUTACION SETEO VECTOR
+                    if(permutacion.size() == 0){
+                        for(int numeroFila = 0; numeroFila < filas; numeroFila++){
+                                permutacion.push_back(numeroFila);
+                            }
+                    }
+                    //SWAP EN EL VECTOR PERMUTACION
+                    int tmpFila = permutacion[k];
+                    permutacion[k] = permutacion[pivot];
+                    permutacion[pivot] = tmpFila;
+                }
+                //GAUSS
+                for(int i = k+1; i < filas; i++) {
+                    double mult = m[i][colum] / m[k][colum];
+                    for (int j = colum; j < columnas; j++) {
+                        m[i][j] -= mult * m[k][j];
+                    }
                 }
             }
-
-            for (int i = k+1; i < filas; i++) {
-                double mult = m[i][k] / m[k][k];
-                for (int j = k; j < columnas; j++) {
-                    m[i][j] -= mult * m[k][j];
-                }
+            //No es solo colum++ porque puede pasar que haya todos 0s y se puede armar un segfault
+            if(colum < columnas - 1){
+                colum++;
+            }
+            else{
+                break;
             }
         }
     }
@@ -155,8 +187,9 @@ class Matriz {
     vector<double> resolverSistema(vector<double> &b, bool pivoteo = false) {
         this->AgregarVectorColumna(b);
         if(pivoteo){
-            this->triangularConPiboteo();
-        }else{
+            this->triangularConPivoteo();
+        }
+        else{
             this->triangular();
         }
         
@@ -375,6 +408,7 @@ class Matriz {
             		os << permutacion[k] << (k != permutacion.size() -1 ? ", " : ")\n");
             	}
             }
+            os << "\n";
         }
 
         friend std::ostream& operator<<(std::ostream& os, const Matriz &c){
