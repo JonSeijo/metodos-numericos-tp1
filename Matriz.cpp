@@ -99,7 +99,7 @@ class Matriz {
                 //resto uno para compensar, y salgo del ciclo.
                 k--;
             }
-           	if(!TodoCero){
+           	else{
            		for(int i = k+1; i < filas; i++){
                		double mult = m[i][colum] / m[k][colum];
                		// @TODO: Revisar que pasa con el resto de la matriz
