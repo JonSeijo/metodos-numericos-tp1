@@ -7,8 +7,8 @@ all: main calibracion
 main: main.cpp $(LIBS)
 	$(CPP) $(FLAGS) -o $@ $(LIBS) $<
 
-calibracion: CalibrarLuces.cpp Imagen.cpp
-	$(CPP) $(FLAGS) -o $@ Imagen.cpp $<
+calibracion: CalibrarLuces.cpp Imagen.cpp Auxiliares.cpp
+	$(CPP) $(FLAGS) -o $@ Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
 %.o: %.cpp
 	$(CPP) $(FLAGS) -c -o $@ $<
