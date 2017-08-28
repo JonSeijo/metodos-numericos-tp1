@@ -12,6 +12,7 @@ using std::ifstream;
 
 int main() {
     // Indices de las luces que voy a usar
+   /*
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
@@ -64,6 +65,8 @@ int main() {
         }
     }
 
+
+
     // Escritura de normales
     // for (int i = 0; i < alto; i++) {
     //     for (int j = 0; j < ancho; j++) {
@@ -72,17 +75,67 @@ int main() {
     //     cout << "\n";
     // }
 
-    /*
-    TEST : Resolucion de sistema
-    Matriz A({
+    
+    std::cout << "TEST : Resolucion de sistema" << std::endl;
+    /*Matriz A({
         {6, 15, 55},
         {15, 55, 225},
        {55, 225, 979}
     });
-    // vector<double> b = {2, 6, 13};
+    */
 
-    cout << "A: \n";
-    cout << A;
+    Matriz B({
+        {1, 1, 0},
+        {2, 3, 4},
+       {0, 1, 1}
+    });
+     vector<double> b = {2, 6, 13};
+    
+    std::cout << "B: \n" << B;
+    
+    B.triangular();
+
+    std::cout << "B: \n" << B;
+
+    Matriz C({
+        {1, 1, 0},
+        {4, 4, 4},
+       {1, 0, 0}
+    });
+    
+    std::cout << "C: \n" << C;
+    
+    C.triangular();
+
+    std::cout << "C: \n" << C;
+
+    Matriz D({
+        {1, 1, 0, 0},
+        {4, 4, 4, 1},
+       {1, 0, 0, 0, 0}
+    });
+    
+    std::cout << "D: \n" << D;
+    
+    D.triangular();
+
+    std::cout << "D: \n" << D;
+
+    Matriz E({
+        {1, 0, 0, 1},
+        {0, 0, 7, 8},
+        {1, 0, 1, 2},
+        {1, 0, 0, 4}
+    });
+    
+    std::cout << "E: \n" << E;
+    
+    E.triangular();
+
+    std::cout << "E: \n" << E;
+
+    //std::cout << "B triangulada \n" << B <<"\n";
+    /*cout << A;
 
     Cholesky decomp = Cholesky(A);
 
