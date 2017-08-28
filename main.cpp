@@ -2,6 +2,7 @@
 #include "Matriz.cpp"
 #include "Imagen.cpp"
 #include "Auxiliares.cpp"
+#include "Luces.cpp"
 #include "test_matriz.cpp"
 #include "cholesky.cpp"
 
@@ -9,62 +10,12 @@ using std::string;
 using std::vector;
 using std::ifstream;
 
-string filepathLuces = "recursos/resultados_y_ejemplos/luces.txt";
-string pathImages = "recursos/ppmImagenes/";
-string figura = "caballo";
-
-
-// Una luz seria un vector de 3 coordenadas
-typedef vector<double> luz;
-
-vector<luz> leerLuces() {
-    vector<luz> luces;
-
-    ifstream fileLuces;
-    fileLuces.open(filepathLuces);
-    if (fileLuces.is_open()) {
-
-        int cantLuces; fileLuces >> cantLuces;
-        luces.resize(cantLuces);
-
-        for (int i = 0; i < cantLuces; i++) {
-            double x, y, z;
-            fileLuces >> x >> y >> z;
-            luces[i] = luz({x, y, z});
-            // @DEBUG
-            // std::cout << "luz: " << i << "     (" << x << ", " << y << ", " << z << ")\n";
-        }
-    }
-
-    return luces;
-}
-
-// Por ej, (caballo, 0) -> "recursos/ppmImagenes/caballo/caballo.0.ppm"
-string getFotoPath(string figura, string i, bool test=false) {
-    string s = "";
-    s += (test ? "pruebas/" : pathImages + figura + "/") + figura + "." + i + ".ppm";
-    return s;
-}
-string getFotoPath(string figura, int i, bool test=false) {
-    return getFotoPath(figura, std::to_string(i), test);
-}
-
-
-template <typename T>
-void debug(vector<T> &v, string msg = "Debug: ") {
-    cout << msg << ": \n";
-    for (auto e : v) {
-        cout << e << " ";
-    }
-    cout << "\n";
-}
-
 int main() {
     // Indices de las luces que voy a usar
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
-    vector<luz> luces = leerLuces();
+    vector<luz> luces = leerLuces(true);
 
     // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
     Matriz S({
@@ -112,12 +63,13 @@ int main() {
         }
     }
 
-    for (int i = 0; i < alto; i++) {
-        for (int j = 0; j < ancho; j++) {
-            cout << normales[i][j][0] << (j + 1 == ancho ? "" : ",");
-        }
-        cout << "\n";
-    }
+    // Escritura de normales
+    // for (int i = 0; i < alto; i++) {
+    //     for (int j = 0; j < ancho; j++) {
+    //         cout << normales[i][j][0] << (j + 1 == ancho ? "" : ",");
+    //     }
+    //     cout << "\n";
+    // }
 
     /*
     TEST : Resolucion de sistema
