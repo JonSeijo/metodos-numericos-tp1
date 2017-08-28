@@ -183,6 +183,32 @@ int main() {
 
     std::cout << "E1 triangular con pivoteo \n" << E1;
 
+    Matriz F({
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    });
+
+    std::cout << "F: \n" << F;
+    
+    F.triangular();
+
+    std::cout << "F: \n" << F;
+
+    Matriz F1({
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    });
+
+    std::cout << "F1: \n" << F1;
+    
+    F1.triangularConPivoteo();
+
+    std::cout << "F1: \n" << F1;
+
 
     //std::cout << "B triangulada \n" << B <<"\n";
     /*cout << A;
