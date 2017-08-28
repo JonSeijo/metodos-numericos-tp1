@@ -112,6 +112,7 @@ int main() {
         luces[i] = {luz_x, luz_y, luz_z};
     }
 
+    cout << 12 << "\n";
     for (int i = 0; i < 12; i++) {
         cout << fixed << setprecision(10) <<
             luces[i][0] << " " << luces[i][1] << " " << luces[i][2] << "\n";

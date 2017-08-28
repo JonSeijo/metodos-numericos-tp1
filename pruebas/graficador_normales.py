@@ -93,7 +93,7 @@ v = np.array(ny)
 # Ploteo
 # ----------------------
 
-plt.title("Normales - Luces 1,4,11")
+plt.title("Normales - Luces 0,1,2")
 
 mult = 2
 escala = None

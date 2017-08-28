@@ -15,7 +15,8 @@ int main() {
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
-    vector<luz> luces = leerLuces(true);
+    bool luces_catedra = false;
+    vector<luz> luces = leerLuces(luces_catedra);
 
     // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
     Matriz S({
