@@ -13,13 +13,60 @@
 % con una breve explicacion de los motivos de estas fallas
 % (en caso de ser conocidas).
 
+% Template de matriz
+% \[
+% \begin{bmatrix} % Matriz con linea rectangular
+% \begin{pmatrix} % Matriz con linea redonda
+%     x_{11} & x_{12} & x_{13} & \dots  & x_{1n} \\
+%     x_{21} & x_{22} & x_{23} & \dots  & x_{2n} \\
+%     \vdots & \vdots & \vdots & \ddots & \vdots \\
+%     x_{d1} & x_{d2} & x_{d3} & \dots  & x_{dn}
+% \end{pmatrix}
+% \end{bmatrix}
+% \]
+
 \section{Calibración}
 
+\todo[inline] {Mejorar intro}
 \todo[inline]{Que es y por que tuvimos que hacerlo. Contar como necesitamos esto para aplicarlo al resto del trabajo practico}
 \todo[inline]{Explicar como obtenemos ciertos datos (centro y punto mas iluminado)}
 \todo[inline]{Explicar la idea teorica de la calibracion, incluir grafico esfera para ilustrar}
 \todo[inline]{Escribir lindas las cuentas de los despejes}
 \todo[inline]{En la seccion de experimentacion se vera como diffieren con las dadas por la catedra}
+
+Queremos calcular las normales en cada punto de la superficie.
+Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$ y las intensidades registradas $I_{algo}$ para calcular los $m_{algo}$ que son $tal cosa$. Es decir, necesitamos resolver el siguiente sistema:
+
+\[
+% \begin{bmatrix} % Matriz con linea rectangular
+\begin{pmatrix}
+    s_{x}^{1} & s_{y}^{1} & s_{z}^{1} \\
+    s_{x}^{2} & s_{y}^{2} & s_{z}^{2} \\
+    s_{x}^{3} & s_{y}^{3} & s_{z}^{3}
+\end{pmatrix}
+% \end{bmatrix}
+\begin{pmatrix}
+    m_{x} \\
+    m_{y} \\
+    m_{z}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    I_{1} \\
+    I_{2} \\
+    I_{3}
+\end{pmatrix}
+\]
+
+Los $I_{algo}$ podemos obtenerlos $asi y asa$, que es sencillo. No es tan trivial el calculo de los $s_{algo}^{i}$.
+
+(Mostrar imagen)
+Los vectores que buscamos son de la forma (cx - py, cy - py, cz - pz)
+
+Sabemos el centro y el radio del eje x e y por esto y esto. (Mostrar imagen)
+Utilizando la magia de la esfera, veamos como podemos hacerlo
+(mostrar cuenterio)
+
 
 
 \section{Métodos}
