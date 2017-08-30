@@ -35,7 +35,10 @@
 \todo[inline]{En la seccion de experimentacion se vera como diffieren con las dadas por la catedra}
 
 Queremos calcular las normales en cada punto de la superficie.
-Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$ y las intensidades registradas $I_{algo}$ para calcular los $m_{algo}$ que son $tal cosa$. Es decir, necesitamos resolver el siguiente sistema:
+Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$ y las intensidades registradas $I_{algo}$ para calcular los $m_{algo}$ que son $tal cosa$.
+Los $I_{algo}$ podemos obtenerlos $asi y asa$, que es sencillo. No es tan trivial el calculo de los $s_{algo}^{i}$.
+
+Es decir, necesitamos resolver el siguiente sistema: \\
 
 \[
 % \begin{bmatrix} % Matriz con linea rectangular
@@ -58,9 +61,17 @@ Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$
 \end{pmatrix}
 \]
 
-Los $I_{algo}$ podemos obtenerlos $asi y asa$, que es sencillo. No es tan trivial el calculo de los $s_{algo}^{i}$.
 
-(Mostrar imagen)
+Tenemos que $S = (s_{x}^{i}, s_{y}^{i}, s_{z}^{i})$ es el vector luz en la imagen $i$. Dado que vamos a explicar el cálculo para una imagen cualquiera, omitiremos el supraíndice $i$ para una notación mas relajada.
+
+Llamemos $c = (c_{x}, c_{y}, c_{z})$ al centro de la esfera. Pensemos la luz como un vector que apunta hacia el centro. El vector $S$ toca la superficie en un cierto punto $p = (p_{x}, p_{y}, p_{z})$, pero $p$ no es un punto al azar, sino que es el punto más iluminado de la esfera. \\
+
+{\centering
+    \includegraphics[scale=0.9]{informe/imagenes/esfera/esferaModelo.png} \\
+}
+
+El vector $S$ que buscamos es el que va de $p$ a $c$, Por lo tanto
+
 Los vectores que buscamos son de la forma (cx - py, cy - py, cz - pz)
 
 Sabemos el centro y el radio del eje x e y por esto y esto. (Mostrar imagen)
