@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="esfera_hueca.svg">
+   sodipodi:docname="esfera_modelo.svg"
+   inkscape:export-filename="/home/jonno/exactas/metodos/tp1/informe/imagenes/esfera/esfera_modelo.png"
+   inkscape:export-xdpi="182"
+   inkscape:export-ydpi="182">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="291.43734"
-     inkscape:cy="527.48771"
+     inkscape:zoom="1.4"
+     inkscape:cx="344.57999"
+     inkscape:cy="524.96484"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -131,7 +134,8 @@
          sodipodi:role="line"
          id="tspan3890"
          x="306.58127"
-         y="508.39505">C</tspan></text>
+         y="508.39505"
+         style="font-size:22px">c</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
@@ -143,5 +147,16 @@
          id="tspan3894"
          x="211.62695"
          y="559.91284">p</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="249.28571"
+       y="525.93359"
+       id="text3927"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3929"
+         x="249.28571"
+         y="525.93359">S</tspan></text>
   </g>
 </svg>

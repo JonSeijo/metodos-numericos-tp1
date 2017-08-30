@@ -27,15 +27,9 @@
 
 \section{Calibración}
 
-\todo[inline] {Mejorar intro}
-\todo[inline]{Que es y por que tuvimos que hacerlo. Contar como necesitamos esto para aplicarlo al resto del trabajo practico}
-\todo[inline]{Explicar como obtenemos ciertos datos (centro y punto mas iluminado)}
-\todo[inline]{Explicar la idea teorica de la calibracion, incluir grafico esfera para ilustrar}
-\todo[inline]{Escribir lindas las cuentas de los despejes}
-\todo[inline]{En la seccion de experimentacion se vera como diffieren con las dadas por la catedra}
-
 Queremos calcular las normales en cada punto de la superficie.
 Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$ y las intensidades registradas $I_{algo}$ para calcular los $m_{algo}$ que son $tal cosa$.
+\todo[inline]{mejorar intro}
 Los $I_{algo}$ podemos obtenerlos $asi y asa$, que es sencillo. No es tan trivial el calculo de los $s_{algo}^{i}$.
 
 Es decir, necesitamos resolver el siguiente sistema: \\
@@ -64,19 +58,36 @@ Es decir, necesitamos resolver el siguiente sistema: \\
 
 Tenemos que $S = (s_{x}^{i}, s_{y}^{i}, s_{z}^{i})$ es el vector luz en la imagen $i$. Dado que vamos a explicar el cálculo para una imagen cualquiera, omitiremos el supraíndice $i$ para una notación mas relajada.
 
-Llamemos $c = (c_{x}, c_{y}, c_{z})$ al centro de la esfera. Pensemos la luz como un vector que apunta hacia el centro. El vector $S$ toca la superficie en un cierto punto $p = (p_{x}, p_{y}, p_{z})$, pero $p$ no es un punto al azar, sino que es el punto más iluminado de la esfera. \\
+Llamemos $c = (c_{x}, c_{y}, c_{z})$ al centro de la esfera. Pensemos la luz como un vector que apunta hacia el centro. El vector $S$ toca la superficie en un cierto punto $p = (p_{x}, p_{y}, p_{z})$, pero $p$ no es un punto al azar, sino que es el punto más iluminado de la esfera. Por lo tanto, la dirección de luz que nos interesa es $S =  c - p$.\\
 
 {\centering
     \includegraphics[scale=0.9]{informe/imagenes/esfera/esferaModelo.png} \\
+    \captionof{figure}{Vemos que el vector que nos interesa es $S = c - p$}
 }
 
-El vector $S$ que buscamos es el que va de $p$ a $c$, Por lo tanto
+$ $\newline
 
-Los vectores que buscamos son de la forma (cx - py, cy - py, cz - pz)
+Mas precisamente, $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$ En principio no conocemos ninguno de estos valores, pero concentrémonos en calcular sobre el eje $x$ e $y$. De la imagen de la esfera (2D) podemos conocer algunos datos. En la implementación utilizamos la máscara provista por la cátedra para simplificar los cálculos. \\
 
-Sabemos el centro y el radio del eje x e y por esto y esto. (Mostrar imagen)
-Utilizando la magia de la esfera, veamos como podemos hacerlo
-(mostrar cuenterio)
+Como los píxeles en la máscara son blancos o negros, es muy sencillo identificar los puntos que pertenecen a la esfera con sólo ver su color. Recorriendo todos los puntos y tomando máximos y mínimos obtenemos 4 puntos clave: El punto del círculo que está mas a arriba $A$, el más abajo $A'$, el de más a la izquierda $B$ y el de más a la derecha $B'$. \\
+
+{\centering
+    \includegraphics[scale=0.5]{informe/imagenes/esfera/circulo.png} \\
+}
+
+Puede verse fácilmente que el radio $R$ del círculo es la mitad de la distancia entre $B$ y $B'$
+
+\begin{center}
+$R = \frac{|B'_x - B_x|}{2}$.
+\end{center}
+
+Además, sabiendo que $c$ es el centro del círculo,
+
+\begin{center}
+    $c_{x} = B_x + R$ \\
+    $c_{y} = A_y + R$
+\end{center}
+
 
 
 
