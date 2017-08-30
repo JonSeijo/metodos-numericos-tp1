@@ -27,12 +27,9 @@
 
 \section{Calibración}
 
-Queremos calcular las normales en cada punto de la superficie.
-Tomando 3 imagenes diferentes (por ej 1, 2 y 3), utilizamos las luces $s_{algo}$ y las intensidades registradas $I_{algo}$ para calcular los $m_{algo}$ que son $tal cosa$.
-\todo[inline]{mejorar intro}
-Los $I_{algo}$ podemos obtenerlos $asi y asa$, que es sencillo. No es tan trivial el calculo de los $s_{algo}^{i}$.
+Un paso anterior al cálculo de las profundidades, es el cálculo de los vectores normales a todo punto de la superficie. Para esto, se eligen tres luces diferentes (por ejemplo si elegimos 1, 2 y 3, nuestros vectores luz serán $s^{1}$, $s^{2}$ y $s^{3}$ respectivamente) y utilizando las intensidades ya registradas ($I_i$) queremos encontrar los $m$ que son solución. Cabe aclarar que el sistema se deberá resolver para cada pixel de la imagen, por lo que ya conocemos las intensidades del pixel dado para toda imagen. Nos encontramos entonces con el primer problema, porque los vectores luz no son un dato conocido.
 
-Es decir, necesitamos resolver el siguiente sistema: \\
+El sistema que queremos resolver es el siguiente: \\
 
 \[
 % \begin{bmatrix} % Matriz con linea rectangular
@@ -55,6 +52,7 @@ Es decir, necesitamos resolver el siguiente sistema: \\
 \end{pmatrix}
 \]
 
+Pero no conocemos los $s_{j}^{i}$. \\
 
 Tenemos que $S = (s_{x}^{i}, s_{y}^{i}, s_{z}^{i})$ es el vector luz en la imagen $i$. Dado que vamos a explicar el cálculo para una imagen cualquiera, omitiremos el supraíndice $i$ para una notación mas relajada.
 
