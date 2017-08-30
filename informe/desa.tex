@@ -88,9 +88,43 @@ Además, sabiendo que $c$ es el centro del círculo,
     $c_{y} = A_y + R$
 \end{center}
 
+Es fácil obtener $p$ en una imagen 2D, basta con recorrer los pixeles de la imagen y quedarnos con el $(p_x, p_y)$ con mayor iluminación. Tenemos entonces los datos de $c_x$, $c_y$, $p_x$, $p_y$ y $R$. Veamos cómo podemos despejar lo que nos falta. \\
 
+Recordemos lo que queríamos calcular:
+\begin{center}
+    $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$
+\end{center}
 
+Sólo la tercer componente de $S$ es una incógnita. Sabemos que el radio del círculo es igual al radio de la esfera y el radio de la esfera es igual a la distancia euclidea entre el centro y un punto en la superficie. En particular, el radio es igual a la distancia entre $p$ y $c$. Es decir:
 
+\begin{center}
+    $\norm{c - p} = R$ \\
+\end{center}
+
+Despejando..
+
+\begin{center}
+    $\sqrt{(c_{x} - p_{x})^{2} + (c_{y} - p_{y})^{2} + (c_{z} - p_{z})^{2}} = R$ \\ $ $
+
+    $(c_{x} - p_{x})^{2} + (c_{y} - p_{y})^{2} + (c_{z} - p_{z})^{2} = R^{2}$ \\ $ $
+
+    $(c_{z} - p_{z})^{2} = R^{2} - (c_{x} - p_{x})^{2} - (c_{y} - p_{y})^{2}$ \\ $ $
+
+    $(c_{z} - p_{z}) = \sqrt{R^{2} - (c_{x} - p_{x})^{2} - (c_{y} - p_{y})^{2}}$ \\ $ $
+
+\end{center}
+
+Finalmente conseguimos lo que buscábamos. Repitiendo este procedimiento, podemos obtener todas las componentes del vector de luz para todas las imagenes. Podemos escribir a cualquier vector de luz utilizando datos conocidos:
+
+\begin{center}
+    $s_x = c_{x} - p_{x}$ \\
+    $s_y = c_{y} - p_{y}$ \\
+    $s_z = \sqrt{R^{2} - (c_{x} - p_{x})^{2} - (c_{y} - p_{y})^{2}})$ \\
+\end{center}
+
+Ya estamos en condiciones de resolver el sistema original pues conocemos todos sus coeficientes. Analizaremos en las siguientes secciones diferentes formas para resolverlo.
+
+\newpage
 \section{Métodos}
 
 \subsection{Eliminación Gaussiana}
