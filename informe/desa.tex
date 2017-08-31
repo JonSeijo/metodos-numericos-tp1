@@ -17,10 +17,68 @@
 
 \subsection{Eliminación Gaussiana}
 
-\todo[inline]{Explicar metodo}
-\todo[inline]{Explicar por que queremos usarlo en el problema}
-\todo[inline]{Pseudocodigo / implementacion}
-\todo[inline]{Explicar por que funcionea, por que podemos aplicarlo con las luces, decir que las 3 que tomamos son li entonces no pincha nunca}
+Tenemos un sistema listo para resolver, dónde sólo los $m_i$ son incógnitas:
+
+% Sistema de matrices original
+\[
+\begin{pmatrix}
+    s_{x}^{1} & s_{y}^{1} & s_{z}^{1} \\
+    s_{x}^{2} & s_{y}^{2} & s_{z}^{2} \\
+    s_{x}^{3} & s_{y}^{3} & s_{z}^{3}
+\end{pmatrix}
+\begin{pmatrix}
+    m_{x} \\
+    m_{y} \\
+    m_{z}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    I_{1} \\
+    I_{2} \\
+    I_{3}
+\end{pmatrix}
+\]
+
+La pregunta ahora es ¿cómo lo resolvemos?. Dado que en principio no sabemos cómo, nos gustaría llevarlo a una forma equivalente que sea mas fácil de resolver. Podemos hacer esta conversión a un sistema equivalente usando el algortimo de eliminación de Gauss. Lo que hace este algortimo es llevar una matriz a su forma triangular superior, de dónde luego es muy sencillo hacer los despejes finales. \\
+
+El pseudocódigo del algoritmo de Gauss es el siguiente:
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\Function{EliminacionGaussiana}{Matriz M[$n$][$m$]}
+
+    \For{$k \in [1..min(n,m)]$ }
+        \For{$i \in [k+1..m]$ }
+
+            \If{M[$k$][$k$] $\neq 0$}
+                \State $mult \gets $M[$i$][$k$] $/$ M[$k$][$k$]
+                \For{$j \in [k+1..n]$}
+
+                    \State M[$i$][$j$] $\gets$ M[$i$][$j$] - mult*M[$k$][$j$]
+
+                \EndFor
+            \Else
+                \State Hay un cero en la diagonal!
+            \EndIf
+        \EndFor
+    \EndFor
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay ceros en la diagonal}. Es claro que puede modificarse para que realice intercambios de filas y no tenga el problema del cero, veamos que para nuestro problema no es importante. En nuestra implementación aplicaremos el algoritmo de Gauss en la siguiente matriz ampliada:
+
+% Matriz ampliada
+\[
+\begin{pmatrix}[ccc|c]
+    s_{x}^{1} & s_{y}^{1} & s_{z}^{1} & I_{1} \\
+    s_{x}^{2} & s_{y}^{2} & s_{z}^{2} & I_{2} \\
+    s_{x}^{3} & s_{y}^{3} & s_{z}^{3} & I_{3}
+\end{pmatrix}
+\]
+
+Nuestros $s_{j}^{i}$ incialmente son todos distintos de cero. Además, tomamos todas las combinaciones posibles de tres luces y vimos que siempre son linealmente independientes, por lo tanto nunca vamos a hallar un cero en la diagonal y no es necesario aplicar permutaciones. Esto cobrará importancia cuando querramos aplicar factorización LU.
 
 \subsection{LU}
 \todo[inline]{Que es esto}

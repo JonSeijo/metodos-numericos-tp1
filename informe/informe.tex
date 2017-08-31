@@ -31,7 +31,23 @@
 \usepackage{commath}
 \usepackage[draft]{todonotes}
 \usepackage{caption}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{array}
+\usepackage{xcolor,colortbl}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{svg}
+
 \captionsetup[figure]{labelformat=empty}% redefines the caption setup of the figures environment in the beamer class.
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
 
 \newcommand{\cod}[1]{{\tt #1}}
 \newcommand{\negro}[1]{{\bf #1}}
