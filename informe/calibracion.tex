@@ -72,9 +72,11 @@ Además, sabiendo que $c$ es el centro del círculo,
     $c_{y} = A_y + R$
 \end{center}
 
-Es fácil obtener $p$ en una imagen 2D, basta con recorrer los pixeles de la imagen y quedarnos con el $(p_x, p_y)$ con mayor iluminación. Tenemos entonces los datos de $c_x$, $c_y$, $p_x$, $p_y$ y $R$. Veamos cómo podemos despejar lo que nos falta. \\
+Necesitamos encontrar también quién es $p$. Una primera idea fue recorrer todos los píxeles y quedarnos con el de mayor intensidad. Esto nos trajo problemas pues en una imagen no hay un único píxel mas blanco que el resto, sino que existe un pequeño sector que se encuentra más iluminado. Nos encontramos con imagenes diferentes (pero con similares intensidades de luz) para los cuales se calculaba el mismo punto $p$. \\
 
-Recordemos lo que queríamos calcular:
+Para resolver esto consideramos para cada píxel una pequeña vecindad (en principio de 5 x 5, pero se fueron probando otras) y nos quedamos con el píxel que tuviese la vecindad mas iluminada. Utilizando este metodo podemos hallar el $p = (p_x, p_y)$ que queríamos. \\
+
+Tenemos entonces los datos de $c_x$, $c_y$, $p_x$, $p_y$ y $R$. Veamos cómo podemos despejar lo que nos falta. Recordemos lo que queríamos calcular:
 \begin{center}
     $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$
 \end{center}
