@@ -147,9 +147,7 @@ Recordemos nuestro sistema para hallar las normales:
 
 Una vez fijas las luces a utilizar (en este caso 1,2 y 3) para despejar la normal en cada píxel, debemos resolver el sistema en cada píxel. Es decir, estaremos traingulando una y otra vez una matriz dónde lo único que cambia es el término a la derecha de la igualdad. Por lo tanto, es interesante plantearse si existe una forma de evitar aplicar Gauss en cada punto. \\
 
-Por lo explicado anteriormente (independencia lineal de las luces) sabemos que podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal. Es decir, podemos terminar el proceso de triangulación sin tener que haccer ninguna permutación de filas. Por lo visto en la clase teórica, esta condición es suficiente para hallar una factorización LU. (Notar que si esto no pasara, la factorización podría no existir) \\
-
-Dada una matriz $A$, la factorización LU consiste en encontrar dos matrices: una matriz $L$ triangular inferior con unos en la diagonal y una matriz $U$ triangular superior, de forma que se cumpla
+La factorización LU podría no existir, pero veámos de que se trata. Dada una matriz $A$, la factorización LU consiste en encontrar dos matrices: una matriz $L$ triangular inferior con unos en la diagonal y una matriz $U$ triangular superior, de forma que se cumpla
 
 \begin{center}
 $A$ = $L$.$U$
@@ -176,9 +174,11 @@ Donde $L$ es triangular inferior. Por lo tanto podemos despejar y obtener $y$ si
     $Ux = y$
 \end{center}
 
-Obteniendo así el $x$ que queríamos encontrar inicialmente.
+Obteniendo así el $x$ que queríamos encontrar inicialmente. \\
 
-\todo[inline]{Hablar de lo que ahorramos al aplicar LU en vez de gaussiana cada vez, $n^5$ vs $n^4$}
+Por lo explicado en la sección anterior (independencia lineal de las luces) sabemos que podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal. Es decir, podemos terminar el proceso de triangulación sin tener que haccer ninguna permutación de filas. \\
+
+Por lo visto en la clase teórica, si podemos triangular una matriz usando Gauss sin tener que permutar filas, es suficiente para afirmar que la factorización LU existe, entonces con el procedimiento explicado podemos hallar la descomposicion de nuestra matriz de luces y resolver el sistema mas eficientemente. \\
 
 \section{Estimacion de profundidades}
 \todo[inline]{Hablar del ultimo sistema de ecuaciones de la cual (aun) no tengo idea}
