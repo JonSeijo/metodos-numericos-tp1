@@ -26,11 +26,23 @@ Entonces el algoritmo considera que esa es la direccion de la luz
 @Jonno
 */
 
+double valorVecindad(int filaInicial, int columnaInicial, int rango, int filas, int columnas, Imagen &foto) {
+    double acum = 0;
+    for (int f = max(0, filaInicial-rango); f <= min(filas-1, filaInicial+rango); f++) {
+        for (int c = max(0, columnaInicial-rango); c <= min(columnas-1, columnaInicial+rango); c++) {
+            acum += foto.prom[f][c];
+        }
+    }
+    return acum;
+}
+
 
 int main() {
     Imagen mascara(getFotoPath("mate", "mask"));
+    // Imagen mascara(getFotoPath("cromada", "mask"));
     vector<Imagen> fotos;
     for (int i = 0; i < 12; i++) {
+        // fotos.push_back(Imagen(getFotoPath("cromada", i)));
         fotos.push_back(Imagen(getFotoPath("mate", i)));
     }
 
@@ -42,12 +54,14 @@ int main() {
     double min_col = 1e8;
     double max_col = 0;
 
+    double EPSILON = 1e-10;
+
     // ---------------------------------------
     // Obtencion de datos de la mascara
 
     for (int f = 0; f < alto; f++) {
         for (int c = 0; c < ancho; c++) {
-            if (mascara.prom[f][c] != 0) {
+            if (fabs(mascara.prom[f][c] - 0) > EPSILON) {
                 min_fila = min(min_fila, (double)f);
                 max_fila = max(max_fila, (double)f);
                 min_col = min(min_col, (double)c);
@@ -56,13 +70,12 @@ int main() {
         }
     }
 
-    double radio = (max_col - min_col) / 2.0;
+    // double radio = (max_col - min_col) / 2.0 + 1.0;
+    // double radio = (max_col - min_col) / 2.0;
+    double radio = (max_col - min_col) / 2.0 - 1.0;
 
     double center_y = min_fila + (max_fila - min_fila) / 2.0;
     double center_x = min_col + (max_col - min_col) / 2.0;
-
-    // debug(center_x, "center_x");
-    // debug(center_y, "center_y");
 
     // ---------------------------------------
     // Tomo los Px Py de cada imagen (maximo punto de luminosidad)
@@ -78,8 +91,9 @@ int main() {
 
         for (int f = 0; f < alto; f++) {
             for (int c = 0; c < ancho; c++) {
-                if (foto.prom[f][c] > max_luz) {
-                    max_luz = foto.prom[f][c];
+                double mivecindad = valorVecindad(f, c, 6, alto, ancho, foto);
+                if (mivecindad > max_luz) {
+                    max_luz = mivecindad;
                     luz_fila = f;
                     luz_col = c;
                 }
@@ -95,21 +109,29 @@ int main() {
         double py = maxima_luminosidad[i].first; // fila es eje y
         double px = maxima_luminosidad[i].second;
 
-        double luz_x = px - center_x;
-        // Recordar que eje y comienza desde arriba
-        double luz_y = center_y - py;
+        double luz_x = (px - center_x);
 
-        // Explicacion en el informe
+        // Recordar que eje y comienza desde arriba
+        // double luz_y = py - center_y;
+        double luz_y = (center_y - py);
+
+        // Explicacion en el informe, confirmado por docente
         double luz_z = sqrt(radio*radio - luz_x*luz_x - luz_y*luz_y);
 
-        // fila, columna, zeta
-        luz luz_raw = {luz_x, luz_y, luz_z};
+        // cout << "\n\n";
+        // debug(luz_x, "luz_x");
+        // debug(luz_y, "luz_y");
+        // debug(luz_z, "luz_z");
 
-        luz_x /= NormaVectorial(luz_raw);
+        // fila, columna, zeta
+        luz luz_raw = {luz_y, luz_x, luz_z};
+
         luz_y /= NormaVectorial(luz_raw);
+        luz_x /= NormaVectorial(luz_raw);
         luz_z /= NormaVectorial(luz_raw);
 
-        luces[i] = {luz_x, luz_y, luz_z};
+        // {fila, columna, zeta}
+        luces[i] = {luz_y, luz_x, luz_z};
     }
 
     cout << 12 << "\n";
