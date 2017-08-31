@@ -26,30 +26,30 @@ make && ./main
 ## Y ahora que?
 
 ```
-Para un objeto fijo, por ejemplo "gato":
+- Necesitamos pensar bien el calculo de profundidaes
 
-- Tomemos luces.txt como las direcciones de las luces. Mas adelante tenemos que ver como calcularlas nosotros mismos.
+- Necesitamos plantear las super ecuaciones y resolverlas
 
-- Elegimos 3 figuras, digamos la 1, 2 y 3.
+- Tenemos el tip de que son bandas, asi que hay que ver eso sino seguro son super grandes e ineficientes
 
+- Informe: mas sobre el desarrollo
 
-Para cada pixel:
+- Experimentacion: (nos faltan ideas)
 
-    S = la matriz de luces, de 3x3
+    : Ver graficos de normales con diferentes luces
 
-    I_i = El brillo de la imagen i en el pixel actual
-    I = (I_1, I_2, I_3) vector brillo del pixel actual de las 3 imagens
-
-    m = nuestra incognita, un vector de 3 coordenadas
-        (m_i representa I0*p*n_i)
-
-    Resolvemos el sistema  Sm = I
-
-    n: vector normal, lo que queriamos calcular
-    n = (m_1 / (I_0*p) , m_2 / (I_0*p), m_3 / (I_0*p))
-
-    normalizar n
-
-    Tarán!
-    Ya tenemos las normales estimadas para el pixel actual
+    : Ver resultados finales con diferentes luces
+    
+    : Comparaciones con mismas luces pero nuestras vs catedra
+    
+    : Tiempos, gauss vs lu sin usar mascara
+    
+    : Tiempos, gauss vs lu usando mascara
+    
+    : Algo con cholesky
+    
+    : Comparaciones haciendo con vs sin pivoteo por los errores numericos
+    
+    
+- Informe: conclusiones
 ```
