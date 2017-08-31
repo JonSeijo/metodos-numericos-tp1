@@ -344,6 +344,25 @@ class Matriz {
         }
     }
 
+    // Modifica la matriz
+    bool sonLD() {
+        this->triangular();
+        // Si quedo alguna fila con ceros es porque eran LD
+        for (int f = 0; f < filas; f++) {
+            bool filaCero = true;
+            for (int c = 0; c < columnas; c++) {
+                if (fabs(m[f][c] - 0) > EPSILON) {
+                    filaCero = false;
+                }
+            }
+            if (filaCero) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     bool operator==(const Matriz B){
         if(this->filas != B.filas || this->columnas != B.columnas){
             return false;
