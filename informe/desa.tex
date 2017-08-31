@@ -123,7 +123,44 @@ Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamo
 \end{algorithm}
 
 
-\subsection{LU}
+\subsection{Factorización LU}
+
+Recordemos nuestro sistema para hallar las normales:
+\[
+\begin{pmatrix}
+    s_{x}^{1} & s_{y}^{1} & s_{z}^{1} \\
+    s_{x}^{2} & s_{y}^{2} & s_{z}^{2} \\
+    s_{x}^{3} & s_{y}^{3} & s_{z}^{3}
+\end{pmatrix}
+\begin{pmatrix}
+    m_{x} \\
+    m_{y} \\
+    m_{z}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    I_{1} \\
+    I_{2} \\
+    I_{3}
+\end{pmatrix}
+\]
+
+Una vez fijas las luces a utilizar (en este caso 1,2 y 3) para despejar la normal en cada píxel, debemos resolver el sistema en cada píxel. Es decir, estaremos traingulando una y otra vez una matriz dónde lo único que cambia es el término a la derecha de la igualdad. Por lo tanto, es interesante plantearse si existe una forma de evitar aplicar Gauss en cada punto. \\
+
+Por lo explicado anteriormente (independencia lineal de las luces) sabemos que podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal. Es decir, podemos terminar el proceso de triangulación sin tener que haccer ninguna permutación de filas. Por lo visto en la clase teórica, esta condición es suficiente para hallar una factorización LU. \\
+
+Dada una matriz $A$, la factorización LU consiste en encontrar dos matrices: una matriz $L$ triangular inferior con unos en la diagonal y una matriz $U$ triangular superior, de forma que se cumpla
+
+\begin{center}
+$A$ = $L$.$U$
+\end{center}
+
+
+ (con el producto usual de matrices)
+
+
+
+
 \todo[inline]{Que es esto}
 \todo[inline]{Por que nos sirve para nuestro problema, hablar de repeticion de calculos}
 
