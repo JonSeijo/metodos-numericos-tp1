@@ -78,7 +78,50 @@ Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay cero
 \end{pmatrix}
 \]
 
-Nuestros $s_{j}^{i}$ incialmente son todos distintos de cero. Además, tomamos todas las combinaciones posibles de tres luces y vimos que siempre son linealmente independientes, por lo tanto nunca vamos a hallar un cero en la diagonal y no es necesario aplicar permutaciones. Esto cobrará importancia cuando querramos aplicar factorización LU.
+Nuestros $s_{j}^{i}$ incialmente son todos distintos de cero. Además, tomamos todas las combinaciones posibles de tres luces y vimos que siempre son linealmente independientes, por lo tanto nunca vamos a hallar un cero en la diagonal y no es necesario aplicar permutaciones. Esto cobrará importancia cuando querramos aplicar factorización LU. \\
+
+Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamos en condiciones de despejar de nuestra matriz de 3 x 4:
+
+\[
+\begin{pmatrix}[ccc|c]
+    m_{1,1}   & m_{1,2} & m_{1,3} & m_{1, 4} \\
+    0         & m_{2,2} & m_{2,3} & m_{2, 4} \\
+    0         & 0       & m_{3,3} & m_{3, 4}
+\end{pmatrix}
+\]
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\Function{Despejar}{Matriz M[$n$][$m$]}
+
+    // En X se guardan los m-1 coeficientes solución (Recordemos que M es ampliada)
+    \State X[$m-1$] $\gets \{\}$ \\
+
+    \For{$j \in [1..m-1]$ }  (j es indice de columna)
+
+        \If{M[$j$][$j$] $\neq 0$}
+
+            \State X[$j$] $\gets$ M[$j$][$m$] / M[$j$][$j$]
+
+            \For{$i \in [j-1 .. 0]$ }  (i es indice de fila)
+
+                \State M[$i$][$m$] $\gets$ M[$i$][$m$] - ( M[$i$][$j$] * X[$j$] )
+
+            \EndFor
+
+        \Else
+            \State Hay un cero en la diagonal!
+        \EndIf
+    \EndFor
+
+    \State Retornar X
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
+
 
 \subsection{LU}
 \todo[inline]{Que es esto}

@@ -117,9 +117,9 @@ class Matriz {
             else{
                 break;
             }
-       	}	
+       	}
     }
-    
+
 
     void triangularConPivoteo() {
         if(filas <= 0 || columnas <= 0){
@@ -192,7 +192,7 @@ class Matriz {
         else{
             this->triangular();
         }
-        
+
 
         // @DEBUG luego de triangular
         // std::cout << *this << "\n";
