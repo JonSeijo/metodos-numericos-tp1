@@ -56,15 +56,13 @@ class Matriz {
 		if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
-        //Esto por el caso en que hay una columna de 0s
-    	int colum = 0;
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
-            if (fabs(m[k][colum]) < EPSILON) {
+            if (fabs(m[k][k]) < EPSILON) {
             	//Tengo un 0 en la diagonal
             	//Busco primero si puedo hacer una permutacion
             	for(int l = k+1; l < filas; l++){
-            		if(fabs(m[l][colum]) > EPSILON){
+            		if(fabs(m[l][k]) > EPSILON){
             			//Encontre una fila con la cual hacer permutacion
             			//Si es la primera permutacion que hago, seteo el vector permutacion
             			if(permutacion.size() == 0){
@@ -92,30 +90,14 @@ class Matriz {
             		}
             	}
             }
-            //Que pasa si no puedo hacer swaps?
-            if(TodoCero){
-                //La primera vez que hay una columna de 0s estoy en (k, k)
-                //y tengo que pasar a (k, k+1) para continuar el proceso
-                //En el caso general estoy en (k, columna) y tengo que pasar a
-                //(k, columna+1) entonces como en el primer for se hace k++, acá
-                //resto uno para compensar.
-                k--;
-            }
-           	else{
+            if(!TodoCero){
            		for(int i = k+1; i < filas; i++){
-               		double mult = m[i][colum] / m[k][colum];
+               		double mult = m[i][k] / m[k][k];
                		// @TODO: Revisar que pasa con el resto de la matriz
-               		for (int j = colum; j < columnas; j++){
+               		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
                		}
                 }
-            }
-            //No es solo colum++ porque puede pasar que haya todos 0s y se puede armar un segfault
-            if(colum < columnas - 1){
-                colum++;
-            }
-            else{
-                break;
             }
        	}
     }
@@ -125,58 +107,48 @@ class Matriz {
         if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
-        int colum = 0;
-        for (int k = 0; k < filas-1; k++) {
-
-            double biggest = fabs(m[k][colum]);
+        for(int k = 0; k < filas-1; k++) {
+            bool TodoCero = false;
+            double biggest = fabs(m[k][k]);
             int pivot = k;
             for (int i = k+1; i < filas; i++) {
-                if(biggest < fabs(m[i][colum])){
+                if(biggest < fabs(m[i][k])){
                     pivot = i;
-                    biggest=fabs(m[i][colum]);
+                    biggest=fabs(m[i][k]);
                 }
             }
-            //Agrego caso en que hay columna de 0s, la idea es la misma que en el triangular solo
-            //Le resto uno al índice de la fila para que se compense con el k++ del for
-            //y así sigo en la misma fila
-            if (fabs(biggest) < EPSILON) {
-                k--;
+            if(pivot != k){
+                //SWAP DE FILAS EN MATRIZ
+                for(int i = k; i < columnas; i++){
+                    vector<double> temp = m[pivot];
+                    m[pivot] = m[k];
+                    m[k] = temp;
+                }
+                //SI ES LA PRIMER PERMUTACION SETEO VECTOR
+                if(permutacion.size() == 0){
+                    for(int numeroFila = 0; numeroFila < filas; numeroFila++){
+                        permutacion.push_back(numeroFila);
+                    }
+                }
+                //SWAP EN EL VECTOR PERMUTACION
+                int tmpFila = permutacion[k];
+                permutacion[k] = permutacion[pivot];
+                permutacion[pivot] = tmpFila;
             }
             else{
-               if(pivot != k){
-                    //OJO CON FACTORIZACION LU, ACA SE ASUME QUE HAY CEROS ABAJO DE LA DIAGONAL
-                    //DESPUÉS DE HACER GAUSS, POR ESO i=colum Y NO i=0
-                    //SWAP DE FILAS EN MATRIZ
-                    for(int i = colum; i < columnas; i++){
-                        int temp = m[pivot][i];
-                        m[pivot][i] = m[k][i];
-                        m[k][i] = temp;
-                    }
-                    //SI ES LA PRIMER PERMUTACION SETEO VECTOR
-                    if(permutacion.size() == 0){
-                        for(int numeroFila = 0; numeroFila < filas; numeroFila++){
-                                permutacion.push_back(numeroFila);
-                            }
-                    }
-                    //SWAP EN EL VECTOR PERMUTACION
-                    int tmpFila = permutacion[k];
-                    permutacion[k] = permutacion[pivot];
-                    permutacion[pivot] = tmpFila;
+                if(fabs(m[k][k]) < EPSILON){
+                    TodoCero = true;
                 }
+            }
+            
+            if(!TodoCero){
                 //GAUSS
                 for(int i = k+1; i < filas; i++) {
-                    double mult = m[i][colum] / m[k][colum];
-                    for (int j = colum; j < columnas; j++) {
+                    double mult = m[i][k] / m[k][k];
+                    for (int j = k; j < columnas; j++) {
                         m[i][j] -= mult * m[k][j];
                     }
                 }
-            }
-            //No es solo colum++ porque puede pasar que haya todos 0s y se puede armar un segfault
-            if(colum < columnas - 1){
-                colum++;
-            }
-            else{
-                break;
             }
         }
     }
