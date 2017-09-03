@@ -30,20 +30,22 @@ vector<map<int, double> > armarMatrizProfundidades(vector<vector<vector<double> 
             map<int, double> fila1;
             map<int, double> fila2;
 
-            fila1[cont] = valor;
+            fila1[cont] = -valor;
+            if (cont + n < n*m) {
+                fila1[cont + n] = valor;
+            }
 
-            // REVISAR, PUEDE SER +M
-            fila1[cont + n] = valor;
-            fila2[cont] = valor;
-            fila2[cont + 1] = valor;
+            fila2[cont] = -valor;
+            if (c + 1 < m) {
+                fila2[cont + 1] = valor;
+            }
+            //  else {
+            //     matrix.push_back(map<int, double>());
+            //     cantFilasNulas++;
+            // }
 
             matrix.push_back(fila1);
-            if (c + 1 < m) {
-                matrix.push_back(fila2);
-            } else {
-                matrix.push_back(map<int, double>());
-                cantFilasNulas++;
-            }
+            matrix.push_back(fila2);
 
             cont++;
         }

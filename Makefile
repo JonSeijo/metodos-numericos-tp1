@@ -4,7 +4,7 @@ LIBS = Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp
 
 all: main calibracion testld
 
-main: main.cpp $(LIBS)
+main: main.cpp MatrizEspecialFunciones.cpp $(LIBS)
 	$(CPP) $(FLAGS) -o $@ $(LIBS) $<
 
 calibracion: CalibrarLuces.cpp Imagen.cpp Auxiliares.cpp

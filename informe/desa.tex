@@ -188,17 +188,92 @@ Utilizando los métodos anteriores pudimos resolver el sistema que incluye las l
 $n^{(a,b)} = (n_{x}^{a,b}, n_{y}^{a,b}, n_{z}^{a,b})$
 \end{center}
 
-A partir de aquí omitiremos el supraíndice $(a,b)$ para relajar la notación. Siguiendo con la técnica de fotometría estéreo, el siguiente paso a realizar es el cálculo de las profundidades utilizando estas normales. Para esto, consideramos una aproximación al plano tangente de cada píxel. La ecuaciones que tenemos que resolver son las siguientes, para cada píxel $(x ,y)$.
+A partir de aquí en ocasiones omitiremos el supraíndice $(a,b)$ para relajar la notación cuando es claro cuál es el píxel del que hablamos. Siguiendo con la técnica de fotometría estéreo, el siguiente paso a realizar es el cálculo de las profundidades utilizando estas normales. Para esto, consideramos una aproximación al plano tangente de cada píxel. La ecuaciones que tenemos que resolver son las siguientes, para cada píxel $(x ,y)$.
 
 \begin{center}
-
-$n_{x}^{a,b} +  n_{z}^{a,b} * (z_{x+1, y}) = 0$
-
+\[
+    \begin{dcases}
+        n_{y} +  n_{z} * (z_{x, y+1} - z_{x, y}) = 0 \\
+        n_{x} +  n_{z} * (z_{x+1, y} - z_{x, y}) = 0
+    \end{dcases}
+\]
+\end{center}
+O equivalentemente
+\begin{center}
+\[\begin{dcases}
+        n_{z} * z_{x, y+1} - n_{z} *  z_{x, y} = n_{y}  \\
+        n_{z} * z_{x+1, y} - n_{z} *  z_{x, y} = n_{x}
+    \end{dcases}
+\]
 \end{center}
 
+Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y veremos como puede generalizarse:
 
+% \dots \ddots \vdots
 
-\todo[inline]{Hablar del ultimo sistema de ecuaciones de la cual (aun) no tengo idea}
+\[
+\begin{pmatrix}
+    % - n_{z}^{1,1}  &  0                      & 0  & n_{z}^{1,1}    & 0 & 0 & 0 & 0 & 0 \\
+    % - n_{z}^{1,1}  &  n_{z}^{1,1}  &  0  & 0 & 0  &  0               & 0 & 0 & 0 & \\
+    % 0 & - n_{z}^{1,2}  &  0                   & 0 &  n_{z}^{1,2}   & 0 & 0 & 0 & 0     \\
+    % 0 & - n_{z}^{1,2}  &  n_{z}^{1,2}   & 0 &  0  &  0  &  0         & 0 & 0     \\
+    % 0 & 0 & - n_{z}^{1,3}  &  0             & 0   &  n_{z}^{1,3}   & 0 & 0 & 0  \\
+    % % 0 & 0 & - n_{z}^{1,3}  &  n_{z}^{1,3} & 0 &  0  &  0  &  0  & 0       \\
+    % 0 & 0 &  0  &  0 & 0 &  0  &  0  &  0  & 0       \\
+    % 0 & 0 & 0 & - n_{z}^{2,1}  &  0         & 0     &  n_{z}^{2,1} & 0 & 0      \\
+    % 0 & 0 & 0 & - n_{z}^{2,1}  &  n_{z}^{2,1} & 0 &  0  &  0  &  0      \\
+    % 0 & 0 & 0 & 0 & - n_{z}^{2,2}  & 0       & 0  &  n_{z}^{2,2} & 0            \\
+    % 0 & 0 & 0 & 0 & - n_{z}^{2,2}  &  n_{z}^{2,2} & 0 &  0  &  0         \\
+    % 0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}  &  0      & 0     &  n_{z}^{2,3}         \\
+    % 0 & 0 & 0 & 0 & 0 & 0  &  0      & 0     &  0         \\
+    % % 0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}  &  n_{z}^{2,3} & 0 &  0        \\
+    - n_{z}^{1,1}  &  0                      & 0  & n_{z}^{1,1}    & 0 & 0 \\
+    - n_{z}^{1,1}  &  n_{z}^{1,1}  &  0  & 0 & 0  &  0               \\
+    0 & - n_{z}^{1,2}  &  0                   & 0 &  n_{z}^{1,2}   & 0     \\
+    0 & - n_{z}^{1,2}  &  n_{z}^{1,2}   & 0 &  0  &  0      \\
+    0 & 0 & - n_{z}^{1,3}  &  0             & 0   &  n_{z}^{1,3}  \\
+    0 & 0 & - n_{z}^{1,3}  &  0 & 0 &  0       \\
+    % 0 & 0 &  0  &  0 & 0 &  0         \\
+    0 & 0 & 0 & - n_{z}^{2,1}  &  0         & 0          \\
+    0 & 0 & 0 & - n_{z}^{2,1}  &  n_{z}^{2,1} & 0       \\
+    0 & 0 & 0 & 0 & - n_{z}^{2,2}  & 0                  \\
+    0 & 0 & 0 & 0 & - n_{z}^{2,2}  &  n_{z}^{2,2}         \\
+    0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}          \\
+    0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}         \\
+    % 0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}  &  n_{z}^{2,3} & 0 &  0        \\
+\end{pmatrix}
+\begin{pmatrix}
+    z_{1, 1} \\
+    z_{1, 2} \\
+    z_{1, 3} \\
+    z_{2, 1} \\
+    z_{2, 2} \\
+    z_{2, 3}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    n_{y}^{1, 1} \\
+    n_{x}^{1, 1} \\
+    n_{y}^{1, 2} \\
+    n_{x}^{1, 2} \\
+    n_{y}^{1, 3} \\
+    n_{x}^{1, 3} \\
+    n_{x}^{2, 1} \\
+    n_{y}^{2, 1} \\
+    n_{x}^{2, 2} \\
+    n_{y}^{2, 2} \\
+    n_{x}^{2, 3} \\
+    n_{y}^{2, 3}
+\end{pmatrix}
+\]
+
+A modo de ejemplo, tomemos la tercer fila y hagamos el producto:
+
+\begin{center}
+    $-n_{z}^{1, 2} * z_{1,2} + n_{z}^{1, 2} * z_{1, 3} \iff n_{z}^{1, 2} * z_{1, 3} -n_{z}^{1, 2} * z_{1,2}$
+\end{center}
+
+y vemos que se corresponde con nuestro sistema original. Puede verse además que las dimensiones para realizar el producto cuadran perfectamente. Si $n'$ y $m'$ eran el alto y ancho de la imagen original, la nueva matriz tiene $2*n'*m'$ filas y $n'*m'$ columnas.
 
 \subsection{Cholesky}
 \todo[inline]{algo}
