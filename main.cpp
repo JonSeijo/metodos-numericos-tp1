@@ -12,7 +12,7 @@ using std::ifstream;
 
 int main() {
     // Indices de las luces que voy a usar
-   /*
+   
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
@@ -56,7 +56,7 @@ int main() {
             // Haciendo factorizacion LU este problema se soluciona
             Matriz A = S;
             vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
-            normales[f][c] = A.resolverSistema(b);
+            normales[f][c] = A.resolverSistemaGauss(b);
 
             double norma = NormaVectorial(normales[f][c]);
             normales[f][c][0] /= norma;
@@ -65,7 +65,7 @@ int main() {
         }
     }
 
-
+/*
 
     // Escritura de normales
     // for (int i = 0; i < alto; i++) {
@@ -229,7 +229,7 @@ int main() {
     auto rta = A.resolverSistema(b);
     debug(b, "B");
     debug(rta, "X");
-    */
+    
 
     int filas = 5;
     int columnas = 6;
@@ -258,5 +258,13 @@ int main() {
     Matriz A = N.traspuesta().productoM(N);
     std::cout << "MATRIZ COSMICA A: " << std::endl;
     std::cout << A << std::endl;
-
+    */
+    Matriz prueba({
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    });
+    vector<double> v = {1, 1, 1};
+    vector<double> b = prueba.resolverSistemaGauss(v, false);
+    MostrarVector(b);
 }

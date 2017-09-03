@@ -156,7 +156,7 @@ class Matriz {
     // Ax = b, devuelve x dado un b
     // @TODO: Ver cuando hay infinitas soluciones
     // retorna: <solucion>, vacio si no existe solucion
-    vector<double> resolverSistema(vector<double> &b, bool pivoteo = false) {
+    vector<double> resolverSistemaGauss(vector<double> &b, bool pivoteo = false) {
         this->AgregarVectorColumna(b);
         if(pivoteo){
             this->triangularConPivoteo();
@@ -164,27 +164,28 @@ class Matriz {
         else{
             this->triangular();
         }
-
-
         // @DEBUG luego de triangular
         // std::cout << *this << "\n";
-
         if (this->existeAlgunaSolucion()) {
-            // La matriz tiene una columna extra por el b
-            vector<double> x(columnas-1);
-            for (int i = columnas-2; i >= 0; i--) {
-                x[i] = m[i][columnas-1] / m[i][i];
-                for (int k = i-1; k >= 0; k--) {
-                    m[k][columnas-1] -= m[k][i] * x[i];
-                }
-            }
-            return x;
+            return solTriangSup();
         }
 
         return vector<double>();
     }
 
+    //Aplicada para una matriz que ya fue factorizada como LU
+    //Se supone que no modifica la matriz
+    vector<double> resolverSistemaLU(vector<double>& b, bool pivoteo){
+        this->AgregarVectorColumna(b);
+        vector<double> y = this->solTriangInf();
+        this->EliminarVectoresColumna(1);
+        this->AgregarVectorColumna(y);
+        vector<double> x = this->solTriangSup();
+        this->EliminarVectoresColumna(1);
+        return x;
+    }
 
+    
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
             bool filaCero = true;
@@ -372,6 +373,28 @@ class Matriz {
         vector<vector<double> > m;
         int filas, columnas;
         vector<int> permutacion;
+
+        vector<double> solTriangSup(){
+            vector<double> x(columnas-1);
+            for (int i = columnas-2; i >= 0; i--) {
+                x[i] = m[i][columnas-1] / m[i][i];
+                for (int k = i-1; k >= 0; k--) {
+                    m[k][columnas-1] -= m[k][i] * x[i];
+                }
+            }
+            return x;
+        }
+
+        vector<double> solTriangInf(){
+            vector<double> x(columnas-1);
+            for (int i = 0; i <= columnas-2; i--) {
+                x[i] = m[i][columnas-1];
+                for (int k = i+1; k < filas; k++) {
+                    m[k][columnas-1] -= m[k][i] * x[i];
+                }
+            }
+            return x;
+        }
 
         void mostrar(std::ostream& os) const{
             os << std::endl;
