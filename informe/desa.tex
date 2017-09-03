@@ -207,11 +207,12 @@ O equivalentemente
 \]
 \end{center}
 
-Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y veremos como puede generalizarse:
+Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y veremos como puede generalizarse: \\
 
 % \dots \ddots \vdots
 
 \[
+\underbrace{
 \begin{pmatrix}
     % - n_{z}^{1,1}  &  0                      & 0  & n_{z}^{1,1}    & 0 & 0 & 0 & 0 & 0 \\
     % - n_{z}^{1,1}  &  n_{z}^{1,1}  &  0  & 0 & 0  &  0               & 0 & 0 & 0 & \\
@@ -241,17 +242,17 @@ Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y 
     0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}          \\
     0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}         \\
     % 0 & 0 & 0 & 0 & 0 & - n_{z}^{2,3}  &  n_{z}^{2,3} & 0 &  0        \\
-\end{pmatrix}
-\begin{pmatrix}
+\end{pmatrix}}_{\text{\Large{M}}}
+\underbrace{\begin{pmatrix}
     z_{1, 1} \\
     z_{1, 2} \\
     z_{1, 3} \\
     z_{2, 1} \\
     z_{2, 2} \\
     z_{2, 3}
-\end{pmatrix}
+\end{pmatrix}}_{\text{\Large{z}}}
 =
-\begin{pmatrix}
+\underbrace{\begin{pmatrix}
     n_{y}^{1, 1} \\
     n_{x}^{1, 1} \\
     n_{y}^{1, 2} \\
@@ -264,9 +265,10 @@ Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y 
     n_{y}^{2, 2} \\
     n_{x}^{2, 3} \\
     n_{y}^{2, 3}
-\end{pmatrix}
+\end{pmatrix}}_{\text{\Large{v}}}
 \]
 
+\newpage
 A modo de ejemplo, tomemos la tercer fila y hagamos el producto:
 
 \begin{center}
@@ -274,6 +276,26 @@ A modo de ejemplo, tomemos la tercer fila y hagamos el producto:
 \end{center}
 
 y vemos que se corresponde con nuestro sistema original. Puede verse además que las dimensiones para realizar el producto cuadran perfectamente. Si $n'$ y $m'$ eran el alto y ancho de la imagen original, la nueva matriz tiene $2*n'*m'$ filas y $n'*m'$ columnas.
+
+Si bien la matriz esta planteada con unas dimensiones en particular, por su forma es sencillo de generalizar. Dado un cierto píxel $(x, y)$, las dos ecuaciones correspondientes son:
+
+\[
+\begin{pmatrix}
+    0 & \dots & 0 & n_{z} & 0     & \dots &       & n_{z} & \dots  \\
+    0 & \dots & 0 & n_{z} & n_{z} & 0     & \dots & \dots & \dots
+\end{pmatrix}
+\]
+
+Para cada píxel tenemos la primer ecuacion correspondiente a $n_y$, donde los dos $n_z$ están separados a $m'$ de distancia (\textit{ancho de la imagen original}), y en la segunda ecuación se encuentra la correspondiente a $n_x$ donde los dos $n_z$ se encuentran juntos. También puede verse que cada vez que pasamos al siguiente píxel bajando de fila se produce un corrimiento en una columna hacia la derecha. Hay que tener especial cuidado con los bordes de la imagen, porque el producto dará como resultado una ecuación erronea. Para que esto no sea un problema, colocamos ceros en los lugares problemáticos. \\
+
+Queremos entonces resolver el sistema
+
+\begin{center}
+$M z = v$
+\end{center}
+
+
+
 
 \subsection{Cholesky}
 \todo[inline]{algo}
