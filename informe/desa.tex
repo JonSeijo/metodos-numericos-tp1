@@ -329,6 +329,7 @@ En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^
 \]
 
 \todo[inline]{Contar un poco de como construir el caso general}
+\todo[inline]{Ver lo de definida positiva}
 
 Si bien este fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen mas grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
 \begin{center}
@@ -340,13 +341,20 @@ Y dado que un \textit{double} ocupa 8 bytes, el tamaño total de la matriz serí
     $4 556 250 000 * 8 bytes = 36.45 gigabytes$
 \end{center}
 
-Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembros del equipo, decidimos hacer algo mejor.
+Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembros del equipo, decidimos hacer algo mejor. \\
 
+Aprovechándonos de la gran cantidad de ceros en la matriz, implementamos cada fila de la matriz con la estructura \textit{map}. Cada fila de la matriz era del tipo \textit{map$<$int, double$>$} donde el \textit{int} es utilizado para representar el número de columna del elemento, y el \textit{double} es el elemento en cuestión. Los elementos que no se encuentran en el \textit{map} los asumimos como que valen 0. \\
 
-
+Utilizando esta idea redujimos ampliamente el tamaño que nos ocupa la matriz en memoria y solucionamos nuestro problema original, \textbf{pero no es gratis}: el acceso a un elemento de la matriz ya no será en tiempo constante, sino logarítmico en la cantidad de elementos de la fila. Como tenemos \textit{muy pocos} elementos distintos de cero en cada fila, estamos dispuestos a pagar este precio. Sin embargo, cuando accedemos a un elemento en general lo hacemos porque estamos recorriendo la matriz, por lo que para recorrer una fila (anteriormente enorme) accedemos a poquitos elementos, compensando ampliamente. \\
 
 \subsection{Cholesky}
-\todo[inline]{algo}
+
+\todo[inline]{MINGA ES TODO FRUTA NO DEMOSTRE UN CARAJO}
+
+Como nuestra matriz $A$ es simétrica y definida positiva  una gran opción es utilizar la factorización de cholesky para reducir los cálculos, ya que tiene constantes mas baja que la eliminación gaussiana. Ademas, como nuestras matrices ya no son vectores no es \textit{nada} trivial la implementacion de la eliminacion gaussiana para estas nuevas matrices. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien.
+
+\todo[inline]{Continuar}
+
 
 \section{Resultados}
 \todo[inline] {Dar imagenes minimo del resultado final}
@@ -354,11 +362,15 @@ Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembr
 
 \section{Experimentación}
 
-\todo[inline]{PENSAR MAS}
+OBLIGATORIO ES LO SIGUIENTE, POR ENUNCIADO
 
-\todo[inline]{Mostrar como con diferentes luces obtenemos diferentes normales}
+1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
+2. Como afecta la calibracion del sistema en el resto de las etapas \\
+3. ¿Como impacta la eleccion de las 3 direcciones de iluminacion para el calculo de las normales? \\
 
+\todo[inline]{Experimentacion general pensar mas:  }
 \todo[inline]{Diferencias de tiempos EG vs LU, con si y mascara mascara}
-
+\todo[inline]{Mostrar como con diferentes luces obtenemos diferentes normales}
 \todo[inline]{Mostrar resultados finales con mismas luces pero propias vs catedra}
+
 
