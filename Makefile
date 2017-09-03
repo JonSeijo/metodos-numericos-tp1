@@ -1,5 +1,5 @@
 CPP=g++
-FLAGS= -std=c++11
+FLAGS= -std=c++11 -O2
 LIBS = Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp
 
 all: main calibracion testld
