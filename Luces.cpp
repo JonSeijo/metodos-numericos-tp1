@@ -20,7 +20,7 @@ vector<luz> leerLuces(bool catedra=false) {
         for (int i = 0; i < cantLuces; i++) {
             double x, y, z;
             fileLuces >> x >> y >> z;
-            luces[i] = luz({x, y, z});
+            luces[i] = luz({y, x, z});
             // @DEBUG
             // std::cout << "luz: " << i << "     (" << x << ", " << y << ", " << z << ")\n";
         }
