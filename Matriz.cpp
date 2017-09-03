@@ -382,6 +382,30 @@ class Matriz {
 
             for(int i = 0; i < filas; i++){
                 for(int j = 0; j < columnas; j++){
+                    //Arreglar esto, no hacer caso a los comentarios de abajo, pero volver a dejar como estaba, plox
+                    //Lo cambié para testear
+                    /*
+                    if(m[i][j] == 0){ //CAMBIO, SACAR EL "0"
+                        os << "0   " << " ";
+                    }
+                    else if(m[i][j] < 10){ //CAMBIO, SACAR EL "0"
+                        os << "000" << std::setprecision(10) << m[i][j] << " ";
+                    }
+                    else if(m[i][j] < 100){ //CAMBIO, SACAR EL "0"
+                        os << "00" << std::setprecision(100) << m[i][j] << " ";
+                    }
+                    else if(m[i][j] < 1000){ //CAMBIO, SACAR EL "0"
+                        os << "0" << std::setprecision(1000) << m[i][j] << " ";
+                    }
+                    else{ //CAMBIO: SACAR ESTA RAMA
+                        os << std::setprecision(10000) << m[i][j] << " ";
+                    }
+
+                    //CAMBIO: DEVOLVER A 10
+                    //os << std::fixed << std::setprecision(0) << m[i][j] << " ";
+                    */
+                    //COMENTO ESTO POR SI ALGUIEN QUIERE USARLO PARA TESTEAR Y DEJO EL
+                    //CODIGO ORIGINAL
                     os << (m[i][j] >= 0 ? " " : "");
                     os << std::fixed << std::setprecision(10) << m[i][j] << " ";
                 }

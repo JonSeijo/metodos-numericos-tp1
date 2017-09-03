@@ -83,7 +83,7 @@ int main() {
        {55, 225, 979}
     });
     */
-
+/*
     Matriz B({
         {1, 1, 0},
         {2, 3, 4},
@@ -230,4 +230,33 @@ int main() {
     debug(b, "B");
     debug(rta, "X");
     */
+
+    int filas = 5;
+    int columnas = 6;
+    vector<vector<double> > normasZ;
+    int contador = 1;
+    for(int i = 0; i < filas; i++){
+        vector<double> f;
+        for(int j = 1; j <= columnas; j++){
+            if(j != 1){
+                contador++;
+            }
+            f.push_back(contador);
+        }
+        normasZ.push_back(f);
+    }
+    Matriz M(normasZ);
+    M.trasponer();
+    std::cout << "MATRIZ COSMICA M: " << std::endl;
+    std::cout << M << std::endl;
+
+
+    Matriz N = obtenerMatrizEcuaciones(M);
+    std::cout << "MATRIZ COSMICA N: " << std::endl;
+    std::cout << N << std::endl;
+
+    Matriz A = N.traspuesta().productoM(N);
+    std::cout << "MATRIZ COSMICA A: " << std::endl;
+    std::cout << A << std::endl;
+
 }
