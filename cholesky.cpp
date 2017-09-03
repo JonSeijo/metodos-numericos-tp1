@@ -10,12 +10,17 @@ using namespace std;
 
 class Cholesky{
 	public:
-				Matriz L;
+		Matriz L;
 
 		Cholesky(Matriz m){
 			for(int i = 0; i < m.cantFilas(); i++){
 				for(int j = 0; j < m.cantColumnas();j++){
-					if(i == j) m[i][j] = sqrt(m[i][j] - sumatoria1(m, j));
+                    double suma1 = sumatoria1(m, j);
+                    if (m[i][j] - suma1 <= 0) {
+                        cout << "RAIZ CEROATIVA\n";
+                        cout << m[i][j] << "    " << suma1 << "\n";
+                    }
+					if(i == j) m[i][j] = sqrt(m[i][j] - suma1);
 					if(i > j) m[i][j] = (1/m[j][j]) * (m[i][j] - sumatoria2(m,i,j));
 					if(i < j) m[i][j] = 0;
 				}
@@ -23,7 +28,7 @@ class Cholesky{
 			L = m;
 		}
 	private:
-		
+
 		double sumatoria1(Matriz m, int j){
 			double res = 0;
 			for(int k = 0; k < j; k++){
@@ -34,7 +39,7 @@ class Cholesky{
 		double sumatoria2(Matriz m, int i, int j){
 			double res = 0;
 			for(int k = 0; k < j; k++){
-				res += m[i][k] * m[j][k];  
+				res += m[i][k] * m[j][k];
 			}
 		}
 

@@ -430,7 +430,12 @@ class Matriz {
                     //COMENTO ESTO POR SI ALGUIEN QUIERE USARLO PARA TESTEAR Y DEJO EL
                     //CODIGO ORIGINAL
                     os << (m[i][j] >= 0 ? " " : "");
-                    os << std::fixed << std::setprecision(10) << m[i][j] << " ";
+                    // os << std::fixed << std::setprecision(4) << m[i][j] << " ";
+                    if (m[i][j] == 0) {
+                        os << "   ";
+                    } else {
+                        os << std::fixed << std::setprecision(0) << m[i][j] << (m[i][j] > 9 ? " " : "  " );
+                    }
                 }
                 os << std::endl;
             }
@@ -453,9 +458,6 @@ class Matriz {
             c.mostrar(os);
             return os;
         };
-
-
-
 };
 
 #endif
