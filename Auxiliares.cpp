@@ -75,7 +75,7 @@ Matriz obtenerMatrizEcuaciones(Matriz& M){
             //Y AHORA A RELLENAR DE CEROS ASLDKJFALSDJGKALFJN
             //LE SAQUE UN -1 A LO DE FILAS*COLUMNAS Y SE LO SUME AL I + J JEJE, SOLO PARA NO HACER UNA
             //SUMA AL PEDO
-            for(int l = i + j + 2 + M.cantFilas(); l < (M.cantColumnas())*(M.cantFilas()); l++){
+            for(int l = j + i*(M.cantFilas()) + 2 + M.cantFilas(); l < (M.cantColumnas())*(M.cantFilas()); l++){
                 v_fila.push_back(0);
             }
 
@@ -84,7 +84,7 @@ Matriz obtenerMatrizEcuaciones(Matriz& M){
             v_fila2.push_back(M[j][i]); v_fila2.push_back(M[j][i]);
 
             //DE NUEVO LLENO DE CEROS AL TOQUE PERRO
-            for(int l = i + j + 2; l < (M.cantColumnas())*(M.cantFilas()); l++){
+            for(int l = j + i*(M.cantFilas()) + 2; l < (M.cantColumnas())*(M.cantFilas()); l++){
                 v_fila2.push_back(0);
             }
             v.push_back(v_fila);
