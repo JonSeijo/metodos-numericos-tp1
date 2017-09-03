@@ -328,6 +328,22 @@ En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^
 \end{pmatrix}
 \]
 
+\todo[inline]{Contar un poco de como construir el caso general}
+
+Si bien este fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen mas grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
+\begin{center}
+    $(250*270)^2 = 4 556 250 000$
+\end{center}
+
+Y dado que un \textit{double} ocupa 8 bytes, el tamaño total de la matriz sería
+\begin{center}
+    $4 556 250 000 * 8 bytes = 36.45 gigabytes$
+\end{center}
+
+Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembros del equipo, decidimos hacer algo mejor.
+
+
+
 
 \subsection{Cholesky}
 \todo[inline]{algo}
