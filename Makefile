@@ -10,7 +10,7 @@ main: main.cpp MatrizEspecialFunciones.cpp $(LIBS)
 calibracion: CalibrarLuces.cpp Imagen.cpp Auxiliares.cpp
 	$(CPP) $(FLAGS) -o $@ Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
-testlu: TestDependenciaLineal.cpp Matriz.cpp Imagen.cpp
+testlu: TestTieneLU.cpp Matriz.cpp Imagen.cpp
 	$(CPP) $(FLAGS) -o $@ Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
 %.o: %.cpp
@@ -19,3 +19,5 @@ testlu: TestDependenciaLineal.cpp Matriz.cpp Imagen.cpp
 clean:
 	rm -f *.o
 	rm -f main
+	rm -f calibracion
+	rm -f testlu
