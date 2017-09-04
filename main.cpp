@@ -149,11 +149,11 @@ int main() {
     vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
     // cout << "Traspongo M con las dimensiones adecuadas\n";
-    vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho + alto);
+    vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho);
 
     // cout << "Armo la matriz de profundidades A usando formula para no tenes que multiplicar\n";
     vector<map<int, double> > A = armarMatrizProfundidadesPosta(normales);
-    // vector<map<int, double> > Aprim = matrizPorMatriz(MT, M, alto*ancho);
+    // vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho);
 
     // cout << "Encuentro la L de cholesky";
     vector<map<int, double> > L_choles = dameCholesky(A);

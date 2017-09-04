@@ -36,7 +36,7 @@ vector<map<int, double> > armarMatrizProfundidades(vector<vector<vector<double> 
             }
 
             fila2[cont] = -valor;
-            if (c + 1 < m) {
+            if (c + 1 < n*m) {
                 fila2[cont + 1] = valor;
             }
             //  else {
@@ -114,26 +114,40 @@ vector<map<int, double> > armarMatrizProfundidadesPosta(vector<vector<vector<dou
     vector<map<int, double> > matrix(filas*columnas); // [fila][columna]
     int diag = 0;
 
-    for (int f = 0; f < filas-1; f++) {
+    for (int f = 0; f < filas; f++) {
         // cout << "fila: " << f << "\n";
         for (int c = 0; c < columnas; c++) {
 
             double valor = normales[f][c][2] * normales[f][c][2];
 
-            if (c+1 < columnas) {
-                matrix[diag][diag] += valor;
-                matrix[diag][diag+1] += valor;
-                matrix[diag+1][diag] += valor;
-                matrix[diag+1][diag+1] += valor;
+            if (!esta(matrix[diag], diag)) {
+                matrix[diag][diag] = 2*valor;
+            } else {
+                matrix[diag][diag] += 2*valor;
+            }
+
+            if (diag+1 < filas*columnas ) {
+                if (c + 1 < columnas) {
+                    matrix[diag][diag+1] = -valor;
+                    matrix[diag+1][diag] = -valor;
+                    matrix[diag+1][diag+1] = valor;
+                }
             }
 
             // Ojo que puede ser filas/columnas, ver
+            // 99% seguro que son columnas
             int n = columnas;
 
-            matrix[diag][diag] += valor;
-            matrix[diag][diag+n] += valor;
-            matrix[diag+n][diag] += valor;
-            matrix[diag+n][diag+n] += valor;
+            if (diag + n < filas*columnas) {
+                matrix[diag+n][diag] = -valor;
+                matrix[diag][diag+n] = -valor;
+
+                if (!esta(matrix[diag+n], diag+n)) {
+                    matrix[diag+n][diag+n] = valor;
+                } else {
+                    matrix[diag+n][diag+n] += valor;
+                }
+            }
 
             diag++;
         }
