@@ -80,7 +80,7 @@ Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay cero
 \end{pmatrix}
 \]
 
-Nuestros $s_{j}^{i}$ incialmente son todos distintos de cero. Además, tomamos todas las combinaciones posibles de tres luces y vimos que siempre son linealmente independientes, por lo tanto nunca vamos a hallar un cero en la diagonal y no es necesario aplicar permutaciones. Esto cobrará importancia cuando querramos aplicar factorización LU. \\
+Para empezar, nuestros $s_{j}^{i}$ incialmente son todos distintos de cero, asi que nunca habrá un cero en la primer fila. Dado que son solo 12 vectores de luces, tomamos todas las posibles combinaciones de tres luces y corrimos el algoritmo de gauss sin pivoteos. En ningun caso se realizó división por cero ni tampoco apareció ningún cero en la diagonal. (El código de lo realizado puede encontrarse en \textit{TestTieneLU.cpp}). Esto cobrará importancia cuando querramos encontrar factorización LU. \\
 
 Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamos en condiciones de despejar de nuestra matriz de 3 x 4:
 
@@ -176,7 +176,7 @@ Donde $L$ es triangular inferior. Por lo tanto podemos despejar y obtener $y$ si
 
 Obteniendo así el $x$ que queríamos encontrar inicialmente. \\
 
-Por lo explicado en la sección anterior (independencia lineal de las luces) sabemos que podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal. Es decir, podemos terminar el proceso de triangulación sin tener que haccer ninguna permutación de filas. \\
+Por lo expuesto en la sección anterior, experimentalmente comprobamos que en nuestra matriz de luces podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal y sin tener que hacer ninguna permutación de filas. \\
 
 Por lo visto en la clase teórica, si podemos triangular una matriz usando Gauss sin tener que permutar filas, es suficiente para afirmar que la factorización LU existe, entonces con el procedimiento explicado podemos hallar la descomposicion de nuestra matriz de luces y resolver el sistema mas eficientemente. \\
 
@@ -396,7 +396,6 @@ Como nuestra matriz $A$ es simétrica y definida positiva  puede verse que utili
 
 OBLIGATORIO ES LO SIGUIENTE, POR ENUNCIADO
 
-1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
 2. Como afecta la calibracion del sistema en el resto de las etapas \\
 3. ¿Como impacta la eleccion de las 3 direcciones de iluminacion para el calculo de las normales? \\
 
@@ -404,5 +403,8 @@ OBLIGATORIO ES LO SIGUIENTE, POR ENUNCIADO
 \todo[inline]{Diferencias de tiempos EG vs LU, con si y mascara mascara}
 \todo[inline]{Mostrar como con diferentes luces obtenemos diferentes normales}
 \todo[inline]{Mostrar resultados finales con mismas luces pero propias vs catedra}
+
+
+1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
 
 
