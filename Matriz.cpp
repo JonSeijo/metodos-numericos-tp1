@@ -49,10 +49,21 @@ class Matriz {
         m.assign(filas, vector<double>(columnas, 0));
     }
 
+
+    void factorizarLU(bool pivoteo){
+    	if(filas <= 0 || columnas <= 0 || filas != columnas){
+            throw std::runtime_error("No se puede factorizar esta matriz");
+        }
+        if(pivoteo){
+        	this->triangularConPivoteo(true);
+        }
+        else{
+        	this->triangular(true);
+        }
+    }
     // Modifica la matriz actual
     // @TODO: Testear con diferentes tamaños
-    // @TODO: Faltaria que guarde la factorizacion LU
-    void triangular() {
+    void triangular(bool LU){
 		if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
@@ -77,7 +88,11 @@ class Matriz {
             			//Hago el swap en la matriz
             			//Si es factorizacion LU entonces tengo que swappear tambien los coeficientes que
             			//estaban siendo guardados, si fuesen todos 0 podría swappear a partir de la columna k-ésima
-            			for(int columnaEnLaQueEstoy = 0; columnaEnLaQueEstoy < columnas; columnaEnLaQueEstoy++){
+            			int indice = k;
+            			if(LU){
+            				indice = 0;
+            			}
+            			for(int columnaEnLaQueEstoy = indice; columnaEnLaQueEstoy < columnas; columnaEnLaQueEstoy++){
             				double tmpNum = m[k][columnaEnLaQueEstoy];
             				m[k][columnaEnLaQueEstoy] = m[l][columnaEnLaQueEstoy];
             				m[l][columnaEnLaQueEstoy] = tmpNum;
@@ -93,17 +108,58 @@ class Matriz {
             if(!TodoCero){
            		for(int i = k+1; i < filas; i++){
                		double mult = m[i][k] / m[k][k];
+               		
                		// @TODO: Revisar que pasa con el resto de la matriz
                		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
+               		}
+               		if(LU){
+               			m[i][k] = mult;
+               		}
+                }
+            }
+       	}
+    }
+    //LALALALALALALALALALALALALALALALALALALA
+    void triangSinPivoteo(bool LU = false){
+		if(filas <= 0 || columnas <= 0){
+            throw std::runtime_error("No se puede triangular esta matriz");
+        }
+        for (int k = 0; k < filas-1; k++) {
+            bool TodoCero = false;
+            
+            if(!TodoCero){
+           		for(int i = k+1; i < filas; i++){
+               		double mult = m[i][k] / m[k][k];
+               		
+               		// @TODO: Revisar que pasa con el resto de la matriz
+               		for (int j = k; j < columnas; j++){
+                   		m[i][j] -= mult * m[k][j];
+               		}
+               		if(LU){
+               			m[i][k] = mult;
                		}
                 }
             }
        	}
     }
 
+    vector<double> GAUSSLOCO(vector<double> &b, bool pivoteo = false) {
+        this->AgregarVectorColumna(b);
+        this->triangSinPivoteo();
+        // @DEBUG luego de triangular
+        // std::cout << *this << "\n";
+        if (this->existeAlgunaSolucion()) {
+            return solTriangSup();
+        }
 
-    void triangularConPivoteo() {
+        return vector<double>();
+    }
+
+
+    //LALALALALALALALALALALALALALALALALALLALALA
+
+    void triangularConPivoteo(bool LU) {
         if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
@@ -118,7 +174,6 @@ class Matriz {
                 }
             }
             if(pivot != k){
-                //SWAP DE FILAS EN MATRIZ
                 for(int i = k; i < columnas; i++){
                     vector<double> temp = m[pivot];
                     m[pivot] = m[k];
@@ -148,6 +203,9 @@ class Matriz {
                     for (int j = k; j < columnas; j++) {
                         m[i][j] -= mult * m[k][j];
                     }
+                    if(LU){
+               			m[i][k] = mult;
+               		}
                 }
             }
         }
@@ -156,13 +214,13 @@ class Matriz {
     // Ax = b, devuelve x dado un b
     // @TODO: Ver cuando hay infinitas soluciones
     // retorna: <solucion>, vacio si no existe solucion
-    vector<double> resolverSistemaGauss(vector<double> &b, bool pivoteo = false) {
+    vector<double> resolverSistemaGauss(vector<double> &b, bool pivoteo) {
         this->AgregarVectorColumna(b);
         if(pivoteo){
-            this->triangularConPivoteo();
+            this->triangularConPivoteo(false);
         }
         else{
-            this->triangular();
+            this->triangular(false);
         }
         // @DEBUG luego de triangular
         // std::cout << *this << "\n";
@@ -319,7 +377,7 @@ class Matriz {
 
     // Modifica la matriz
     bool sonLD() {
-        this->triangular();
+        this->triangular(false);
         // Si quedo alguna fila con ceros es porque eran LD
         for (int f = 0; f < filas; f++) {
             bool filaCero = true;

@@ -83,7 +83,7 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
             Matriz A = S;
             vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
 
-            vector<double> X = A.resolverSistemaGauss(b);
+            vector<double> X = A.resolverSistemaGauss(b, false);
 
             normales[f][c][0] = X[1];
             normales[f][c][1] = X[0];
@@ -143,8 +143,7 @@ int main() {
     // normales.assign(3, vector<vector<double> > (3, vector<double> (3, 2)));
     // alto = 3;
     // ancho = 3;
-
-
+/*
     // cout << "Armo la matriz de profundidades M usando las normales\n";
     vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
@@ -183,5 +182,17 @@ int main() {
         }
         cout << "\n";
     }
+    */
+    std::cout << "\n\nESTO ANDA, SOLO HAY QUE AUMENTAR LA PRECISION EN EL COUT PORQUE APARECEN FRACCIONES\n\n";
+
+    Matriz tengoLU({
+        {6, -2, 2, 4},
+        {12, -8, 6, 10},
+        {3, -13, 9, 3},
+        {-6, 4, 1, -18}
+    });
+    std::cout << "Matriz Original: \n\n" << tengoLU << "\n\n";
+    tengoLU.triangular(true);
+    std::cout << "Matriz Factorizada: \n\n" << tengoLU << "\n\n";
 
 }
