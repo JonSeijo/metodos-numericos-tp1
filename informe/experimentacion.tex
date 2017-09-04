@@ -39,30 +39,48 @@ En los gráficos que se encuentran a continuación, para cada píxel se grafica 
 
 $ $\newline
 
-En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. \\
-
-Para nuestro primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Los resultados fueron bastante buenos. \\
+En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
 
 Las diferencias mas notorias se encuentran en el ojo y en la oreja del caballo. Creemos que tiene que ver porque son las áreas con más detalle pero menor iluminación. Sin embargo, no creemos que sea una diferencia demasiado significativa.
 
-{\centering
-    \includegraphics[scale=0.8]{informe/imagenes/normales/normalesCaballoLucesCatedra145.pdf} \\
-}
-{\centering
-    \includegraphics[scale=0.8]{informe/imagenes/normales/normalesCaballoLucesPropias145.pdf} \\
-}
+% {\centering
+%     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesPropias145.pdf} \\
+%     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesCatedra145.pdf}
+% }
 
-\newpage
-Veamos que pasa si no tomamos la luz número $1$, que era la mejor que teníamos y en su lugar tomamos otra de las 'malas'. En este caso, consideraremos las luces $4,5$ y $6$. Tanto las de la cátedra como las propias son demasiado oscuras, sin embargo la nuestra lo es mucho más. Los rasgos faciales dejaron de apreciarse. \\
 
-{\centering
-    \includegraphics[scale=0.8]{informe/imagenes/normales/normalesCaballoLucesCatedra456.pdf} \\
-}
-{\centering
-    \includegraphics[scale=0.8]{informe/imagenes/normales/normalesCaballoLucesPropias456.pdf} \\
-}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+    \centering
+        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesCatedra145.pdf}
+    \captionof{figure}{Nomales con luces catedra: 1, 4, 5}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \centering
+        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesPropias145.pdf} \\
+    \captionof{figure}{Normales con luces propias: 1, 4, 5}
+\end{minipage}
+\end{figure}
 
-\newpage
+Aprovecharemos las siguientes imágenes podremos observar dos cosas. La primera es ver un poco más sobre las diferencias entre las luces de la cátedra y las calculadas por nosotros, y lo segundo es como cambian las normales cuando se toma un set de luces diferentes. \\
 
-Se pide por enunciado. \\
-3. ¿Como impacta la eleccion de las 3 direcciones de iluminacion para el calculo de las normales? \\
+En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníamos y en su lugar tomamos otra de las 'malas'. En este caso, consideraremos las luces $4, 5$ y $6$. Podemos observar que tanto las de la cátedra como las propias son demasiado oscuras, sin embargo la nuestra lo es mucho más. Los rasgos faciales dejaron de apreciarse. \\
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+    \centering
+        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesCatedra456.pdf}
+    \captionof{figure}{Nomales con luces catedra: 4, 5, 6}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+    \centering
+        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesPropias456.pdf} \\
+    \captionof{figure}{Normales con luces propias: 4, 5, 6}
+\end{minipage}
+\end{figure}
+
+Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero si hay bastante diferencia entre los rangos mas finos.
+
+\todo[inline]{Continuar}
