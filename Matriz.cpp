@@ -3,6 +3,7 @@
 
 #include <bits/stdc++.h>
 
+
 using std::string;
 using std::vector;
 using std::ifstream;
@@ -70,6 +71,7 @@ class Matriz {
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
             if (fabs(m[k][k]) < EPSILON) {
+            	std::cout << "hola";
             	//Tengo un 0 en la diagonal
             	//Busco primero si puedo hacer una permutacion
             	for(int l = k+1; l < filas; l++){
@@ -233,16 +235,35 @@ class Matriz {
 
     //Aplicada para una matriz que ya fue factorizada como LU
     //Se supone que no modifica la matriz
-    vector<double> resolverSistemaLU(vector<double>& b, bool pivoteo){
+    //Si tiene permutaciones, que sea cuadrada plox
+    vector<double> resolverSistemaLU(vector<double>& b){
+        //INFORME: Si está peromutada, entonces permuto el b y ya está
+        // PLUx = b
+        // PPLUx = Pb
+        // LUx = Pb
+        // LUx = b'
+        
+        if(this->permutacion.size() > 0){
+        	if(filas <= 0 || columnas <= 0 || filas != columnas){
+            	throw std::runtime_error("Casos no contemplados");
+        	}
+			//Funcion de ordenamiento mala, muy mala
+			for(int i = 1; i < permutacion.size(); i++){
+
+			}
+        }
+        
         this->AgregarVectorColumna(b);
+        
         vector<double> y = this->solTriangInf();
+        
         this->EliminarVectoresColumna(1);
         this->AgregarVectorColumna(y);
         vector<double> x = this->solTriangSup();
         this->EliminarVectoresColumna(1);
+        
         return x;
     }
-
     
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
@@ -445,7 +466,7 @@ class Matriz {
 
         vector<double> solTriangInf(){
             vector<double> x(columnas-1);
-            for (int i = 0; i <= columnas-2; i--) {
+            for (int i = 0; i <= columnas-2; i++) {
                 x[i] = m[i][columnas-1];
                 for (int k = i+1; k < filas; k++) {
                     m[k][columnas-1] -= m[k][i] * x[i];
@@ -492,7 +513,7 @@ class Matriz {
                     if (m[i][j] == 0) {
                         os << "   ";
                     } else {
-                        os << std::fixed << std::setprecision(0) << m[i][j] << (m[i][j] > 9 ? " " : "  " );
+                        os << std::fixed << std::setprecision(4) << m[i][j] << (m[i][j] > 9 ? " " : "  " );
                     }
                 }
                 os << std::endl;

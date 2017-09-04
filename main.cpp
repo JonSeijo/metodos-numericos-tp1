@@ -103,6 +103,7 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
 
 int main() {
     // Indices de las luces que voy a usar
+    /*
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
@@ -183,16 +184,19 @@ int main() {
         cout << "\n";
     }
     */
-    std::cout << "\n\nESTO ANDA, SOLO HAY QUE AUMENTAR LA PRECISION EN EL COUT PORQUE APARECEN FRACCIONES\n\n";
+    vector<vector<double> > v = {{6, -2, 2, 4}, {12, -8, 6, 10},{3, -13, 9, 3} , {-6, 4, 1, -18}};
+    Matriz tengoLU(v);
+    tengoLU.factorizarLU(false);
+  
+    std::cout << tengoLU << std::endl;
+    
+    vector<double> b = {0, 0, 0, 0};
+    vector<double> n = tengoLU.resolverSistemaLU(b);
+    MostrarVector(n);
 
-    Matriz tengoLU({
-        {6, -2, 2, 4},
-        {12, -8, 6, 10},
-        {3, -13, 9, 3},
-        {-6, 4, 1, -18}
-    });
-    std::cout << "Matriz Original: \n\n" << tengoLU << "\n\n";
-    tengoLU.triangular(true);
-    std::cout << "Matriz Factorizada: \n\n" << tengoLU << "\n\n";
 
 }
+
+
+
+
