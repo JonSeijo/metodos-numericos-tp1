@@ -83,7 +83,8 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
             Matriz A = S;
             vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
 
-            vector<double> X = A.resolverSistemaGauss(b, false);
+            // vector<double> X = A.resolverSistemaGauss(b, false);
+            vector<double> X = A.resolverSistemaGauss(b, true);
 
             normales[f][c][0] = X[1];
             normales[f][c][1] = X[0];
@@ -103,7 +104,7 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
 
 int main() {
     // Indices de las luces que voy a usar
-    /*
+
     vector<int> indexes = {0, 1, 2};
 
     // Leo el archivo de luces
@@ -144,7 +145,7 @@ int main() {
     // normales.assign(3, vector<vector<double> > (3, vector<double> (3, 2)));
     // alto = 3;
     // ancho = 3;
-/*
+
     // cout << "Armo la matriz de profundidades M usando las normales\n";
     vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
@@ -177,23 +178,25 @@ int main() {
     vector<vector<double> > zetas = recuperarZetas(Z, alto, ancho);
 
     // Escritura de zetas
+    cout << alto << " " << ancho << "\n";
     for (int i = 0; i < alto; i++) {
         for (int j = 0; j < ancho; j++) {
             cout << fixed << zetas[i][j] << (j + 1 == ancho ? "" : ",");
         }
         cout << "\n";
     }
-    */
+
+    /*
     vector<vector<double> > v = {{6, -2, 2, 4}, {12, -8, 6, 10},{3, -13, 9, 3} , {-6, 4, 1, -18}};
     Matriz tengoLU(v);
     tengoLU.factorizarLU(false);
-  
+
     std::cout << tengoLU << std::endl;
-    
+
     vector<double> b = {0, 0, 0, 0};
     vector<double> n = tengoLU.resolverSistemaLU(b);
     MostrarVector(n);
-
+*/
 
 }
 
