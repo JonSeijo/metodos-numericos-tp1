@@ -241,21 +241,15 @@ class Matriz {
         // PPLUx = Pb
         // LUx = Pb
         // LUx = b'
-        
         if(this->permutacion.size() > 0){
         	if(filas <= 0 || columnas <= 0 || filas != columnas){
             	throw std::runtime_error("Casos no contemplados");
         	}
 			//Funcion de ordenamiento mala, muy mala
-			for(int i = 1; i < permutacion.size(); i++){
-
-			}
+			MergeSortLoco(this->permutacion, b);
         }
-        
         this->AgregarVectorColumna(b);
-        
         vector<double> y = this->solTriangInf();
-        
         this->EliminarVectoresColumna(1);
         this->AgregarVectorColumna(y);
         vector<double> x = this->solTriangSup();
@@ -263,6 +257,67 @@ class Matriz {
         
         return x;
     }
+    //Pre perm y b tienen el mismo tamaño
+    void MergeSortLoco(vector<int>& perm, vector<double>& b){
+    	for(int actual = 1; actual < perm.size(); actual = 2*actual){
+    		for(int inicio = 0; inicio < perm.size() - 1; inicio += 2*actual){
+    			int medio = inicio + actual - 1;
+    			int fin = minimo(inicio + 2*actual - 1, perm.size() -1);
+    			Merge(perm, b, inicio, medio, fin);
+    		}
+    	}
+    }
+
+    int minimo(int a, int b){return (a<b) ? a : b;}
+
+    void Merge(vector<int>& perm, vector<double>& b, int inicio, int medio, int fin){
+    	int tam1 = medio - inicio + 1;
+    	int tam2 = fin - medio;
+    	vector<int> izq(tam1);
+    	vector<double> izqD(tam1);
+    	vector<int> der(tam2);
+    	vector<double> derD(tam2);
+
+    	for(int i = 0; i < tam1; i++){
+    		izq[i] = perm[inicio + i];
+    		izqD[i] = b[inicio + i];
+    	}
+
+    	for(int j = 0; j < tam2; j++){
+    		der[j] = perm[1 + medio + j];
+    		derD[j] = b[1 + medio + j];
+    	}
+
+    	int a = 0; int c = 0; int k = inicio;
+    	while(a < tam1 && c < tam2){
+    		if(izq[a] <= der[c]){
+    			perm[k] = izq[a];
+    			b[k] = izqD[a];
+    			a++;
+    		}
+    		else{
+    			perm[k] = der[c];
+    			b[k] = derD[c];
+    			c++;
+    		}
+    		k++;
+    	}
+
+    	while(a < tam1){
+    		perm[k] = izq[a];
+    		b[k] = izqD[a];
+    		a++;
+    		k++;
+    	}
+    	while(c < tam2){
+    		perm[k] = der[c];
+    		b[k] = derD[c];
+    		c++;
+    		k++;
+    	}
+    }
+
+
     
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
@@ -507,6 +562,7 @@ class Matriz {
                     */
                     //COMENTO ESTO POR SI ALGUIEN QUIERE USARLO PARA TESTEAR Y DEJO EL
                     //CODIGO ORIGINAL
+                    
                     os << (m[i][j] >= 0 ? " " : "");
                     // os << std::fixed << std::setprecision(4) << m[i][j] << " ";
                     if (m[i][j] == 0) {
