@@ -145,7 +145,7 @@ int main() {
     // normales.assign(3, vector<vector<double> > (3, vector<double> (3, 2)));
     // alto = 3;
     // ancho = 3;
-
+/*
     // cout << "Armo la matriz de profundidades M usando las normales\n";
     vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
@@ -186,18 +186,26 @@ int main() {
         cout << "\n";
     }
 
-    /*
-    vector<vector<double> > v = {{6, -2, 2, 4}, {12, -8, 6, 10},{3, -13, 9, 3} , {-6, 4, 1, -18}};
-    Matriz tengoLU(v);
-    tengoLU.factorizarLU(false);
-
-    std::cout << tengoLU << std::endl;
-
-    vector<double> b = {0, 0, 0, 0};
-    vector<double> n = tengoLU.resolverSistemaLU(b);
-    MostrarVector(n);
 */
 
+
+
+
+
+
+
+
+
+
+    Matriz prueba({{1, 1, 1}, {1, 1, 2}, {1, 2, 1}});
+    std::cout << prueba << std::endl;
+    prueba.factorizarLU(false);
+    std::cout << prueba << std::endl;
+
+    std::cout << "ResolverSistema: " << std::endl;
+    vector<double> b = {2, 3, 4};
+    vector<double> x = prueba.resolverSistemaLU(b);
+    MostrarVector(x);
 }
 
 
