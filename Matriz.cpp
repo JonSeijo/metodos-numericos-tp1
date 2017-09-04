@@ -71,7 +71,6 @@ class Matriz {
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
             if (fabs(m[k][k]) < EPSILON) {
-            	std::cout << "hola";
             	//Tengo un 0 en la diagonal
             	//Busco primero si puedo hacer una permutacion
             	for(int l = k+1; l < filas; l++){
