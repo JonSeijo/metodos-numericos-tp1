@@ -10,7 +10,7 @@ int main() {
     bool luces_catedra = false;
     vector<luz> luces = leerLuces(luces_catedra);
 
-    bool sonld = false;
+    bool tienenLU = true;
 
     // Pruebo todas las combinaciones posibles de luces y veo si alguna combinacion es LD
     for (int l1 = 0; l1 < 12; l1++) {
@@ -22,9 +22,9 @@ int main() {
                     luces[l3]
                 });
 
-                if (matrizLuces.sonLD()) {
-                    sonld = true;
-                    cout << "\n\n\nLas luces: " << l1 << " " << l2 << " " << l3 << "  son LD!!\n";
+                if (!matrizLuces.tieneLU()) {
+                    tienenLU = false;
+                    cout << "\n\n\nLas luces: " << l1 << " " << l2 << " " << l3 << " NO tienen LU!!\n";
 
                     debug(luces[l1], "l1");
                     debug(luces[l2], "l2");
@@ -34,8 +34,8 @@ int main() {
         }
     }
 
-    if (!sonld) {
-        cout << "Ninguna combinacion de luces es LD! :D\n";
+    if (tienenLU) {
+        cout << "Toda posible combinacion tiene LU! :D\n";
     }
 
 }

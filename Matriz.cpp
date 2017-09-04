@@ -109,7 +109,7 @@ class Matriz {
             if(!TodoCero){
            		for(int i = k+1; i < filas; i++){
                		double mult = m[i][k] / m[k][k];
-               		
+
                		// @TODO: Revisar que pasa con el resto de la matriz
                		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
@@ -128,11 +128,15 @@ class Matriz {
         }
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
-            
+
             if(!TodoCero){
-           		for(int i = k+1; i < filas; i++){
-               		double mult = m[i][k] / m[k][k];
-               		
+                for(int i = k+1; i < filas; i++){
+                    double mult = m[i][k] / m[k][k];
+
+                    if (fabs(mult) < EPSILON) {
+                        throw std::runtime_error("TriangSinPivoteo, DIVISION POR CERO");
+                    }
+
                		// @TODO: Revisar que pasa con el resto de la matriz
                		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
@@ -196,7 +200,7 @@ class Matriz {
                     TodoCero = true;
                 }
             }
-            
+
             if(!TodoCero){
                 //GAUSS
                 for(int i = k+1; i < filas; i++) {
@@ -241,7 +245,7 @@ class Matriz {
         // PPLUx = Pb
         // LUx = Pb
         // LUx = b'
-        
+
         if(this->permutacion.size() > 0){
         	if(filas <= 0 || columnas <= 0 || filas != columnas){
             	throw std::runtime_error("Casos no contemplados");
@@ -251,19 +255,19 @@ class Matriz {
 
 			}
         }
-        
+
         this->AgregarVectorColumna(b);
-        
+
         vector<double> y = this->solTriangInf();
-        
+
         this->EliminarVectoresColumna(1);
         this->AgregarVectorColumna(y);
         vector<double> x = this->solTriangSup();
         this->EliminarVectoresColumna(1);
-        
+
         return x;
     }
-    
+
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
             bool filaCero = true;
@@ -396,22 +400,27 @@ class Matriz {
     }
 
     // Modifica la matriz
-    bool sonLD() {
-        this->triangular(false);
-        // Si quedo alguna fila con ceros es porque eran LD
+    bool tieneLU() {
+        try {
+            this->triangSinPivoteo();
+        } catch (const std::runtime_error& error) {
+            cout << "Error en triangSinPivoteo, posible division por cero\n";
+            return false;
+        }
+        // Si quedo alguna fila con ceros es porque no tiene LU
         for (int f = 0; f < filas; f++) {
-            bool filaCero = true;
+            bool conFilaCero = true;
             for (int c = 0; c < columnas; c++) {
                 if (fabs(m[f][c] - 0) > EPSILON) {
-                    filaCero = false;
+                    conFilaCero = false;
                 }
             }
-            if (filaCero) {
-                return true;
+            if (conFilaCero) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     bool operator==(const Matriz B){

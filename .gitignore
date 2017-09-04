@@ -5,6 +5,7 @@
 *.pdf
 
 # Ejecutable
+testlu
 testld
 calibracion
 main
