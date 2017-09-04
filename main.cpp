@@ -71,6 +71,10 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
                 normales[f][c][1] /= norma;
                 normales[f][c][2] /= norma;
 
+                normales[f][c][0] = 0;
+                normales[f][c][1] = 0;
+                normales[f][c][2] = 1;
+
                 continue;
             }
 
@@ -105,10 +109,10 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
 int main() {
     // Indices de las luces que voy a usar
 
-    vector<int> indexes = {0, 1, 2};
+    vector<int> indexes = {1,4,5};
 
     // Leo el archivo de luces
-    bool luces_catedra = false;
+    bool luces_catedra = true;
     vector<luz> luces = leerLuces(luces_catedra);
 
     // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
@@ -119,11 +123,11 @@ int main() {
     });
 
     // 512 x 340 px
-    bool testPath = true;
-    Imagen foto1(getFotoPath("caballo_small", indexes[0], testPath));
-    Imagen foto2(getFotoPath("caballo_small", indexes[1], testPath));
-    Imagen foto3(getFotoPath("caballo_small", indexes[2], testPath));
-    Imagen mascara(getFotoPath("caballo_small", "mask", testPath));
+    bool testPath = false;
+    Imagen foto1(getFotoPath("caballo", indexes[0], testPath));
+    Imagen foto2(getFotoPath("caballo", indexes[1], testPath));
+    Imagen foto3(getFotoPath("caballo", indexes[2], testPath));
+    Imagen mascara(getFotoPath("caballo", "mask", testPath));
 
     ancho = foto1.ancho;
     alto = foto1.alto;
@@ -141,50 +145,61 @@ int main() {
     alto = normales.size();
     ancho = normales[0].size();
 
+    for (int f = 0; f < alto; f++) {
+        for (int c = 0; c < ancho; c++) {
+            cout << normales[f][c][0] << (c+1<ancho ? "," : "\n");
+        }
+    }
+
     // DEBUG, QUITAR ESTO
     // normales.assign(3, vector<vector<double> > (3, vector<double> (3, 2)));
     // alto = 3;
     // ancho = 3;
+
 /*
     // cout << "Armo la matriz de profundidades M usando las normales\n";
     vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
-    // cout << "Traspongo M con las dimensiones adecuadas\n";
-    vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho);
+    // // cout << "Armo la matriz de profundidades M usando las normales\n";
+    // vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
-    // cout << "Armo la matriz de profundidades A usando formula para no tenes que multiplicar\n";
-    vector<map<int, double> > A = armarMatrizProfundidadesPosta(normales);
-    // vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho);
 
-    // cout << "Encuentro la L de cholesky";
-    vector<map<int, double> > L_choles = dameCholesky(A);
+    // // cout << "Traspongo M con las dimensiones adecuadas\n";
+    // vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho);
 
-    // cout << "Traspongo la L de cholesky";
-    vector<map<int, double> > L_choles_T = traspuestaEspecial(L_choles, L_choles.size());
+    // // cout << "Armo la matriz de profundidades A usando formula para no tenes que multiplicar\n";
+    // vector<map<int, double> > A = armarMatrizProfundidadesPosta(normales);
+    // // vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho);
 
-    // Creo vector de normales a la derecha de la igualdad
-    vector<double> v = vectorNormalesXY(normales);
+    // // cout << "Encuentro la L de cholesky";
+    // vector<map<int, double> > L_choles = dameCholesky(A);
 
-    // cout << "b = Mt * v\n";
-    vector<double> b = matrizPorVector(MT, v);
+    // // cout << "Traspongo la L de cholesky";
+    // vector<map<int, double> > L_choles_T = traspuestaEspecial(L_choles, L_choles.size());
 
-    // cout << "Resuelvo para L de la izquierda\n";
-    vector<double> y = resolverInferior(L_choles, b);
+    // // Creo vector de normales a la derecha de la igualdad
+    // vector<double> v = vectorNormalesXY(normales);
 
-    // cout << "Resuelvo para Lt con el resultado anterior\n";
-    vector<double> Z = resolverSuperior(L_choles_T, y);
+    // // cout << "b = Mt * v\n";
+    // vector<double> b = matrizPorVector(MT, v);
 
-    // cout << "Guardo mi vector de zetas como una matriz\n";
-    vector<vector<double> > zetas = recuperarZetas(Z, alto, ancho);
+    // // cout << "Resuelvo para L de la izquierda\n";
+    // vector<double> y = resolverInferior(L_choles, b);
 
-    // Escritura de zetas
-    cout << alto << " " << ancho << "\n";
-    for (int i = 0; i < alto; i++) {
-        for (int j = 0; j < ancho; j++) {
-            cout << fixed << zetas[i][j] << (j + 1 == ancho ? "" : ",");
-        }
-        cout << "\n";
-    }
+    // // cout << "Resuelvo para Lt con el resultado anterior\n";
+    // vector<double> Z = resolverSuperior(L_choles_T, y);
+
+    // // cout << "Guardo mi vector de zetas como una matriz\n";
+    // vector<vector<double> > zetas = recuperarZetas(Z, alto, ancho);
+
+    // // Escritura de zetas
+    // cout << alto << " " << ancho << "\n";
+    // for (int i = 0; i < alto; i++) {
+    //     for (int j = 0; j < ancho; j++) {
+    //         cout << fixed << zetas[i][j] << (j + 1 == ancho ? "" : ",");
+    //     }
+    //     cout << "\n";
+    // }
 
 */
 
