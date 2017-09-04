@@ -131,7 +131,7 @@ int main() {
         luz_z /= NormaVectorial(luz_raw);
 
         // {fila, columna, zeta}
-        luces[i] = {luz_y, luz_x, luz_z};
+        luces[i] = {luz_x, luz_y, luz_z};
     }
 
     cout << 12 << "\n";

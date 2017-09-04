@@ -1,6 +1,7 @@
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import matplotlib.pyplot as plt
-fig, ax = plt.subplots(subplot_kw={'projection': '3d'})
+import pandas as pd
+
 
 luces_catedra = [
     [0.403259,0.480808,0.778592],
@@ -17,8 +18,6 @@ luces_catedra = [
     [-0.16119,0.354617,0.921013]
 ]
 
-
-
 luces_propias = [
     [0.4046511628,0.4418604651,0.8006352264],
     [0.0604651163,0.1906976744,0.9797848573],
@@ -34,13 +33,37 @@ luces_propias = [
     [0.3023255814,-0.0511627907,0.9518306633]
 ]
 
+diff_zetas = [abs(luces_propias[i][2] - luces_catedra[i][2]) for i in range(12)]
+maxdiffz = max(diff_zetas)
+
+# for i in range(12):
+#     print("Luz " + str(i) + (":  " if (i < 10) else ": "), diff_zetas[i])
+
+data = pd.DataFrame(diff_zetas)
+print(data)
+
+
+
+fig, ax = plt.subplots()
 for i in range(len(luces_propias)):
-    ax.plot([0, luces_propias[i][1]], [0, luces_propias[i][0]],zs=[0, luces_propias[i][2]])
+    # ax.plot([0, luces_propias[i][1]], [0, luces_propias[i][0]],zs=[0, luces_propias[i][2]])
+    ax.plot([0, luces_propias[i][1]], [0, luces_propias[i][0]])
+    # ax.plot([0, luces_catedra[i][0]], [0, luces_catedra[i][1]])
 
 # for i in range(len(luces_catedra)):
 #     ax.plot([0, luces_catedra[i][0]], [0, luces_catedra[i][1]],zs=[0, luces_catedra[i][2]])
-
-
-
-
 plt.show()
+
+# plotter_ax = data.plot(style='.-', ylim=(0,1), xticks=list(range(12)))
+# maximoz = pd.DataFrame([maxdiffz for _ in range(12)])
+# maximoz.plot(ax=plotter_ax)
+# plotter_ax.legend(["Diferencias", "Máxima diff"])
+
+# plotter_ax.set_title("Diferencia entre luces propias y de la cátedra, eje Z")
+
+# plt.annotate('%0.2f' % maxdiffz, xy=(1, maxdiffz), xytext=(8, 0),
+#                  xycoords=('axes fraction', 'data'), textcoords='offset points')
+
+# plotter_ax.set_xlabel("Luz", size = 14)
+# plotter_ax.set_ylabel("Diferencia en eje Z", size = 14)
+# plt.show()
