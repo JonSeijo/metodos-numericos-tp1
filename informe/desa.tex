@@ -41,7 +41,7 @@ Tenemos un sistema listo para resolver, dónde sólo los $m_i$ son incógnitas:
 \end{pmatrix}
 \]
 
-La pregunta ahora es ¿cómo lo resolvemos?. Dado que en principio no sabemos cómo, nos gustaría llevarlo a una forma equivalente que sea mas fácil de resolver. Podemos hacer esta conversión a un sistema equivalente usando el algortimo de eliminación de Gauss. Lo que hace este algortimo es llevar una matriz a su forma triangular superior, de dónde luego es muy sencillo hacer los despejes finales. \\
+La pregunta ahora es ¿cómo lo resolvemos?. Dado que en principio no sabemos cómo, nos gustaría llevarlo a una forma equivalente que sea mas fácil de resolver. Podemos hacer esta conversión a un sistema equivalente usando el algoritmo de eliminación de Gauss. Lo que hace este algoritmo es llevar una matriz a su forma triangular superior, de dónde luego es muy sencillo hacer los despejes finales. \\
 
 El pseudocódigo del algoritmo de Gauss es el siguiente:
 
@@ -308,28 +308,26 @@ La matriz $A$ no es cualquier cosa, sino que tiene una forma particular. En prim
 
 En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^{a,b}$ para no confundir con el exponente que está potenciando al elemento. Veamos como es la forma de $A$, obtenida simplemente haciendo la cuenta $M^t M$
 
-\todo[inline]{Hacer bien la cuenta y completar. Ojo con los signos porque la matriz M ahora tiene signos menos.}
-\todo[inline]{Luego de hacer la cuenta modificar en el maincpp porque puede que tenga errores el 'matrizProfundidadesPosta'. Especial atencion a los saltos donde hay ceros}
 
+\setul{5pt}{2pt}
 \[
 \begin{pmatrix}
-    2 n_{1,1}^{2}&  n_{1,1}^{2}   &  0        & n_{1,1}^{2}   & 0         & 0            \\[10pt]
+    \text{\setulcolor{blue} \ul{$2 n_{1,1}^{2}$}}  &  \text{\setulcolor{blue} \ul{$ -n_{1,1}^{2} $}}   &  0        & \text{\setulcolor{blue} \ul{$-n_{1,1}^{2} $}}   & 0         & 0            \\[10pt]
 
-    n_{1,1}^{2}&  n_{1,1}^{2} +  2 n_{1,2}^{2}   &  n_{1,2}^{2}        & 0     & n_{1,2}^{2}         & 0            \\[10pt]
+    \text{\setulcolor{blue} \ul{$-n_{1,1}^{2}$}} &  \text{\setulcolor{blue} \ul{$n_{1,1}^{2}$}} +                                \text{\setulcolor{red} \ul{$2 n_{1,2}^{2}$}}   &  \text{\setulcolor{red} \ul{$-n_{1,2}^{2}$}}        & 0     & \text{\setulcolor{red} \ul{$-n_{1,2}^{2}$}}         & 0            \\[10pt]
 
-    0          &  n_{1,2}^{2}  &  n_{1,2}^{2} + 2n_{1,3}^{2} & n_{1,3}^{2}   & 0  & n_{1,3}^{2}            \\[10pt]
+    0          &  \text{\setulcolor{red} \ul{$-n_{1,2}^{2}$}}  &  \text{\setulcolor{red} \ul{$n_{1,2}^{2}$}} + 2 n_{1,3}^{2} &   0   & 0  & -n_{1,3}^{2}            \\[10pt]
 
-    n_{1,1}^{2}&  0            &  n_{1,3}^{2} & COMPLETARRRRR & 0         & 0            \\[10pt]
+    \text{\setulcolor{blue} \ul{$-n_{1,1}^{2}$}} &  0            &  0           & \text{\setulcolor{blue} \ul{$n_{1,1}^{2}$}} + 2 n_{2,1}^{2} & -n_{2,1}^{2}    & 0            \\[10pt]
 
-    0          &   n_{1,2}^{2} & 0           & 0         & COMPLETARRRRR           & 0  \\[10pt]
+    0          &   \text{\setulcolor{red} \ul{$-n_{1,2}^{2}$}} & 0           & -n_{2,1}^{2}                & \text{\setulcolor{red} \ul{$n_{1,2}^{2}$}} + n_{2,1}^{2} + 2 n_{2,2}^{2}    &      -n_{2,2}^{2}  \\[10pt]
 
-    0          &              0&  n_{1,3}^{2} & 0         & 0         &   n_{1,3}^{2}           \\[10pt]
+    0          &              0&  -n_{1,3}^{2} & 0                          & - n_{2,2}^{2} & n_{1,3}^{2} + n_{2,2}^{2} + 2 n_{2,3}^{2}             \\[10pt]
 
 \end{pmatrix}
 \]
 
-\todo[inline]{Contar un poco de como construir el caso general}
-\todo[inline]{Ver lo de definida positiva}
+Es fácil darse cuenta del patrón. Vamos tomando $p$ el pixel actual, pensando en los píxeles ordenados ($(1,1), (1,2), (1,3), .. $) Colocamos $2p^2$ en la diagonal. Colocamos $-p^2$ una celda a la derecha, $m'$ celdas a la derecha, una celda abajo, $m'$ celdas abajo. Sumamos $p^2$ una celda siguiente sobre la diagonal y en la celda $m'$ siguiente sobre la diagonal. El único cuidado es cuando llegamos al borde de la imagen, de no colocar ese píxel en el borde inmediato.
 
 Si bien este fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen mas grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
 \begin{center}
@@ -349,9 +347,43 @@ Utilizando esta idea redujimos ampliamente el tamaño que nos ocupa la matriz en
 
 \subsection{Cholesky}
 
-\todo[inline]{MINGA ES TODO FRUTA NO DEMOSTRE UN CARAJO}
+Dada una matriz $M$ cualquiera, la factorización de Cholesky consiste en encontrar una matriz triangular inferior $L$ (no necesariamente todos unos en la diagonal) de forma tal que:
+\begin{center}
+$M = L L^t$
+\end{center}
 
-Como nuestra matriz $A$ es simétrica y definida positiva  una gran opción es utilizar la factorización de cholesky para reducir los cálculos, ya que tiene constantes mas baja que la eliminación gaussiana. Ademas, como nuestras matrices ya no son vectores no es \textit{nada} trivial la implementacion de la eliminacion gaussiana para estas nuevas matrices. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien.
+Es importante aclarar que \textbf{no toda matriz tiene descomposición de Cholesky}.
+La ventaja que esto es que si tenemos que resolver un sistema podemos aprovechar que conocemos una descomposición para resolver el sistema sin necesidad de triangular, aprovechando que $L$ es triangular inferior y $L^t$ es triangular superior.
+
+\begin{center}
+\[
+M x = b \iff L \underbrace{L^t x}_{\text{y}} = b \iff
+\begin{dcases}
+    L y = b \\
+    L^t x = y
+\end{dcases}
+\]
+\end{center}
+
+A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la $L$ basandose en realizar operaciones sobre los elementos de la matriz original.
+
+\todo[inline]{Si hay tiempo incluir un pseudo simple de como funciona cholesky}
+
+\todo[inline]{Idea para la demo, no hablar de simetrica positiva sino de que plantear que la cholesky existe .. }
+
+
+
+
+
+
+
+
+
+
+
+\todo[inline]{MINGA ES TODO FRUTA NO DEMOSTRE UN CARAJO}
+Como nuestra matriz $A$ es simétrica y definida positiva  puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes mas baja que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
+
 
 \todo[inline]{Continuar}
 
