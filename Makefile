@@ -2,7 +2,7 @@ CPP=g++
 FLAGS= -std=c++11 -O2
 LIBS = Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp
 
-all: main calibracion testld
+all: main calibracion testlu
 
 main: main.cpp MatrizEspecialFunciones.cpp $(LIBS)
 	$(CPP) $(FLAGS) -o $@ $(LIBS) $<
@@ -10,7 +10,7 @@ main: main.cpp MatrizEspecialFunciones.cpp $(LIBS)
 calibracion: CalibrarLuces.cpp Imagen.cpp Auxiliares.cpp
 	$(CPP) $(FLAGS) -o $@ Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
-testld: TestDependenciaLineal.cpp Matriz.cpp Imagen.cpp
+testlu: TestTieneLU.cpp Matriz.cpp Imagen.cpp
 	$(CPP) $(FLAGS) -o $@ Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
 %.o: %.cpp
@@ -19,3 +19,5 @@ testld: TestDependenciaLineal.cpp Matriz.cpp Imagen.cpp
 clean:
 	rm -f *.o
 	rm -f main
+	rm -f calibracion
+	rm -f testlu

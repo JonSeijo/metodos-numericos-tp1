@@ -109,7 +109,7 @@ class Matriz {
             if(!TodoCero){
            		for(int i = k+1; i < filas; i++){
                		double mult = m[i][k] / m[k][k];
-               		
+
                		// @TODO: Revisar que pasa con el resto de la matriz
                		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
@@ -128,11 +128,15 @@ class Matriz {
         }
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
-            
+
             if(!TodoCero){
-           		for(int i = k+1; i < filas; i++){
-               		double mult = m[i][k] / m[k][k];
-               		
+                for(int i = k+1; i < filas; i++){
+                    double mult = m[i][k] / m[k][k];
+
+                    if (fabs(mult) < EPSILON) {
+                        throw std::runtime_error("TriangSinPivoteo, DIVISION POR CERO");
+                    }
+
                		// @TODO: Revisar que pasa con el resto de la matriz
                		for (int j = k; j < columnas; j++){
                    		m[i][j] -= mult * m[k][j];
@@ -196,7 +200,7 @@ class Matriz {
                     TodoCero = true;
                 }
             }
-            
+
             if(!TodoCero){
                 //GAUSS
                 for(int i = k+1; i < filas; i++) {
@@ -254,71 +258,13 @@ class Matriz {
         this->AgregarVectorColumna(y);
         vector<double> x = this->solTriangSup();
         this->EliminarVectoresColumna(1);
-        
+
         return x;
     }
-    //Pre perm y b tienen el mismo tamaño
-    void MergeSortLoco(vector<int>& perm, vector<double>& b){
-    	for(int actual = 1; actual < perm.size(); actual = 2*actual){
-    		for(int inicio = 0; inicio < perm.size() - 1; inicio += 2*actual){
-    			int medio = inicio + actual - 1;
-    			int fin = minimo(inicio + 2*actual - 1, perm.size() -1);
-    			Merge(perm, b, inicio, medio, fin);
-    		}
-    	}
-    }
-
-    int minimo(int a, int b){return (a<b) ? a : b;}
-
-    void Merge(vector<int>& perm, vector<double>& b, int inicio, int medio, int fin){
-    	int tam1 = medio - inicio + 1;
-    	int tam2 = fin - medio;
-    	vector<int> izq(tam1);
-    	vector<double> izqD(tam1);
-    	vector<int> der(tam2);
-    	vector<double> derD(tam2);
-
-    	for(int i = 0; i < tam1; i++){
-    		izq[i] = perm[inicio + i];
-    		izqD[i] = b[inicio + i];
-    	}
-
-    	for(int j = 0; j < tam2; j++){
-    		der[j] = perm[1 + medio + j];
-    		derD[j] = b[1 + medio + j];
-    	}
-
-    	int a = 0; int c = 0; int k = inicio;
-    	while(a < tam1 && c < tam2){
-    		if(izq[a] <= der[c]){
-    			perm[k] = izq[a];
-    			b[k] = izqD[a];
-    			a++;
-    		}
-    		else{
-    			perm[k] = der[c];
-    			b[k] = derD[c];
-    			c++;
-    		}
-    		k++;
-    	}
-
-    	while(a < tam1){
-    		perm[k] = izq[a];
-    		b[k] = izqD[a];
-    		a++;
-    		k++;
-    	}
-    	while(c < tam2){
-    		perm[k] = der[c];
-    		b[k] = derD[c];
-    		c++;
-    		k++;
-    	}
-    }
-
 
     
+
+
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
             bool filaCero = true;
@@ -451,22 +397,27 @@ class Matriz {
     }
 
     // Modifica la matriz
-    bool sonLD() {
-        this->triangular(false);
-        // Si quedo alguna fila con ceros es porque eran LD
+    bool tieneLU() {
+        try {
+            this->triangSinPivoteo();
+        } catch (const std::runtime_error& error) {
+            cout << "Error en triangSinPivoteo, posible division por cero\n";
+            return false;
+        }
+        // Si quedo alguna fila con ceros es porque no tiene LU
         for (int f = 0; f < filas; f++) {
-            bool filaCero = true;
+            bool conFilaCero = true;
             for (int c = 0; c < columnas; c++) {
                 if (fabs(m[f][c] - 0) > EPSILON) {
-                    filaCero = false;
+                    conFilaCero = false;
                 }
             }
-            if (filaCero) {
-                return true;
+            if (conFilaCero) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     bool operator==(const Matriz B){
@@ -592,6 +543,66 @@ class Matriz {
             c.mostrar(os);
             return os;
         };
+
+        //Pre perm y b tienen el mismo tamaño
+    void MergeSortLoco(vector<int>& perm, vector<double>& b){
+    	for(int actual = 1; actual < perm.size(); actual = 2*actual){
+    		for(int inicio = 0; inicio < perm.size() - 1; inicio += 2*actual){
+    			int medio = inicio + actual - 1;
+    			int fin = minimo(inicio + 2*actual - 1, perm.size() -1);
+    			Merge(perm, b, inicio, medio, fin);
+    		}
+    	}
+    }
+
+    int minimo(int a, int b){return (a<b) ? a : b;}
+
+    void Merge(vector<int>& perm, vector<double>& b, int inicio, int medio, int fin){
+    	int tam1 = medio - inicio + 1;
+    	int tam2 = fin - medio;
+    	vector<int> izq(tam1);
+    	vector<double> izqD(tam1);
+    	vector<int> der(tam2);
+    	vector<double> derD(tam2);
+
+    	for(int i = 0; i < tam1; i++){
+    		izq[i] = perm[inicio + i];
+    		izqD[i] = b[inicio + i];
+    	}
+
+    	for(int j = 0; j < tam2; j++){
+    		der[j] = perm[1 + medio + j];
+    		derD[j] = b[1 + medio + j];
+    	}
+
+    	int a = 0; int c = 0; int k = inicio;
+    	while(a < tam1 && c < tam2){
+    		if(izq[a] <= der[c]){
+    			perm[k] = izq[a];
+    			b[k] = izqD[a];
+    			a++;
+    		}
+    		else{
+    			perm[k] = der[c];
+    			b[k] = derD[c];
+    			c++;
+    		}
+    		k++;
+    	}
+
+    	while(a < tam1){
+    		perm[k] = izq[a];
+    		b[k] = izqD[a];
+    		a++;
+    		k++;
+    	}
+    	while(c < tam2){
+    		perm[k] = der[c];
+    		b[k] = derD[c];
+    		c++;
+    		k++;
+    	}
+    }
 };
 
 #endif

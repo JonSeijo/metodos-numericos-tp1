@@ -3,25 +3,26 @@ from matplotlib import cm
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-# alto = 60
-# ancho = 60
-
-alto = 133
-ancho = 200
-
-# alto = 340
-# ancho = 512
-
-# alto = 252
-# ancho = 273
-
-profs = [[0 for __ in range(ancho)] for _ in range(alto)]
+# tmp
+alto = -1
+ancho = -1
+profs = []
 
 def guardar_dato():
+    global alto, ancho, profs
     with open("profundidades.txt") as archivo:
         fila = 0
         for line in archivo:
             columna = 0
+
+            if (alto == -1 and ancho == -1):
+                line = line.split(" ")
+                alto = int(line[0])
+                ancho = int(line[1])
+                profs = [[0 for __ in range(ancho)] for _ in range(alto)]
+                continue
+
+
             col = line.split(",")
 
             # print(col)
