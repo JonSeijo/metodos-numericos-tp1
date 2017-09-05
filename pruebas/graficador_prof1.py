@@ -17,8 +17,13 @@ def guardar_dato():
 
             if (alto == -1 and ancho == -1):
                 line = line.split(" ")
+
                 alto = int(line[0])
                 ancho = int(line[1])
+
+                # alto = int(line[1])
+                # ancho = int(line[0])
+
                 profs = [[0 for __ in range(ancho)] for _ in range(alto)]
                 continue
 
@@ -37,12 +42,9 @@ def guardar_dato():
                     print(c)
                     continue
 
-                limit = 2
-
-                if (c > limit):
-                    c = limit
-                elif (c < -limit):
-                    c = -limit
+                limit = 1.5
+                if (abs(c) > limit):
+                    c = limit/c
 
                 profs[fila][columna] = c
 
@@ -65,17 +67,18 @@ x, y = np.meshgrid(
 # Tomar los vectores de la imagen de forma tal que coincida dimensiones
 nz = [ profs[y] for y in range(alto) ]
 
-Z = np.array(nz)
+Z = np.array(nz[::step])
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
+ax.axis('off')
 
+colores = [cm.magma, cm.gray, cm.bone, cm.binary, cm.coolwarm, cm.copper]
+color = 4
 
-colores = [cm.magma, cm.gray]
-color = 1
+stride = 3
 
+# ax.plot_surface(x, y, Z, cmap=cm.coolwarm, linewidth=1, cstride=stride, rstride=stride)
+cset = ax.contour(x, y, Z[::-1], cmap=colores[color])
 
-
-ax.plot_surface(x, y, Z, cmap=colores[color])
-# ax.scatter(x, y, Z)
 plt.show()
