@@ -55,8 +55,27 @@ vector<vector<vector<double> > > leerNormalesCatedra() {
 
 
 // @TODO aun no usa factorizacion LU
-vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S,
+vector<vector<vector<double> > > calcularNormales(Matriz &S,
                         Imagen &foto1, Imagen &foto2, Imagen &foto3, Imagen &mascara) {
+
+    int min_f = 1e8;
+    int max_f = -1;
+    int min_c = 1e8;
+    int max_c = -1;
+
+    for (int f = 0; f < mascara.alto; f++) {
+        for (int c = 0; c < mascara.ancho; c++) {
+            if (mascara.prom[f][c] > EPSILON) {
+                min_f = min(min_f, f);
+                min_c = min(min_c, c);
+                max_c = max(max_c, c);
+                max_f = max(max_f, f);
+            }
+        }
+    }
+
+    int ancho = max_c - min_c + 1;
+    int alto = max_f - min_f + 1;
 
     vector<vector<vector<double> > > normales(alto, vector<vector<double> > (ancho, vector<double>(3, 0)));
 
@@ -64,16 +83,17 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
         for (int c = 0; c < ancho; c++) {
 
             // Si (x,y) NO esta en la mascara, no resuelvo nada, la normal es 0
-            if (mascara.prom[f][c] == 0) {
+            if (mascara.prom[f + min_f][c + min_c] == 0) {
                 normales[f][c] = vector<double>(3, 1);
                 double norma = NormaVectorial(normales[f][c]);
                 normales[f][c][0] /= norma;
                 normales[f][c][1] /= norma;
                 normales[f][c][2] /= norma;
 
+                // Lo clavo en cero porque me la banco
                 normales[f][c][0] = 0;
                 normales[f][c][1] = 0;
-                normales[f][c][2] = 1;
+                normales[f][c][2] = 0;
 
                 continue;
             }
@@ -85,7 +105,7 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
             // Resolver el sistema arruina la matriz original, entonces uso una copia
             // Haciendo factorizacion LU este problema se soluciona
             Matriz A = S;
-            vector<double> b = {foto1.prom[f][c], foto2.prom[f][c], foto3.prom[f][c]};
+            vector<double> b = {foto1.prom[f + min_f][c + min_c], foto2.prom[f + min_f][c + min_c], foto3.prom[f + min_f][c + min_c]};
 
             // vector<double> X = A.resolverSistemaGauss(b, false);
             vector<double> X = A.resolverSistemaGauss(b, true);
@@ -109,10 +129,10 @@ vector<vector<vector<double> > > calcularNormales(int alto, int ancho, Matriz &S
 int main() {
     // Indices de las luces que voy a usar
 
-    vector<int> indexes = {1,4,5};
+    vector<int> indexes = {4, 5, 6};
 
     // Leo el archivo de luces
-    bool luces_catedra = true;
+    bool luces_catedra = false;
     vector<luz> luces = leerLuces(luces_catedra);
 
     // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
@@ -139,17 +159,17 @@ int main() {
     if (normalesCatedra) {
         normales = leerNormalesCatedra();
     } else {
-        normales = calcularNormales(alto, ancho, S, foto1, foto2, foto3, mascara);
+        normales = calcularNormales(S, foto1, foto2, foto3, mascara);
     }
 
     alto = normales.size();
     ancho = normales[0].size();
 
-    for (int f = 0; f < alto; f++) {
-        for (int c = 0; c < ancho; c++) {
-            cout << normales[f][c][0] << (c+1<ancho ? "," : "\n");
-        }
-    }
+    // for (int f = 0; f < alto; f++) {
+    //     for (int c = 0; c < ancho; c++) {
+    //         cout << normales[f][c][0] << (c+1<ancho ? "," : "\n");
+    //     }
+    // }
 
     // DEBUG, QUITAR ESTO
     // normales.assign(3, vector<vector<double> > (3, vector<double> (3, 2)));

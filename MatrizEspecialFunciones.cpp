@@ -236,7 +236,7 @@ vector<double> vectorNormalesXY(vector<vector<vector<double> > > &normales) {
 
     int cantBlancas = 0;
 
-    for (int f = 0; f < filas-1; f++) {
+    for (int f = 0; f < filas; f++) {
         for (int c = 0; c < columnas; c++) {
             vect.push_back(normales[f][c][1]);
             vect.push_back(normales[f][c][0]);
