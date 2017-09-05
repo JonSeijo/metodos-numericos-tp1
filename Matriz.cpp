@@ -27,6 +27,34 @@ class Matriz {
         m.assign(filas, vector<double>(columnas, 0));
     }
 
+    Matriz multiplicacionEscalar(int x){
+        Matriz res = Matriz(this->cantFilas(), this->cantColumnas());
+        for(int i=0; i<this->cantFilas();i++){
+            for(int j=0; j < this->cantColumnas();j++){
+                res[i][j] = m[i][j] * x;
+            }
+        }
+        return res;
+    }
+
+    // CONSTRUCTOR DE MATRICES CON CAPACIDADES ESPECIALES
+    Matriz (int _filas, int _columnas, string tipo) : permutacion(vector<int>()) {
+        if(_filas < 0 || _columnas < 0){
+            throw std::runtime_error("NO SE PUEDEN CREAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
+        }
+        filas = _filas;
+        columnas = _columnas;
+        m.assign(filas, vector<double>(columnas, 0));
+        if(tipo == "identidad"){
+            for(int i=0; i<this->cantFilas();i++){
+                for(int j=0; j < this->cantColumnas();j++){
+                    if(i == j) m[i][j] = 1;
+                    else m[i][j] = 0;
+                }
+            }
+        }
+    }
+
     Matriz (vector<vector<double> > _m) : permutacion(vector<int>()) {
         m = _m;
         filas = m.size();
@@ -350,6 +378,21 @@ class Matriz {
             return Matriz(coeficientes);
         }
     }
+
+    Matriz sumaM(const Matriz B){
+        Matriz res = Matriz(this->filas, this->columnas);
+        if(this->columnas != B.filas || this->filas <= 0 || this->columnas <= 0 || B.columnas <= 0){
+            throw std::runtime_error("PRODUCTO MATRICIAL INDEFINIDO");
+        }
+        else{
+            for(int i = 0; i < this->filas; i++){
+                for(int j = 0; j < this->columnas; j++){
+                       res[i][j] = this->m[i][j] + B.m[i][j];
+                    }
+                }
+            }
+            return res;
+        }
 
     //Modifica la matriz original OJO!!!
     void AgregarVectorColumna(vector<double> v) {
