@@ -358,6 +358,44 @@ En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^
 
 Es fácil darse cuenta del patrón. Vamos tomando $p$ el pixel actual, pensando en los píxeles ordenados ($(1,1), (1,2), (1,3), .. $) Colocamos $2p^2$ en la diagonal. Colocamos $-p^2$ una celda a la derecha, $m'$ celdas a la derecha, una celda abajo, $m'$ celdas abajo. Sumamos $p^2$ una celda siguiente sobre la diagonal y en la celda $m'$ siguiente sobre la diagonal. El único cuidado es cuando llegamos al borde de la imagen, de no colocar ese píxel en el borde inmediato.
 
+Toda matriz multiplicada por su traspuesta es simétrica, por lo que nuestra $A$ tambien es simétrica, como corroboramos en la cuenta. Nos gustaría ver que además es definida positiva, esto nos será de ultilidad en la siguiente sección cuando querramos aplicar Cholesky. \\
+
+Antes de meternos a hacer cuentas, analicemos un poco como son los valores de los elementos de nuestra matriz. Para todo píxel $a, b$, tenemos que $n_{a, b}^2 \geq 0$ por ser números reales elevados al cuadrado. Recodemos que los $n$ que aparecen en la matriz $A$ son en realidad la componente $z$ del vector normal $n$. \\
+
+Veamos que pasa en la ecuación original si para algun $x,y$ tenemos que $n_{z} = 0$.
+
+\begin{center}
+\[\begin{dcases}
+        n_{z} * z_{x, y+1} - n_{z} *  z_{x, y} = n_{y}  \\
+        n_{z} * z_{x+1, y} - n_{z} *  z_{x, y} = n_{x}
+    \end{dcases}
+\]
+$\iff$
+\[\begin{dcases}
+        0 * z_{x, y+1} - 0 *  z_{x, y} = n_{y}  \\
+        0 * z_{x+1, y} - 0 *  z_{x, y} = n_{x}
+    \end{dcases}
+\]
+$\iff$
+\[\begin{dcases}
+        0 = n_{y}  \\
+        0 = n_{x}
+    \end{dcases}
+\]
+\end{center}
+
+Pero eso no puede pasar en ningún punto de la imagen, porque $n$ fue elegido para que $\norm{n} = 1$. \\
+
+Llevándo la cuenta a nuestro problema, podrían aparecer $n_z = 0$ pero solo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen. \\
+
+
+
+
+
+$ $\newline
+$ $\newline
+$ $\newline
+
 Si bien este fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen mas grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
 \begin{center}
     $(250*270)^2 = 4 556 250 000$
