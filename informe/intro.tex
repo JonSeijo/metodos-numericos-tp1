@@ -1,10 +1,11 @@
 \section{Introducción}
 
-% Pautas de tp hablan de "brave introduccion"
+% Pautas de tp hablan de "breve introduccion"
 
-Este trabajo consiste en la digitalización de objetos 3D basándose en imágenes producidas con cámaras tradicionales, utilizando la técnica de \textit{fotometría estéreo}. Mostraremos que utilizando luces provenientes de diferentes ángulos, podemos aproximar las normales a la superficie y estimar las profundidades de cada punto.
+Este trabajo consiste en la digitalización de objetos 3D basándose en imágenes producidas con cámaras tradicionales, utilizando la técnica de \textit{fotometría estéreo}. Mostraremos que utilizando luces provenientes de diferentes ángulos, podemos aproximar las normales a la superficie y estimar las profundidades de cada punto. \\
 
-Para esto debemos resolver varios sistemas de ecuaciones lineales, los cuáles resolveremos algorítmicamente de forma matricial. Usaremos en un primer caso el método clásico de Eliminación Gaussiana, y veremos como utilizando factorización LU podemos reducir los tiempos de cómputo. Luego, utilizaremos la factorización de Cholesky.
+En primer lugar resolveremos el problema de la calibración, es decir, encontraremos a partir de imagenes de una esfera cuales son los diferentes vectores de iluminación. Utilizaremos estos datos para calcular las normales a la superficie en cada punto. Para esto nos enfrentaremos con varios sistemas de ecuaciones lineales, los cuáles resolveremos algorítmicamente de forma matricial. Usaremos en un primer caso el método clásico de Eliminación Gaussiana, y nos aprovecharemos de la estructura de nuestro problema para encontrar una factorización LU e intentar reducir los tiempos de cómputo. \\
 
-Los experimentos .... []
-\todo[inline]{Completar breve pantallazo a experimentos}
+En la última instancia, para el cálculo de profundidades, aprovecharemos la estructura de la matriz final para crear una nueva estructura mas eficiente, donde aplicaremos el algoritmo de Cholesky para resolver el sistema. \\
+
+\todo[inline]{Quiza completar sobre intro a experimentacion, no creo que haga falta}

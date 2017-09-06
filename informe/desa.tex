@@ -15,11 +15,11 @@
 
 \section{Cálculo de normales}
 
-\todo[inline]{Explicar un poco mas que representa el sistema y como resolviendolo logramos lo de las normales. Ver que quiza esto convenga ponerlo luego de describir los metodos}
+En esta sección resolveremos el problema de calcular los vectores normales a la superficie, conociendo los vectores luz y los valores de la intensidad para cada píxel dado. Resolveremos utilizando el algoritmo de eliminación gaussiana, y veremos en la siguiente sección una forma de optimizar los cálculos aprovechándonos de las propiedades de nuestro problema.
 
 \subsection{Eliminación Gaussiana}
 
-Tenemos un sistema listo para resolver, dónde sólo los $m_i$ son incógnitas:
+Para cada píxel, tenemos un sistema listo para resolver:
 
 % Sistema de matrices original
 \[
@@ -40,6 +40,8 @@ Tenemos un sistema listo para resolver, dónde sólo los $m_i$ son incógnitas:
     I_{3}
 \end{pmatrix}
 \]
+
+Donde los $s_{c}^{i}$ es la coordenada $c$ del vector de luz en la imagen $i$, los $I_i$ las intensidades de luz (del píxel actual) en la imagen $i$, y los $m_j$ nuestras incógnitas. El vector $m = (m_x, m_y, m_z)$ no es exactamente el valor de la normal $n$, sino que $m = I_0 \rho . n$, con $I_0, \rho \in \mathbb{R}$ constantes desconocidas que dependen del objeto. Lo que nos interesa es encontrar el valor de $n$, pero para esto primero debemos hallar $m$. \\
 
 La pregunta ahora es ¿cómo lo resolvemos?. Dado que en principio no sabemos cómo, nos gustaría llevarlo a una forma equivalente que sea mas fácil de resolver. Podemos hacer esta conversión a un sistema equivalente usando el algoritmo de eliminación de Gauss. Lo que hace este algoritmo es llevar una matriz a su forma triangular superior, de dónde luego es muy sencillo hacer los despejes finales. \\
 
@@ -69,7 +71,7 @@ El pseudocódigo del algoritmo de Gauss es el siguiente:
 \end{algorithmic}
 \end{algorithm}
 
-Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay ceros en la diagonal}. Es claro que puede modificarse para que realice intercambios de filas y no tenga el problema del cero, veamos que para nuestro problema no es importante. En nuestra implementación aplicaremos el algoritmo de Gauss en la siguiente matriz ampliada:
+Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay ceros en la diagonal}. Es claro que puede modificarse para que realice intercambios de filas y no tenga el problema del cero, pero veremos que para nuestro problema no es importante. En nuestra implementación aplicaremos el algoritmo de Gauss en la siguiente matriz ampliada:
 
 % Matriz ampliada
 \[
@@ -86,14 +88,15 @@ Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamo
 
 \[
 \begin{pmatrix}[ccc|c]
-    m_{1,1}   & m_{1,2} & m_{1,3} & m_{1, 4} \\
-    0         & m_{2,2} & m_{2,3} & m_{2, 4} \\
-    0         & 0       & m_{3,3} & m_{3, 4}
+    a_{1,1}   & a_{1,2} & a_{1,3} & a_{1, 4} \\
+    0         & a_{2,2} & a_{2,3} & a_{2, 4} \\
+    0         & 0       & a_{3,3} & a_{3, 4}
 \end{pmatrix}
 \]
 
 \begin{algorithm}[H]
 \begin{algorithmic}
+
 \Function{Despejar}{Matriz M[$n$][$m$]}
 
     // En X se guardan los m-1 coeficientes solución (Recordemos que M es ampliada)
@@ -122,6 +125,31 @@ Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamo
 \end{algorithmic}
 \end{algorithm}
 
+Resolviendo el sistema con la forma expuesta, obtenemos el vector solución $m$. Pero $m$ no es lo que buscábamos, sino que queremos obtener el valor de $n$. Recordemos:
+
+\begin{center}
+$m = I_0 \rho . (n_x, n_y, n_z) = I_0 \rho . n$
+\end{center}
+
+Con $I_0 \rho \in \mathbb{R}$. Tomando norma:
+
+\begin{center}
+$\norm{m} = \abs{I_0 \rho} \norm{n}$
+\end{center}
+
+Pero $\norm{n} = 1$, pues queremos el vector unitario. Entonces:
+
+\begin{center}
+$\norm{m} = \abs{I_0 \rho}$
+\end{center}
+
+Sabiendo esto, podemos despejar y obtener el valor de $n$ (con $m \neq 0$):
+
+\begin{center}
+$n = \frac{m}{\norm{m}}$
+\end{center}
+
+Obtuvimos así para cada píxel vector normal a la superficie.
 
 \subsection{Factorización LU}
 
@@ -180,6 +208,7 @@ Por lo expuesto en la sección anterior, experimentalmente comprobamos que en nu
 
 Por lo visto en la clase teórica, si podemos triangular una matriz usando Gauss sin tener que permutar filas, es suficiente para afirmar que la factorización LU existe, entonces con el procedimiento explicado podemos hallar la descomposicion de nuestra matriz de luces y resolver el sistema mas eficientemente. \\
 
+\newpage
 \section{Estimacion de profundidades}
 
 Utilizando los métodos anteriores pudimos resolver el sistema que incluye las luces y calcular las normales para todo píxel de la imagen. Recordemos que para un cierto píxel $(a, b)$ la normal en ese punto es de la forma:
@@ -390,9 +419,15 @@ Como nuestra matriz $A$ es simétrica y definida positiva  puede verse que utili
 
 \section{Resultados}
 
-La siguiente es una imagen del modelo 3d final.
-
-\todo[inline]{La siguiente fue la primera version creo que si lo corro como esta ahora se consigue algo un poco mejor. Igual es terrible}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N1.pdf} \\
+}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N2.pdf} \\
+}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.pdf} \\
+}
 
 {\centering
     \includegraphics[scale=0.7]{informe/imagenes/profundidadesCaballoNormalescatedra.pdf} \\
