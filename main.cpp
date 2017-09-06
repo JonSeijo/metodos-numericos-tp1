@@ -142,7 +142,7 @@ int main() {
         
     bool seguir = true;
     while(seguir){
-        std::cout << "\nEl siguiente programa calcula la profundidad de una imagen mediante el metodo de fotometria estereo. Para hacerlo, se necesitan 12 imagenes del mismo elemento con iluminaciones distintas entre si, pero coincidentes con las de la esfera mate (numeradas del 0 al 12, con la sintaxis nombre.x.ppm donde 'nombre' debe ser el mismo para cada imagen y 'x' un numero entre 0 y 11) y una imagen mascara. Las 13 deben encontrarse en la siguiente direccion: '/recursos/ppmImagenes/nombre'. \n" << std::endl;
+        std::cout << "\nEl siguiente programa calcula la profundidad de una imagen mediante el metodo de fotometria estereo. Para hacerlo, se necesitan 12 imagenes del mismo elemento con iluminaciones distintas entre si, pero coincidentes con las de la esfera mate (numeradas del 0 al 12, con la sintaxis nombre.x.ppm donde 'nombre' debe ser el mismo para cada imagen y 'x' un numero entre 0 y 11) y una imagen mascara. Los 13 archivos deben encontrarse en la siguiente direccion: '/recursos/ppmImagenes/nombre'. \n" << std::endl;
 
         // Indices de las luces que voy a usar  
         std::cout << "\n Inserte nombre de la carpeta donde guarda las imagenes (ej: caballo, buho, etc)." << std::endl;
