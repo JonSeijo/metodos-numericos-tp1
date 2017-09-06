@@ -1,10 +1,36 @@
-\section{Experimentación}
+\section{Resultados finales y experimentación}
 
-\todo[inline]{Experimentacion general pensar mas:  }
-\todo[inline]{Diferencias de tiempos EG vs LU, con si y mascara mascara}
-\todo[inline]{Mostrar como con diferentes luces obtenemos diferentes normales}
-\todo[inline]{Mostrar resultados finales con mismas luces pero propias vs catedra}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N1.pdf} \\
+}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N2.pdf} \\
+}
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.pdf}
+    \captionof{figure}{Curvas de nivel de la función de profundidad (para cada píxel, su profundidad estimada) Los valores fueron calculados utilizando las luces que obtuvimos en nuestra calibración.}
+}
 
+\newpage
+Si bien esperábamos obtener una superficie mucho mas \textit{suave}, creemos que los resultados fueron satisfactorios. Puede observarse perfectamente en los gráficos de curvas de nivel de arriba que en cada píxel la profundidad estimada es adecuada y se corresponde con la iluminación de las fotos originales. Veamos una representación de la función de profundidad con los mismos datos en un modelado 3D:
+
+{\centering
+    \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesCaballoLucesPropias578.pdf} \\
+    \captionof{figure}{Profundidades calculadas con luces propias, 5, 7, 8}
+}
+
+$ $\newline
+En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes.\\
+
+Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
+
+{\centering
+    \includegraphics[scale=0.7]{informe/imagenes/profundidadesCaballoNormalescatedra.pdf} \\
+}
+
+Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobretodo en los bordes, parece ser una superficie un poco mas suave que la obtenida por nosotros. Dado que no sabemos cuales fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos mas adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
+
+Otra cosa a notar, es que en ambas los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos dá la pauta de que nuestras aproximaciones pueden no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
 % 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
 
