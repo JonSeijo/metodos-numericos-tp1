@@ -3,6 +3,8 @@
 
 #include <bits/stdc++.h>
 #include "Matriz.cpp"
+#include "Luces.cpp"
+#include <ctime>
 
 using std::string;
 using std::vector;
@@ -210,6 +212,212 @@ void testDeMatrices(){
     else{
         std::cout << "Todo mal" << std::endl;
     }
+}
+
+double myRand(){
+  return ((double)rand() / RAND_MAX);
+}
+
+void testTriangularVSLU(){
+
+    vector<int> indexes = {4, 5, 6};
+
+    // Leo el archivo de luces
+    bool luces_catedra = true;
+    vector<luz> luces = leerLuces(luces_catedra);
+
+    // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
+    Matriz S({
+        luces[ indexes[0] ],
+        luces[ indexes[1] ],
+        luces[ indexes[2] ]
+    });
+
+    Matriz LU({
+        luces[ indexes[0] ],
+        luces[ indexes[1] ],
+        luces[ indexes[2] ]
+    });
+
+
+
+
+    int N;
+    string path;
+    string path2;
+    std::cout<<"Ingrese la cantidad de pixeles"<<std::endl;
+    std::cin>>N;
+    std::cout<<"Ingrese el archivo de salida NOLU"<<std::endl;
+    std::cin>>path;
+    std::cout<<"Ingrese el archivo de salida LU"<<std::endl;
+    std::cin>>path2;
+
+    std::fstream fs("experimentos/TriangVSLU/" + path , std::ios::out | std::ios::app);
+    std::fstream fsLU("experimentos/TriangVSLU/" + path2 , std::ios::out | std::ios::app);
+
+    if(!fs.is_open()){
+        cout<<"no se habrio wacho"<<endl;
+    }
+    
+    
+    
+    vector< vector<double> > bs(N, vector<double>(3,0));
+    srand(N);
+
+    for(int i =0; i<N ; i++){
+        bs[i][0] = myRand();
+        bs[i][1] = myRand();
+        bs[i][2] = myRand();
+    }
+
+    
+    vector<double> tiemposNOLU((N),0);
+    vector<double> tiemposLU((N),0);
+
+    LU.factorizarLU(false);
+
+    for(int j=10; j<N ; j+=100){
+        double tiempoLU = 0;
+        double tiempoNOLU = 0;
+        for(int k =0; k<100; k++){
+            for(int i =1; i<j ; i++){
+
+                
+                Matriz noLU = S;
+                clock_t start = clock();
+                noLU.resolverSistemaGauss(bs[i],false);
+                clock_t end = clock();
+                double segs = (double)(end-start) / CLOCKS_PER_SEC;
+                tiempoNOLU+=segs;
+            
+
+
+                clock_t start2 = clock();
+                LU.resolverSistemaLU(bs[i]);
+                clock_t end2 = clock();
+                double segs2 = (double)(end2-start2) / CLOCKS_PER_SEC;
+                tiempoLU+=segs2;
+
+
+            }
+        }      
+        fs<<tiempoNOLU/100<<endl;
+        fsLU<<tiempoLU/100<<endl;
+    }
+
+
+
+    fs.close();
+    fsLU.close();
+
+
+}
+
+
+void testTriangularVSLUEnDimension(){
+
+    vector<int> indexes = {4, 5, 6};
+
+    // Leo el archivo de luces
+    bool luces_catedra = true;
+    vector<luz> luces = leerLuces(luces_catedra);
+
+    // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
+
+    Matriz S({
+        luces[ indexes[0] ],
+        luces[ indexes[1] ],
+        luces[ indexes[2] ]
+    });
+
+    Matriz LU({
+        luces[ indexes[0] ],
+        luces[ indexes[1] ],
+        luces[ indexes[2] ]
+    });
+
+
+
+
+    int N;
+    string path;
+    string path2;
+    std::cout<<"Ingrese la cantidad de pixeles"<<std::endl;
+    std::cin>>N;
+    std::cout<<"Ingrese el archivo de salida NOLU"<<std::endl;
+    std::cin>>path;
+    std::cout<<"Ingrese el archivo de salida LU"<<std::endl;
+    std::cin>>path2;
+
+    std::fstream fs("experimentos/TriangVSLUEnDim/" + path , std::ios::out | std::ios::app);
+    std::fstream fsLU("experimentos/TriangVSLUEnDim/" + path2 , std::ios::out | std::ios::app);
+
+    if(!fs.is_open()){
+        cout<<"no se habrio wacho"<<endl;
+    }
+    
+    
+    int po=0;
+    cout<<po++<<endl;
+    
+    srand(N);
+cout<<po++<<endl;
+    for(int j=10; j<N ; j+=10){
+        vector< double> bs(j, 0);
+        vector<vector<double> > m(j, vector<double>(j,0));  
+cout<<po++<<endl;
+
+        for(int i =0; i<j ; i++){
+            cout<<"insertando bs: "<<i<<endl;
+            bs[i] = myRand();
+            for(int k =0; k <=i ; k++){
+                cout<<"insertando m: "<<i<<", "<<k<<endl;
+                m[i][k] = myRand()+1;
+            }
+        }
+cout<<po++<<endl;
+        Matriz S(m);
+        Matriz LU(m);
+        cout<<po++<<endl;
+cout<<po++<<endl;
+        LU.factorizarLU(false);
+cout<<po++<<endl;
+        double tiempoLU = 0;
+        double tiempoNOLU = 0;
+        cout<<po++<<endl;
+        for(int k =0; k<100; k++){
+
+                
+            Matriz noLU = S;
+            clock_t start = clock();
+            noLU.resolverSistemaGauss(bs,false);
+            clock_t end = clock();
+            double segs = (double)(end-start) / CLOCKS_PER_SEC;
+            tiempoNOLU+=segs;
+        cout<<po++<<endl;
+
+
+            clock_t start2 = clock();
+            LU.resolverSistemaLU(bs);
+            clock_t end2 = clock();
+            double segs2 = (double)(end2-start2) / CLOCKS_PER_SEC;
+            tiempoLU+=segs2;
+
+
+        }      
+        cout<<po++<<endl;
+        fs<<tiempoNOLU/100<<endl;
+        fsLU<<tiempoLU/100<<endl;
+
+        cout<<"ciclo: " <<j<<endl;
+    }
+
+
+
+    fs.close();
+    fsLU.close();
+
+
 }
 
 #endif
