@@ -32,9 +32,18 @@ Si bien las luces con las que fueron obtenidas las normales de la cátedra son d
 
 Otra cosa a notar, es que en ambas los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos dá la pauta de que nuestras aproximaciones pueden no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
-% 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
+Realizamos los cálculos de profundidad con una imagen que tiene más detalles, para ver si sucede lo mismo que con el rostro del caballo. La siguiente es un gráfico con las profundidades de Buda, con las luces $0, 1$ y $2$ calibradas por nosotros.
 
-Veamos qué tan buena fue nuestra calibración. Dado que la cátedra nos brindó los vectores de luces lo que nos gustaría hacer es comparar ambos. En general, niguna luz quedó \textit{exactamente} igual, pero sí quedaron similares. \\
+{\centering
+    \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesBudaLucesPropias012.pdf} \\
+}
+
+Los detalles del cuerpo se mantuvieron bastante bien, y el área central e inferior tiene mas suavidad que la que habíamos logrado con la anterior imagen. En los bordes nuevamente tenemos picos, se deben a la diferencia brusca que hay con el plano. Es interesante notar que se produjo una deformación en el sector superior, creemos que tiene que ver con la gran cantidad de cambios de luz en un área tan pequeña. \\
+
+
+% 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
+\newpage
+Mencionamos anteriormente que se encontraron diferencias entre las luces calibradas por nosotros y las luces  de la cátedra. Veamos los resultados que obtuvimos. En general, niguna luz quedó \textit{exactamente} igual, pero sí quedaron similares. \\
 
 Dado que es complicado visulizar diferencias entre vectores tridimensionales, analizaremos por un lado el eje $z$ y por el otro los ejes $x$ e $y$. En el siguiente gráfico tomamos para cada luz, los ejes $z$ y calculamos su diferencia. \\
 
@@ -59,11 +68,9 @@ $ $\newline
 
 % 2. Como afecta la calibracion del sistema en el resto de las etapas \\
 
-Dado que las luces son utilizadas para el cálculo de las normales, queremos ver cómo nos afecta la calibración en esta etapa. Para eso, resolveremos el sistema de ecuaciones y guardaremos los vectores normales obtenidos. Como las mayores diferencias entre luces podían verse en los ejes $x, y$ estos ejes serán los que usaremos en la comparación.
+Dado que las luces son utilizadas para el cálculo de las normales, queremos ver cómo nos afecta la calibración en esta etapa. Para eso, resolveremos el sistema de ecuaciones y guardaremos los vectores normales obtenidos. Como las mayores diferencias entre luces podían verse en los ejes $x, y$ estos ejes serán los que usaremos en la comparación. \\
 
 En los gráficos que se encuentran a continuación, para cada píxel se grafica un vector que corresponde a la normal en ese punto. Como son \textit{miles} de normales, puede dar la impresión de que se grafican puntos pero no es así: son los vectores en forma de 'flechas'. \\
-
-$ $\newline
 
 En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
 
