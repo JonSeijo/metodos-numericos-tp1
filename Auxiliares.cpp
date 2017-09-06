@@ -103,4 +103,16 @@ void MostrarVector(vector<double>& v){
     std::cout << "\n";
 }
 
+void MostrarVectorString(vector<string>& v){
+    for(int i = 0; i < v.size(); i++){
+        if(v[i] != "." && v[i] != ".."){
+            std::cout << v[i];
+            if(i != v.size() - 1){
+                std::cout << ", "; 
+            }
+        }
+    }
+    std::cout << std::endl;
+}
+
 #endif

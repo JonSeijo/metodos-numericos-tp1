@@ -534,7 +534,7 @@ class Matriz {
                 for(int j = 0; j < columnas; j++){
                     //Arreglar esto, no hacer caso a los comentarios de abajo, pero volver a dejar como estaba, plox
                     //Lo cambié para testear
-                    /*
+                    
                     if(m[i][j] == 0){ //CAMBIO, SACAR EL "0"
                         os << "0   " << " ";
                     }
@@ -553,17 +553,17 @@ class Matriz {
 
                     //CAMBIO: DEVOLVER A 10
                     //os << std::fixed << std::setprecision(0) << m[i][j] << " ";
-                    */
+                    
                     //COMENTO ESTO POR SI ALGUIEN QUIERE USARLO PARA TESTEAR Y DEJO EL
                     //CODIGO ORIGINAL
-                    
+                    /*
                     os << (m[i][j] >= 0 ? " " : "");
                     // os << std::fixed << std::setprecision(4) << m[i][j] << " ";
                     if (m[i][j] == 0) {
                         os << "   ";
                     } else {
                         os << std::fixed << std::setprecision(4) << m[i][j] << (m[i][j] > 9 ? " " : "  " );
-                    }
+                    }*/
                 }
                 os << std::endl;
             }
