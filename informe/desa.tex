@@ -41,7 +41,7 @@ Para cada píxel, tenemos un sistema listo para resolver:
 \end{pmatrix}
 \]
 
-Donde los $s_{c}^{i}$ es la coordenada $c$ del vector de luz en la imagen $i$, los $I_i$ las intensidades de luz (del píxel actual) en la imagen $i$, y los $m_j$ nuestras incógnitas. El vector $m = (m_x, m_y, m_z)$ no es exactamente el valor de la normal $n$, sino que $m = I_0 \rho . n$, con $I_0, \rho \in \mathbb{R}$ constantes desconocidas que dependen del objeto. Lo que nos interesa es encontrar el valor de $n$, pero para esto primero debemos hallar $m$. \\
+Donde cada $s_{c}^{i}$ es la coordenada $c$ del vector de luz en la imagen $i$, los $I_i$ las intensidades de luz (del píxel actual) en la imagen $i$, y los $m_j$ nuestras incógnitas. El vector $m = (m_x, m_y, m_z)$ no es exactamente el valor de la normal $n$, sino que $m = I_0 \rho . n$, con $I_0, \rho \in \mathbb{R}$ constantes desconocidas que dependen del objeto. Lo que nos interesa es encontrar el valor de $n$, pero para esto primero debemos hallar $m$. \\
 
 La pregunta ahora es ¿cómo lo resolvemos?. Dado que en principio no sabemos cómo, nos gustaría llevarlo a una forma equivalente que sea mas fácil de resolver. Podemos hacer esta conversión a un sistema equivalente usando el algoritmo de eliminación de Gauss. Lo que hace este algoritmo es llevar una matriz a su forma triangular superior, de dónde luego es muy sencillo hacer los despejes finales. \\
 
@@ -306,7 +306,7 @@ A modo de ejemplo, tomemos la tercer fila y hagamos el producto:
 
 y vemos que se corresponde con nuestro sistema original. Puede verse además que las dimensiones para realizar el producto cuadran perfectamente. Si $n'$ y $m'$ eran el alto y ancho de la imagen original, la nueva matriz tiene $2*n'*m'$ filas y $n'*m'$ columnas.
 
-Si bien la matriz esta planteada con unas dimensiones en particular, por su forma es sencillo de generalizar. Dado un cierto píxel $(x, y)$, las dos ecuaciones correspondientes son:
+Si bien la matriz está planteada con unas dimensiones en particular, por su forma es sencillo de generalizar. Dado un cierto píxel $(x, y)$, las dos ecuaciones correspondientes son:
 
 \[
 \begin{pmatrix}
@@ -471,5 +471,5 @@ A diferencia de la descomposición LU, no es necesario que realicemos el método
 
 Como nuestra matriz $A$ es simétrica y definida positiva (\textit{por lo analizado en la sección anterior}) puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes mas baja que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
 
-Es importante aclarar que si bien no lo resolvimos con Gauss, la resolución en teoría es perfectamente posible. Como esta matriz es definida positiva, tiene determinante mayor a cero, por lo que es inversible. Entonces podemos aplicar Gauss sin encontrarnos ceros en la diagonal.
+Es importante aclarar que si bien no lo resolvimos con Gauss, la resolución en teoría es perfectamente posible. Como esta matriz es definida positiva, tiene determinante mayor a cero, por lo que es inversible. Entonces podríamos aplicar Gauss sin encontrarnos ceros en la diagonal.
 

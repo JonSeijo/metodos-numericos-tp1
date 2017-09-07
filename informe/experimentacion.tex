@@ -33,6 +33,26 @@ Si bien las luces con las que fueron obtenidas las normales de la cátedra son d
 
 Otra cosa a notar, es que en ambas los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos dá la pauta de que nuestras aproximaciones pueden no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
+Nos gustaría ver qué sucede cuando utilizamos otras luces sobre la misma figura y así observar, por ejemplo, si obtenemos la misma cantidad de picos. Además, es importante notar que para obtener las intensidades de iluminosidad estábamos utilizando el promedio de los colores, asi que aprovecharemos la siguiente prueba para ver qué diferencias podemos encontrar si consideramos alguna componente en particular. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
+
+
+
+{\centering
+    \includegraphics[scale=0.5]{informe/imagenes/profundidades/profCaballo012ColorProm.pdf}
+    \captionof{figure}{$\uparrow$ Luces 0,1,2, promedio de colores}
+    \includegraphics[scale=0.49]{informe/imagenes/profundidades/profCaballo012ColorAzul.pdf}
+    % \captionof{figure}{\textit{Luces 0,1,2, componente azul}}
+    \includegraphics[scale=0.54]{informe/imagenes/profundidades/profCaballo012ColorRojo.pdf}
+    % \captionof{figure}{\textit{Luces 0,1,2, componente roja}}
+}
+\begin{center}
+    Luces 0,1,2, componente azul (izq), componente roja (der)
+\end{center}
+
+Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. \\
+
+Es interesante notar que utilizando estas combinaciones de luces obtenemos diferentes resultados que la usando la primer combinación. En la primera habia muchos picos y la diferencia entre blancos y negros era muy pronunciada. Con esta nueva combinación, los colores visible son mucho mas uniformes y la cantidad de picos disminuyó, aunque siguen manteniéndose los picos en los bordes. Siguen sin verse correctamente los detalles en el rostro del caballo. \\
+
 Realizamos los cálculos de profundidad con una imagen que tiene más detalles, para ver si sucede lo mismo que con el rostro del caballo. La siguiente es un gráfico con las profundidades de Buda, con las luces $0, 1$ y $2$ calibradas por nosotros.
 
 {\centering
@@ -142,7 +162,7 @@ El resultado fue el siguiente:
     \includegraphics[scale=0.6]{informe/imagenes/LUVSNOLUDIM.PNG} \\
 }
 
-Como no se nota muy bien los tiempos para la medicion de LU, decidimos hacer otro grafico con escala logarítmica para que sea mas visual.
+Dado que los tiempos para la medición de LU son muy pequeños, decidimos hacer otro gáafico con escala logarítmica para apreciar mejor la diferencia.
 
 
 {\centering
