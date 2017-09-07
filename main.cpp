@@ -8,6 +8,9 @@
 
 #include "MatrizEspecialFunciones.cpp"
 
+#include <iostream>
+#include <dirent.h>
+
 using std::string;
 using std::vector;
 using std::ifstream;
@@ -126,9 +129,231 @@ vector<vector<vector<double> > > calcularNormales(Matriz &S,
     return normales;
 }
 
-int main() {
-    // Indices de las luces que voy a usar
+	bool pertenece(vector<string>& v, string& s){
+		for(int i = 0; i < v.size(); i++){
+			if(v[i] == s && v[i] != "." && v[i] != ".."){
+				return true;
+			}
+		}
+		return false;
+	}
 
+int main() {
+        
+    bool seguir = true;
+    while(seguir){
+        std::cout << "\nEl siguiente programa calcula la profundidad de una imagen mediante el metodo de fotometria estereo. Para hacerlo, se necesitan 12 imagenes del mismo elemento con iluminaciones distintas entre si, pero coincidentes con las de la esfera mate (numeradas del 0 al 12, con la sintaxis nombre.x.ppm donde 'nombre' debe ser el mismo para cada imagen y 'x' un numero entre 0 y 11) y una imagen mascara. Los 13 archivos deben encontrarse en la siguiente direccion: '/recursos/ppmImagenes/nombre'. \n" << std::endl;
+
+        // Indices de las luces que voy a usar  
+        std::cout << "\n Inserte nombre de la carpeta donde guarda las imagenes (ej: caballo, buho, etc)." << std::endl;
+    	string nombreImagen;
+    	std::cin >> nombreImagen;  
+    
+
+        //Me hago un vector con las subcarpetas
+        vector<string> nombresSubcarpetas;  
+
+        const char* pathCarpeta = "recursos/ppmImagenes/";
+        DIR *carpeta = opendir(pathCarpeta);
+        struct dirent *elementos = readdir(carpeta);    
+
+        while(elementos != NULL){
+            if(elementos -> d_type == DT_DIR){
+                nombresSubcarpetas.push_back(elementos -> d_name);
+            }
+            elementos = readdir(carpeta);
+        }   
+
+    	//FIJARSE QUE SEA UN NOMBRE VALIDO
+    	while(!pertenece(nombresSubcarpetas, nombreImagen)){
+    		std::cout << "\n Nombre incorrecto, inserte alguno de los siguientes:" << std::endl;
+            MostrarVectorString(nombresSubcarpetas);
+    		std::cin >> nombreImagen; 
+    	}  
+
+    	std::cout << "\n Inserte 3 numeros distintos correspondientes a 3 iluminaciones diferentes de la imagen" << std::endl;
+    	std::cout << " (Del 0 al 11)" << std::endl;    
+
+    	//Lo hago con strings porque si el usuario mete cualquier cosa cuando espero un int (ej: "askdjfasklfdj") se rompe
+    	vector<string> posibles = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};  
+
+    	string primera; string segunda; string tercera;    
+
+    	std::cout << "\n Inserte primera iluminacion." << std::endl;
+    	std::cin >> primera;
+    	while(!pertenece(posibles, primera)){
+    		std::cout << "\n Incorrecto, inserte numero valido (del 0 al 11)." << std::endl;
+    		std::cin >> primera;
+    	}  
+
+    	std::cout << "\n Inserte segunda iluminacion." << std::endl;
+    	std::cin >> segunda;
+    	bool repetida = segunda == primera;
+    	while(!pertenece(posibles, segunda) || repetida){
+    		if(repetida){
+    			std::cout << "\n Elija una iluminacion distinta a la anterior." << std::endl;
+    		}
+    		else{
+    			std::cout << "\n Incorrecto, inserte numero valido (del 0 al 11, sin repetir el anterior)." << std::endl;
+    		}
+    		std::cin >> segunda;
+    		repetida = segunda == primera;
+    	}  
+
+    	std::cout << "\n Inserte tercera iluminacion." << std::endl;
+    	std::cin >> tercera;
+    	repetida = (tercera == primera) || (tercera == segunda);
+    	while(!pertenece(posibles, tercera) || repetida){
+    		if(repetida){
+    			std::cout << "\n Elija una iluminacion distinta a las anteriores." << std::endl;
+    		}
+    		else{
+    			std::cout << "\n Incorrecto, inserte numero valido (del 0 al 11, sin repetir anteriores)." << std::endl;
+    		}
+            std::cin >> tercera;
+            repetida = (tercera == primera) || (tercera == segunda);
+    	}  
+
+    	//Paso strings a int   
+
+    	int prim = std::stoi(primera);
+    	int seg = std::stoi(segunda);
+    	int terc = std::stoi(tercera); 
+    
+
+    	std::cout << "\n Seteando imagenes..." << std::endl;   
+
+    	// Leo el archivo de luces
+        bool luces_catedra = false;
+        vector<luz> luces = leerLuces(luces_catedra);   
+
+        // Ahora luces es un vector que tiene todas las luces. S la matriz que las contiene
+        Matriz S({
+            luces[prim],
+            luces[seg],
+            luces[terc]
+        }); 
+    
+
+    	Imagen foto1(getFotoPath(nombreImagen, prim));
+        Imagen foto2(getFotoPath(nombreImagen, seg));
+        Imagen foto3(getFotoPath(nombreImagen, terc));
+        Imagen mascara(getFotoPath(nombreImagen, "mask"));  
+
+    	ancho = foto1.ancho;
+        alto = foto1.alto;  
+
+        std::cout << "\n Calculando normales..." << std::endl;
+        
+        vector<vector<vector<double> > > normales;
+        normales = calcularNormales(S, foto1, foto2, foto3, mascara);
+        alto = normales.size();
+        ancho = normales[0].size(); 
+
+        std::cout << "\n ¡Listo!" << std::endl; 
+
+        std::cout << "\n Calculando profundidad...0%" << std::endl; 
+
+        // cout << "Armo la matriz de profundidades M usando las normales\n";
+        vector<map<int, double> > M = armarMatrizProfundidades(normales);   
+
+        std::cout << "\n Calculando profundidad...10%" << std::endl;    
+
+        // // cout << "Traspongo M con las dimensiones adecuadas\n";
+        vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho);   
+
+        std::cout << "\n Calculando profundidad...20%" << std::endl;    
+
+        // // cout << "Armo la matriz de profundidades A usando formula para no tenes que multiplicar\n";
+        vector<map<int, double> > A = armarMatrizProfundidadesPosta(normales);
+        //vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho); 
+
+        std::cout << "\n Calculando profundidad...30%" << std::endl;    
+
+        // // cout << "Encuentro la L de cholesky";
+        vector<map<int, double> > L_choles = dameCholesky(A);   
+
+        std::cout << "\n Calculando profundidad...40%" << std::endl;    
+
+        // // cout << "Traspongo la L de cholesky";
+        vector<map<int, double> > L_choles_T = traspuestaEspecial(L_choles, L_choles.size());   
+
+        std::cout << "\n Calculando profundidad...50%" << std::endl;    
+
+        // // Creo vector de normales a la derecha de la igualdad
+        vector<double> v = vectorNormalesXY(normales);  
+
+        std::cout << "\n Calculando profundidad...60%" << std::endl;    
+
+        // // cout << "b = Mt * v\n";
+        vector<double> b = matrizPorVector(MT, v);  
+
+        std::cout << "\n Calculando profundidad...70%" << std::endl;    
+
+        // // cout << "Resuelvo para L de la izquierda\n";
+        vector<double> y = resolverInferior(L_choles, b);   
+
+        std::cout << "\n Calculando profundidad...80%" << std::endl;    
+
+        // // cout << "Resuelvo para Lt con el resultado anterior\n";
+        vector<double> Z = resolverSuperior(L_choles_T, y); 
+
+        std::cout << "\n Calculando profundidad...90%" << std::endl;    
+
+            
+
+        // // cout << "Guardo mi vector de zetas como una matriz\n";
+        vector<vector<double> > zetas = recuperarZetas(Z, alto, ancho); 
+
+        std::cout << "\n Calculando profundidad...100%" << std::endl;
+        std::cout << "\n ¡Calculado!" << std::endl; 
+
+        ofstream outputFile;
+        outputFile.open("Profundidades.txt");   
+
+        std::cout << "\n Escribiendo archivo..." << std::endl;
+        
+        if(zetas.size() == 0){
+        	throw std::runtime_error("Matriz de profundidades vacia.\n");
+        }   
+
+        outputFile << alto << " " << ancho << "\n";
+        for (int i = 0; i < alto; i++) {
+            for (int j = 0; j < ancho; j++) {
+                outputFile << fixed << zetas[i][j] << (j + 1 == ancho ? "" : ",");
+            }
+            outputFile << "\n";
+        }
+        outputFile.close(); 
+
+        std::cout << "\n ¡Listo!" << std::endl;
+
+        std::cout << "\n\n ¿Volver a calcular profundidades de esta u otra imagen?" << std::endl;
+        std::cout << "\n Responder: si/no." << std::endl;
+
+        string Respuesta;
+        std::cin >> Respuesta;
+
+        
+        while(Respuesta != "si" && Respuesta != "SI" && Respuesta != "Si" && Respuesta != "no" && Respuesta != "NO" && Respuesta != "No"){
+            if(Respuesta == "si/no"){
+                std::cout << "\n NO TE PASES DE LISTO/A MUCHACHO/A" << std::endl;
+            }
+
+            std::cout << "\n Respuesta invalida." << std::endl;
+            std::cin >> Respuesta;
+        }
+
+
+        if(Respuesta == "no" || Respuesta == "NO" || Respuesta == "No"){
+            seguir = false;
+        }
+        else{
+            std::cout << "\nTener en cuenta que se sobreescribira el archivo 'profundidades.txt'" << std::endl;
+        }
+    }
+
+/*
     vector<int> indexes = {4, 5, 6};
 
     // Leo el archivo de luces
@@ -221,16 +446,6 @@ int main() {
     //     cout << "\n";
     // }
 
-*/
-
-
-
-
-
-
-
-
-
 
     Matriz prueba({{1, 1, 1}, {1, 1, 2}, {1, 2, 1}});
     std::cout << prueba << std::endl;
@@ -241,6 +456,38 @@ int main() {
     vector<double> b = {2, 3, 4};
     vector<double> x = prueba.resolverSistemaLU(b);
     MostrarVector(x);
+
+    
+    int filas = 5;
+    int columnas = 6;
+    vector<vector<double> > normasZ;
+    int contador = 1;
+    for(int i = 0; i < filas; i++){
+        vector<double> f;
+        for(int j = 1; j <= columnas; j++){
+            if(j != 1){
+                contador++;
+            }
+            f.push_back(contador);
+        }
+        normasZ.push_back(f);
+    }
+    Matriz M(normasZ);
+    M.trasponer();
+    std::cout << "MATRIZ COSMICA M: " << std::endl;
+    std::cout << M << std::endl;
+
+
+    Matriz N = obtenerMatrizEcuaciones(M);
+    std::cout << "MATRIZ COSMICA N: " << std::endl;
+    std::cout << N << std::endl;
+
+    Matriz A = N.traspuesta().productoM(N);
+    std::cout << "MATRIZ COSMICA A: " << std::endl;
+    std::cout << A << std::endl;
+*/
+
+
 }
 
 
