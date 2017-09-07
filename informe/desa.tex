@@ -443,7 +443,7 @@ Y dado que un \textit{double} ocupa 8 bytes, el tamaño total de la matriz serí
 
 Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembros del equipo, decidimos hacer algo mejor. \\
 
-Aprovechándonos de la gran cantidad de ceros en la matriz, implementamos cada fila de la matriz con la estructura \textit{map}. Cada fila de la matriz era del tipo \textit{map$<$int, double$>$} donde el \textit{int} es utilizado para representar el número de columna del elemento, y el \textit{double} es el elemento en cuestión. Los elementos que no se encuentran en el \textit{map} los asumimos como que valen 0. \\
+Aprovechándonos de la gran cantidad de ceros en la matriz, implementamos cada fila de la matriz con la estructura \textit{map}. Cada fila de la matriz es del tipo \textit{map$<$int, double$>$} donde el \textit{int} es utilizado para representar el número de columna del elemento, y el \textit{double} es el elemento en cuestión. Los elementos que no se encuentran en el \textit{map} los asumimos como que valen 0. \\
 
 Utilizando esta idea redujimos ampliamente el tamaño que nos ocupa la matriz en memoria y solucionamos nuestro problema original, \textbf{pero no es gratis}: el acceso a un elemento de la matriz ya no será en tiempo constante, sino logarítmico en la cantidad de elementos de la fila. Como tenemos \textit{muy pocos} elementos distintos de cero en cada fila, estamos mas que dispuestos a pagar este precio. Además, cuando accedemos a un elemento en general lo hacemos porque estamos recorriendo la matriz, por lo que para recorrer una fila (anteriormente enorme) ahora accedemos a poquitos elementos, compensando ampliamente. \\
 
@@ -467,10 +467,9 @@ M x = b \iff L \underbrace{L^t x}_{\text{y}} = b \iff
 \]
 \end{center}
 
-A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la $L$ basandose en realizar operaciones sobre los elementos de la matriz original.
+A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la $L$ basandose en realizar operaciones sobre los elementos de la matriz original. \\
 
 Como nuestra matriz $A$ es simétrica y definida positiva (\textit{por lo analizado en la sección anterior}) puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes mas baja que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
 
-
-\todo[inline]{Continuar}
+Es importante aclarar que si bien no lo resolvimos con Gauss, la resolución en teoría es perfectamente posible. Como esta matriz es definida positiva, tiene determinante mayor a cero, por lo que es inversible. Entonces podemos aplicar Gauss sin encontrarnos ceros en la diagonal.
 
