@@ -116,4 +116,38 @@ En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníam
 
 Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero sí hay bastante diferencia entre los rangos más finos.
 
+\subsection{Eliminacion gaussiana vs factorizacion LU}
+
+Lo que queremos lograr con esta experimentacion es comparar el resultado del calculo sobre todos los pixeles usando el metodo de eliminación gaussiana vs factorizar la matriz y resolver los dos sistemas triangulados. 
+Para esto tomamos una matriz cualquiera de las generadas por 3 luces y resolvimos el sistema para N terminos independientes distintos generados al azar. Esto simula el correr el algoritmo sobre una imagen de N pixeles.\\
+
+Medimos unicamente el tiempo que tarda en resolver el sistema para cada pixel, dejando de lado todo cálculo extra por afuera de la medición (como por ejemplo la generacion aleatoria de los terminos independientes). Luego sumamos cada uno de estos tiempos como la medicion del experimento de tamaño N.
+Hicimos 100 mediciones para cada cantidad de pixeles y luego dividimos por esa cantidad para sacar el promedio, de esta manera reducimos el ruido que pudo haberse visto durante la medición.
+
+Hicimos varias mediciones variando la cantidad de pixeles y estos fueron los resultados:
+
+{\centering
+    \includegraphics[scale=0.7]{informe/imagenes/LUVSNOLU.PNG} \\
+}
+
+Como vemos ambos casos estan en funcion lineal con la cantidad de pixeles, esto es gracias a que, aunque resolver un sistema sea cuadratico y el otro cubico, ambos estan resolviendo sistemas de 3x3 N veces, por lo tanto el tiempo que tarda en resolver un sistrema u otro se vuelve una constante que multiplica a N y por lo tanto tenemos ordenes lineales para los dos casos.\\
+
+Es por esto que quisimos hacer otro experimento mas para comparar la diferencia entre el tiempo cuadratico de resolver el sistema ya factorizado y de resolver el sistema utilizando eliminacion gaussiana.
+Para esto creamos instancias de matrices cada ves mas grandes y las duplicamos, a una le aplicamos eliminacion gaussiana y a la otra la factorizamos y luego resolvimos los dos sistema (L y U). Es importante destacar que no tomamos el tiempo que se toma la factorizacion ya que este es un tiempo que se amortiza en la cantidad de operaciones y no era lo que queriamos comprobar.
+
+El resultado fue el siguiente:
+
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/LUVSNOLUDIM.PNG} \\
+}
+
+Como no se nota muy bien los tiempos para la medicion de LU, decidimos hacer otro grafico con escala logaritmica para que sea mas visual.
+
+
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/LUVSNOLUDIMLOG.PNG} \\
+}
+
+Como podemos ver efectivamente hay un crecimiento polinomico de ambos y la factorizacion LU crece en menor magnitud con el tamaño del sistema a resolver.
+
 \todo[inline]{Continuar}
