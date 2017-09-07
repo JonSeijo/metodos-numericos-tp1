@@ -8,7 +8,7 @@
 }
 {\centering
     \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.pdf}
-    \captionof{figure}{Curvas de nivel de la función de profundidad (para cada píxel, su profundidad estimada) Los valores fueron calculados utilizando las luces que obtuvimos en nuestra calibración.}
+    \captionof{figure}{Curvas de nivel de la función de profundidad (para cada píxel, su profundidad estimada). Los valores fueron calculados utilizando las luces que obtuvimos en nuestra calibración.}
 }
 
 \newpage
@@ -20,7 +20,7 @@ Si bien esperábamos obtener una superficie mucho mas \textit{suave}, creemos qu
 }
 
 $ $\newline
-En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes.\\
+En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así, son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes.\\
 
 Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
 
@@ -28,13 +28,22 @@ Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas
     \includegraphics[scale=0.7]{informe/imagenes/profundidadesCaballoNormalescatedra.pdf} \\
 }
 
-Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobretodo en los bordes, parece ser una superficie un poco mas suave que la obtenida por nosotros. Dado que no sabemos cuales fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos mas adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
+Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobre todo en los bordes, parece ser una superficie un poco mas suave que la obtenida por nosotros. Dado que no sabemos cuáles fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos más adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
 
 Otra cosa a notar, es que en ambas los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos dá la pauta de que nuestras aproximaciones pueden no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
-% 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
+Realizamos los cálculos de profundidad con una imagen que tiene más detalles, para ver si sucede lo mismo que con el rostro del caballo. La siguiente es un gráfico con las profundidades de Buda, con las luces $0, 1$ y $2$ calibradas por nosotros.
 
-Veamos qué tan buena fue nuestra calibración. Dado que la cátedra nos brindó los vectores de luces lo que nos gustaría hacer es comparar ambos. En general, niguna luz quedó \textit{exactamente} igual, pero sí quedaron similares. \\
+{\centering
+    \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesBudaLucesPropias012.pdf} \\
+}
+
+Los detalles del cuerpo se mantuvieron bastante bien, y el área central e inferior tiene mas suavidad que la que habíamos logrado con la anterior imagen. En los bordes nuevamente tenemos picos, se deben a la diferencia brusca que hay con el plano. Es interesante notar que se produjo una deformación en el sector superior, creemos que tiene que ver con la gran cantidad de cambios de luz en un área tan pequeña. \\
+
+
+% 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
+\newpage
+Mencionamos anteriormente que se encontraron diferencias entre las luces calibradas por nosotros y las luces  de la cátedra. Veamos los resultados que obtuvimos. En general, niguna luz quedó \textit{exactamente} igual, pero sí bastante similares. \\
 
 Dado que es complicado visulizar diferencias entre vectores tridimensionales, analizaremos por un lado el eje $z$ y por el otro los ejes $x$ e $y$. En el siguiente gráfico tomamos para cada luz, los ejes $z$ y calculamos su diferencia. \\
 
@@ -42,7 +51,7 @@ Dado que es complicado visulizar diferencias entre vectores tridimensionales, an
     \includegraphics[scale=0.7]{informe/imagenes/lucesEjezDiferencias.pdf} \\
 }
 
-Podemos observar que la la diferencia máxima es aproximadamente $0.1$ mientras que la diferencia mínima está cercana a cero (es exactamente $0.001821$ en la luz $1$). Creemos que si bien no es perfecto, es una diferencia aceptable. Dado que todos los vectores son unitarios (pues fueron normalizados) es lógico esperar diferencias entre los ejes x e y. A continuación puede verse el gráfico resultante. Las luces que se corresponden con las propias y las de la cátedra están señaladas con el mismo color. \\
+Podemos observar que la diferencia máxima es aproximadamente $0.1$, mientras que la diferencia mínima está cercana a cero (es exactamente $0.001821$ en la luz $1$). Creemos que si bien no es perfecto, es una diferencia aceptable. Dado que todos los vectores son unitarios (pues fueron normalizados) es lógico esperar diferencias entre los ejes x e y. A continuación puede verse el gráfico resultante. Las luces que se corresponden con las propias y las de la cátedra están señaladas con el mismo color. \\
 
 Podemos observar que si bien las diferencias son notorias, todas se encuentran en el mismo rango en inclinación. No hay ninguna que haga cosas extrañas como apuntar en sentido inverso. Creemos que las diferencias no afectarán demasiado el resultado final.
 
@@ -59,15 +68,13 @@ $ $\newline
 
 % 2. Como afecta la calibracion del sistema en el resto de las etapas \\
 
-Dado que las luces son utilizadas para el cálculo de las normales, queremos ver cómo nos afecta la calibración en esta etapa. Para eso, resolveremos el sistema de ecuaciones y guardaremos los vectores normales obtenidos. Como las mayores diferencias entre luces podían verse en los ejes $x, y$ estos ejes serán los que usaremos en la comparación.
+Dado que las luces son utilizadas para el cálculo de las normales, queremos ver cómo nos afecta la calibración en esta etapa. Para eso, resolveremos el sistema de ecuaciones y guardaremos los vectores normales obtenidos. Como las mayores diferencias entre luces podían verse en los ejes $x, y$ estos ejes serán los que usaremos en la comparación. \\
 
 En los gráficos que se encuentran a continuación, para cada píxel se grafica un vector que corresponde a la normal en ese punto. Como son \textit{miles} de normales, puede dar la impresión de que se grafican puntos pero no es así: son los vectores en forma de 'flechas'. \\
 
-$ $\newline
+En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial, para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo fueron bastante satisfactorios. \\
 
-En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
-
-Las diferencias mas notorias se encuentran en el ojo y en la oreja del caballo. Creemos que tiene que ver porque son las áreas con más detalle pero menor iluminación. Sin embargo, no creemos que sea una diferencia demasiado significativa.
+Las diferencias más notorias se encuentran en el ojo y en la oreja del caballo. Creemos que tiene que ver porque son las áreas con más detalle pero menor iluminación. Sin embargo, no nos parece que sea una diferencia demasiado significativa.
 
 % {\centering
 %     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesPropias145.pdf} \\
@@ -89,9 +96,9 @@ Las diferencias mas notorias se encuentran en el ojo y en la oreja del caballo. 
 \end{minipage}
 \end{figure}
 
-Aprovecharemos las siguientes imágenes podremos observar dos cosas. La primera es ver un poco más sobre las diferencias entre las luces de la cátedra y las calculadas por nosotros, y lo segundo es como cambian las normales cuando se toma un set de luces diferentes. \\
+Aprovecharemos las siguientes imágenes podremos observar dos cosas. La primera es ver un poco más sobre las diferencias entre las luces de la cátedra y las calculadas por nosotros, y la segunda es observar cómo cambian las normales cuando se toma un set de luces diferentes. \\
 
-En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníamos y en su lugar tomamos otra de las 'malas'. En este caso, consideraremos las luces $4, 5$ y $6$. Podemos observar que tanto las de la cátedra como las propias son demasiado oscuras, sin embargo la nuestra lo es mucho más. Los rasgos faciales dejaron de apreciarse. \\
+En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníamos y en su lugar tomamos otra de las 'malas'. En este caso, consideraremos las luces $4, 5$ y $6$. Podemos observar que tanto las de la cátedra como las propias son demasiado oscuras, sin embargo la nuestra lo es mucho más: los rasgos faciales dejaron de apreciarse. \\
 
 \begin{figure}[H]
 \centering
@@ -107,6 +114,40 @@ En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníam
 \end{minipage}
 \end{figure}
 
-Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero si hay bastante diferencia entre los rangos mas finos.
+Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero sí hay bastante diferencia entre los rangos más finos.
+
+\subsection{Eliminacion gaussiana vs factorizacion LU}
+
+Lo que queremos lograr con esta experimentacion es comparar el resultado del calculo sobre todos los pixeles usando el metodo de eliminación gaussiana vs factorizar la matriz y resolver los dos sistemas triangulados. 
+Para esto tomamos una matriz cualquiera de las generadas por 3 luces y resolvimos el sistema para N terminos independientes distintos generados al azar. Esto simula el correr el algoritmo sobre una imagen de N pixeles.\\
+
+Medimos unicamente el tiempo que tarda en resolver el sistema para cada pixel, dejando de lado todo cálculo extra por afuera de la medición (como por ejemplo la generacion aleatoria de los terminos independientes). Luego sumamos cada uno de estos tiempos como la medicion del experimento de tamaño N.
+Hicimos 100 mediciones para cada cantidad de pixeles y luego dividimos por esa cantidad para sacar el promedio, de esta manera reducimos el ruido que pudo haberse visto durante la medición.
+
+Hicimos varias mediciones variando la cantidad de pixeles y estos fueron los resultados:
+
+{\centering
+    \includegraphics[scale=0.7]{informe/imagenes/LUVSNOLU.PNG} \\
+}
+
+Como vemos ambos casos estan en funcion lineal con la cantidad de pixeles, esto es gracias a que, aunque resolver un sistema sea cuadratico y el otro cubico, ambos estan resolviendo sistemas de 3x3 N veces, por lo tanto el tiempo que tarda en resolver un sistrema u otro se vuelve una constante que multiplica a N y por lo tanto tenemos ordenes lineales para los dos casos.\\
+
+Es por esto que quisimos hacer otro experimento mas para comparar la diferencia entre el tiempo cuadratico de resolver el sistema ya factorizado y de resolver el sistema utilizando eliminacion gaussiana.
+Para esto creamos instancias de matrices cada ves mas grandes y las duplicamos, a una le aplicamos eliminacion gaussiana y a la otra la factorizamos y luego resolvimos los dos sistema (L y U). Es importante destacar que no tomamos el tiempo que se toma la factorizacion ya que este es un tiempo que se amortiza en la cantidad de operaciones y no era lo que queriamos comprobar.
+
+El resultado fue el siguiente:
+
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/LUVSNOLUDIM.PNG} \\
+}
+
+Como no se nota muy bien los tiempos para la medicion de LU, decidimos hacer otro grafico con escala logaritmica para que sea mas visual.
+
+
+{\centering
+    \includegraphics[scale=0.6]{informe/imagenes/LUVSNOLUDIMLOG.PNG} \\
+}
+
+Como podemos ver efectivamente hay un crecimiento polinomico de ambos y la factorizacion LU crece en menor magnitud con el tamaño del sistema a resolver.
 
 \todo[inline]{Continuar}
