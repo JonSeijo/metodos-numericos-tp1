@@ -137,7 +137,7 @@ En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníam
 
 Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero si hay bastante diferencia entre los rangos mas finos.
 
-\subsection{Eliminacion gaussiana vs factorizacion LU}
+\subsection{Eliminacion gaussiana y Factorización LU}
 
 Lo que queremos lograr con esta experimentación es comparar el resultado del cálculo sobre todos los pixeles usando el método de eliminación gaussiana vs factorizar la matriz y resolver los dos sistemas triangulados.
 Para esto tomamos una matriz cualquiera de las generadas por 3 luces y resolvimos el sistema para N términos independientes distintos generados al azar. Esto simula el correr el algoritmo sobre una imagen de N pixeles.\\
@@ -170,3 +170,31 @@ Dado que los tiempos para la medición de LU son muy pequeños, decidimos hacer 
 }
 
 Como podemos ver, efectivamente hay un crecimiento polinomial de ambos y la factorizacion LU crece en menor magnitud con el tamaño del sistema a resolver.
+
+
+\subsection{Cholesky}
+
+A continuación presentamos un análisis temporal de los métodos utilizados comparados con Cholesky. Para realizar estos análisis y poder hacer compararciones con la eliminació gaussiana y LU, generamos matrices que todos los métodos pueden resolver. Creamos de forma automatizada matrices simétricas definidas positivas, generando matrices $A$ con coeficientes aleatorios de 0 a 1 de tamaño $n$ y las multiplicamos por su traspuesta $A^{t}$. Luego les sumamos el valor $n$ en la diagonal garantizando que sean diagonal dominante y se las multiplica por un escalar para evitar valores muy cercanos al 0 que podrían ser inconvenientes para los métodos menos estables. \\
+
+% En estos experimentos intentamos corroborar la complejidad asintótica de los métodos, generando matrices de dimensiones crecientes que resolvimos iterativamente por cada método, promediando el tiempo de ejecución para cada tamaño de matriz. En las mediciones no consideramos lo tiempos de creación de matrices y/o descomposición, sino que únicamente el tiempo de resolución. \\
+
+Una de las ventajas mas importantes de las descomposiciones utilizadas es la de no tener que recalcular la matriz a resolver en cada iteración realizada si solo se cambia el término independiente. Para observar este comportamiento utilizamos matrices de dimensión $500*500$ y resolvimos el sistema $Ax = b$ varias veces midiendo el tiempo que se tomaba en resolver el mismo. \\
+
+Lo esperado es que Gauss sea el método más lento en este tipo de pruebas, ya que debe re-triangular la matriz cada vez que quiere resolver para un nuevo $b$. En cambio, Cholesky y LU una vez que su descomposición es encontrada, solo deben realizarse despejes. Sobre el eje $x$ puede verse la \textit{cantidad acumulada} de términos independientes, y en el eje $y$ el tiempo en segundos. \\
+% Por un lado simplemente medimos el tiempo total que tardaba cada iteracion de resolucion y por el otro sumamos los tiempos tomados en resolver todos los sistemas anteriores.
+\hspace*{-2cm} \includegraphics[scale=0.55]{informe/imagenes/tytalus/DistintosBSuma-Dim500.pdf}
+
+Podemos observar en el gráfico que se cumple lo esperado. Dado que la diferencia entre LU y Cholesky no es apreciable, veamos los mismos datos utilizados en el gráfico anterior pero esta vez sin incluir a Gauss.
+
+\hspace*{-2cm} \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosBSuma-soloCholeskyLU-Dim500.pdf}
+
+
+
+% {\centering
+%     \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosB-Dim500.pdf}
+% }
+
+% {\centering
+%     \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosB-soloCholeskyLU-Dim500.pdf}
+% }
+
