@@ -15,9 +15,12 @@
 \newpage
 Si bien esperábamos obtener una superficie mucho mas \textit{suave}, creemos que los resultados fueron satisfactorios. Puede observarse perfectamente en los gráficos de curvas de nivel de arriba que en cada píxel la profundidad estimada es adecuada y se corresponde con la iluminación de las fotos originales. Veamos una representación de la función de profundidad con los mismos datos en un modelado 3D:
 
+
 {\centering
+\begin{figure}[H]
     \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesCaballoLucesPropias578.pdf} \\
     \captionof{figure}{Profundidades calculadas con luces propias, 5, 7, 8}
+    \end{figure}
 }
 
 $ $\newline
@@ -71,7 +74,11 @@ Mencionamos anteriormente que se encontraron diferencias entre las luces calibra
 Dado que es complicado visulizar diferencias entre vectores tridimensionales, analizaremos por un lado el eje $z$ y por el otro los ejes $x$ e $y$. En el siguiente gráfico tomamos para cada luz, los ejes $z$ y calculamos su diferencia. \\
 
 {\centering
-    \includegraphics[scale=0.7]{informe/imagenes/lucesEjezDiferencias.pdf} \\
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.7]{informe/imagenes/lucesEjezDiferencias.pdf}
+    \captionof{figure}{}
+    \end{figure}
 }
 
 Podemos observar que la la diferencia máxima es aproximadamente $0.1$ mientras que la diferencia mínima está cercana a cero (es exactamente $0.001821$ en la luz $1$). Creemos que si bien no es perfecto, es una diferencia aceptable. Dado que todos los vectores son unitarios (pues fueron normalizados) es lógico esperar diferencias entre los ejes x e y. A continuación puede verse el gráfico resultante. Las luces que se corresponden con las propias y las de la cátedra están señaladas con el mismo color. \\
@@ -93,7 +100,7 @@ Dado que las luces son utilizadas para el cálculo de las normales, queremos ver
 
 En los gráficos que se encuentran a continuación, para cada píxel se grafica un vector que corresponde a la normal en ese punto. Como son \textit{miles} de normales, puede dar la impresión de que se grafican puntos pero no es así: son los vectores en forma de 'flechas'. \\
 
-En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores'. Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
+En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores' (Consideramos como mejor a las luces que más se acercan a las provistas por la catedra, osea las que tienen menor diferencia en el grafico de la Figura 5). Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
 
 Las diferencias mas notorias se encuentran en el ojo y en la oreja del caballo. Creemos que tiene que ver porque son las áreas con más detalle pero menor iluminación. Sin embargo, no creemos que sea una diferencia demasiado significativa.
 
@@ -153,7 +160,7 @@ Hicimos varias mediciones variando la cantidad de pixeles y estos fueron los res
 
 Como vemos ambos casos están en funcion lineal con la cantidad de pixeles, esto es gracias a que, aunque resolver un sistema sea cuadratico y el otro cubico, ambos estan resolviendo sistemas de 3x3 N veces, por lo tanto el tiempo que tarda en resolver un sistrema u otro se vuelve una constante que multiplica a N y por lo tanto tenemos ordenes lineales para los dos casos.\\
 
-Es por esto que quisimos hacer otro experimento mas para comparar la diferencia entre el tiempo cuadratico de resolver el sistema ya factorizado y de resolver el sistema utilizando eliminacion gaussiana.
+Es por esto que quisimos hacer otro experimento más para comparar la diferencia entre el tiempo cuadratico de resolver el sistema ya factorizado y de resolver el sistema utilizando eliminacion gaussiana.
 Para esto creamos instancias de matrices cada ves mas grandes y las duplicamos, a una le aplicamos eliminacion gaussiana y a la otra la factorizamos y luego resolvimos los dos sistemas (L y U). Es importante destacar que no tomamos el tiempo que se toma la factorizacion ya que este es un tiempo que se amortiza en la cantidad de operaciones y no era lo que queriamos comprobar.
 
 El resultado fue el siguiente:
@@ -170,7 +177,6 @@ Dado que los tiempos para la medición de LU son muy pequeños, decidimos hacer 
 }
 
 Como podemos ver, efectivamente hay un crecimiento polinomial de ambos y la factorizacion LU crece en menor magnitud con el tamaño del sistema a resolver.
-
 
 \subsection{Cholesky}
 
@@ -197,4 +203,3 @@ Podemos observar en el gráfico que se cumple lo esperado. Dado que la diferenci
 % {\centering
 %     \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosB-soloCholeskyLU-Dim500.pdf}
 % }
-
