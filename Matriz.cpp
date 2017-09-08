@@ -37,7 +37,7 @@ class Matriz {
         return res;
     }
 
-    // CONSTRUCTOR DE MATRICES CON CAPACIDADES ESPECIALES
+    // Constructor de matrices especiales, ej identidad
     Matriz (int _filas, int _columnas, string tipo) : permutacion(vector<int>()) {
         if(_filas < 0 || _columnas < 0){
             throw std::runtime_error("NO SE PUEDEN CREAR MATRICES CON UNA CANTIDAD DE FILAS O COLUMNAS NEGATIVAS");
@@ -80,78 +80,76 @@ class Matriz {
 
 
     void factorizarLU(bool pivoteo){
-    	if(filas <= 0 || columnas <= 0 || filas != columnas){
+        if(filas <= 0 || columnas <= 0 || filas != columnas){
             throw std::runtime_error("No se puede factorizar esta matriz");
         }
         if(pivoteo){
-        	this->triangularConPivoteo(true);
+            this->triangularConPivoteo(true);
         }
         else{
-        	this->triangular(true);
+            this->triangSinPivoteo(true);
         }
     }
-    // Modifica la matriz actual
-    // @TODO: Testear con diferentes tamaños
+    // Modifica la matriz actual, permuta siempre que puede
     void triangular(bool LU){
-		if(filas <= 0 || columnas <= 0){
+        if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
         for (int k = 0; k < filas-1; k++) {
             bool TodoCero = false;
             if (fabs(m[k][k]) < EPSILON) {
-            	//Tengo un 0 en la diagonal
-            	//Busco primero si puedo hacer una permutacion
-            	for(int l = k+1; l < filas; l++){
-            		if(fabs(m[l][k]) > EPSILON){
-            			//Encontre una fila con la cual hacer permutacion
-            			//Si es la primera permutacion que hago, seteo el vector permutacion
-            			if(permutacion.size() == 0){
-            				for(int numeroFila = 0; numeroFila < filas; numeroFila++){
-            					permutacion.push_back(numeroFila);
-            				}
-            			}
-            			//Hago el swap de filas en el vector permutacion
-            			int tmpFila = permutacion[k];
-            			permutacion[k] = permutacion[l];
-            			permutacion[l] = tmpFila;
-            			//Hago el swap en la matriz
-            			//Si es factorizacion LU entonces tengo que swappear tambien los coeficientes que
-            			//estaban siendo guardados, si fuesen todos 0 podría swappear a partir de la columna k-ésima
-            			int indice = k;
-            			if(LU){
-            				indice = 0;
-            			}
-            			for(int columnaEnLaQueEstoy = indice; columnaEnLaQueEstoy < columnas; columnaEnLaQueEstoy++){
-            				double tmpNum = m[k][columnaEnLaQueEstoy];
-            				m[k][columnaEnLaQueEstoy] = m[l][columnaEnLaQueEstoy];
-            				m[l][columnaEnLaQueEstoy] = tmpNum;
-            			}
-            			TodoCero = false;
-            			break;
-            		}
-            		else{
-            			TodoCero = true;
-            		}
-            	}
-            }
-            if(!TodoCero){
-           		for(int i = k+1; i < filas; i++){
-               		double mult = m[i][k] / m[k][k];
-
-               		// @TODO: Revisar que pasa con el resto de la matriz
-               		for (int j = k; j < columnas; j++){
-                   		m[i][j] -= mult * m[k][j];
-               		}
-               		if(LU){
-               			m[i][k] = mult;
-               		}
+                //Tengo un 0 en la diagonal
+                //Busco primero si puedo hacer una permutacion
+                for(int l = k+1; l < filas; l++){
+                    if(fabs(m[l][k]) > EPSILON){
+                        //Encontre una fila con la cual hacer permutacion
+                        //Si es la primera permutacion que hago, seteo el vector permutacion
+                        if(permutacion.size() == 0){
+                            for(int numeroFila = 0; numeroFila < filas; numeroFila++){
+                                permutacion.push_back(numeroFila);
+                            }
+                        }
+                        //Hago el swap de filas en el vector permutacion
+                        int tmpFila = permutacion[k];
+                        permutacion[k] = permutacion[l];
+                        permutacion[l] = tmpFila;
+                        //Hago el swap en la matriz
+                        //Si es factorizacion LU entonces tengo que swappear tambien los coeficientes que
+                        //estaban siendo guardados, si fuesen todos 0 podría swappear a partir de la columna k-ésima
+                        int indice = k;
+                        if(LU){
+                            indice = 0;
+                        }
+                        for(int columnaEnLaQueEstoy = indice; columnaEnLaQueEstoy < columnas; columnaEnLaQueEstoy++){
+                            double tmpNum = m[k][columnaEnLaQueEstoy];
+                            m[k][columnaEnLaQueEstoy] = m[l][columnaEnLaQueEstoy];
+                            m[l][columnaEnLaQueEstoy] = tmpNum;
+                        }
+                        TodoCero = false;
+                        break;
+                    }
+                    else{
+                        TodoCero = true;
+                    }
                 }
             }
-       	}
+            if(!TodoCero){
+                for(int i = k+1; i < filas; i++){
+                    double mult = m[i][k] / m[k][k];
+
+                    for (int j = k; j < columnas; j++){
+                        m[i][j] -= mult * m[k][j];
+                    }
+                    if(LU){
+                        m[i][k] = mult;
+                    }
+                }
+            }
+        }
     }
-    //LALALALALALALALALALALALALALALALALALALA
+
     void triangSinPivoteo(bool LU = false){
-		if(filas <= 0 || columnas <= 0){
+        if(filas <= 0 || columnas <= 0){
             throw std::runtime_error("No se puede triangular esta matriz");
         }
         for (int k = 0; k < filas-1; k++) {
@@ -165,32 +163,27 @@ class Matriz {
                         throw std::runtime_error("TriangSinPivoteo, DIVISION POR CERO");
                     }
 
-               		// @TODO: Revisar que pasa con el resto de la matriz
-               		for (int j = k; j < columnas; j++){
-                   		m[i][j] -= mult * m[k][j];
-               		}
-               		if(LU){
-               			m[i][k] = mult;
-               		}
+                    for (int j = k; j < columnas; j++){
+                        m[i][j] -= mult * m[k][j];
+                    }
+                    if(LU){
+                        m[i][k] = mult;
+                    }
                 }
             }
-       	}
+        }
     }
 
-    vector<double> GAUSSLOCO(vector<double> &b, bool pivoteo = false) {
+    vector<double> resolverSistemaGaussSinPivoteo(vector<double> &b, bool pivoteo = false) {
         this->AgregarVectorColumna(b);
         this->triangSinPivoteo();
-        // @DEBUG luego de triangular
-        // std::cout << *this << "\n";
+
         if (this->existeAlgunaSolucion()) {
             return solTriangSup();
         }
 
         return vector<double>();
     }
-
-
-    //LALALALALALALALALALALALALALALALALALLALALA
 
     void triangularConPivoteo(bool LU) {
         if(filas <= 0 || columnas <= 0){
@@ -237,15 +230,14 @@ class Matriz {
                         m[i][j] -= mult * m[k][j];
                     }
                     if(LU){
-               			m[i][k] = mult;
-               		}
+                        m[i][k] = mult;
+                    }
                 }
             }
         }
     }
 
     // Ax = b, devuelve x dado un b
-    // @TODO: Ver cuando hay infinitas soluciones
     // retorna: <solucion>, vacio si no existe solucion
     vector<double> resolverSistemaGauss(vector<double> &b, bool pivoteo) {
         this->AgregarVectorColumna(b);
@@ -255,8 +247,6 @@ class Matriz {
         else{
             this->triangular(false);
         }
-        // @DEBUG luego de triangular
-        // std::cout << *this << "\n";
         if (this->existeAlgunaSolucion()) {
             return solTriangSup();
         }
@@ -264,22 +254,11 @@ class Matriz {
         return vector<double>();
     }
 
-    //Aplicada para una matriz que ya fue factorizada como LU
-    //Se supone que no modifica la matriz
-    //Si tiene permutaciones, que sea cuadrada plox
+    // Aplicada para una matriz que ya fue factorizada como LU
+    // No modifica la matriz
+    // ASUME QUE EXISTE FACT LU, ESTO NO PERMUTA NUNCA
     vector<double> resolverSistemaLU(vector<double>& b){
-        //INFORME: Si está peromutada, entonces permuto el b y ya está
-        // PLUx = b
-        // PPLUx = Pb
-        // LUx = Pb
-        // LUx = b'
-        if(this->permutacion.size() > 0){
-        	if(filas <= 0 || columnas <= 0 || filas != columnas){
-            	throw std::runtime_error("Casos no contemplados");
-        	}
-			//Funcion de ordenamiento mala, muy mala
-			MergeSortLoco(this->permutacion, b);
-        }
+
         this->AgregarVectorColumna(b);
         vector<double> y = this->solTriangInf();
         this->EliminarVectoresColumna(1);
@@ -289,9 +268,6 @@ class Matriz {
 
         return x;
     }
-
-    
-
 
     bool existeAlgunaSolucion() {
         for (int f = 0; f < filas; f++) {
@@ -467,10 +443,10 @@ class Matriz {
             for(int i = 0; i < this->cantFilas(); i++){
                 for(int j = 0; j < this->cantColumnas();j++){
                     double suma1 = sumatoria1(j);
-                    /*if (m[i][j] - suma1 <= 0) {
-                        cout << "RAIZ CEROATIVA\n";
-                        cout << m[i][j] << "    " << suma1 << "\n";
-                    }*/
+                    // if (m[i][j] - suma1 <= 0) {
+                    //     cout << "RAIZ CEROATIVA\n";
+                    //     cout << m[i][j] << "    " << suma1 << "\n";
+                    // }
                     if(i == j) this->m[i][j] = sqrt(this->m[i][j] - suma1);
                     if(i > j) this->m[i][j] = (1/this->m[j][j]) * (this->m[i][j] - sumatoria2(i,j));
                     if(i < j) this->m[i][j] = 0;
@@ -522,7 +498,7 @@ class Matriz {
     }
 
     vector<int> DamePermutacion(){
-    	return permutacion;
+        return permutacion;
     }
 
     private:
@@ -562,38 +538,14 @@ class Matriz {
 
             for(int i = 0; i < filas; i++){
                 for(int j = 0; j < columnas; j++){
-                    //Arreglar esto, no hacer caso a los comentarios de abajo, pero volver a dejar como estaba, plox
-                    //Lo cambié para testear
-                    
-                    if(m[i][j] == 0){ //CAMBIO, SACAR EL "0"
-                        os << "0   " << " ";
-                    }
-                    else if(m[i][j] < 10){ //CAMBIO, SACAR EL "0"
-                        os << "000" << std::setprecision(10) << m[i][j] << " ";
-                    }
-                    else if(m[i][j] < 100){ //CAMBIO, SACAR EL "0"
-                        os << "00" << std::setprecision(100) << m[i][j] << " ";
-                    }
-                    else if(m[i][j] < 1000){ //CAMBIO, SACAR EL "0"
-                        os << "0" << std::setprecision(1000) << m[i][j] << " ";
-                    }
-                    else{ //CAMBIO: SACAR ESTA RAMA
-                        os << std::setprecision(10000) << m[i][j] << " ";
-                    }
 
-                    //CAMBIO: DEVOLVER A 10
-                    //os << std::fixed << std::setprecision(0) << m[i][j] << " ";
-                    
-                    //COMENTO ESTO POR SI ALGUIEN QUIERE USARLO PARA TESTEAR Y DEJO EL
-                    //CODIGO ORIGINAL
-                    /*
                     os << (m[i][j] >= 0 ? " " : "");
                     // os << std::fixed << std::setprecision(4) << m[i][j] << " ";
                     if (m[i][j] == 0) {
                         os << "   ";
                     } else {
                         os << std::fixed << std::setprecision(4) << m[i][j] << (m[i][j] > 9 ? " " : "  " );
-                    }*/
+                    }
                 }
                 os << std::endl;
             }
@@ -601,13 +553,13 @@ class Matriz {
 
             os << "Vector permutacion: \n";
             if(permutacion.size() == 0){
-            	os << "Sin permutacion \n";
+                os << "Sin permutacion \n";
             }
             else{
-            	os << "(";
-            	for(int k = 0; k < permutacion.size(); k++){
-            		os << permutacion[k] << (k != permutacion.size() -1 ? ", " : ")\n");
-            	}
+                os << "(";
+                for(int k = 0; k < permutacion.size(); k++){
+                    os << permutacion[k] << (k != permutacion.size() -1 ? ", " : ")\n");
+                }
             }
             os << "\n";
         }
@@ -617,65 +569,8 @@ class Matriz {
             return os;
         };
 
-        //Pre perm y b tienen el mismo tamaño
-    void MergeSortLoco(vector<int>& perm, vector<double>& b){
-    	for(int actual = 1; actual < perm.size(); actual = 2*actual){
-    		for(int inicio = 0; inicio < perm.size() - 1; inicio += 2*actual){
-    			int medio = inicio + actual - 1;
-    			int fin = minimo(inicio + 2*actual - 1, perm.size() -1);
-    			Merge(perm, b, inicio, medio, fin);
-    		}
-    	}
-    }
-
     int minimo(int a, int b){return (a<b) ? a : b;}
 
-    void Merge(vector<int>& perm, vector<double>& b, int inicio, int medio, int fin){
-    	int tam1 = medio - inicio + 1;
-    	int tam2 = fin - medio;
-    	vector<int> izq(tam1);
-    	vector<double> izqD(tam1);
-    	vector<int> der(tam2);
-    	vector<double> derD(tam2);
-
-    	for(int i = 0; i < tam1; i++){
-    		izq[i] = perm[inicio + i];
-    		izqD[i] = b[inicio + i];
-    	}
-
-    	for(int j = 0; j < tam2; j++){
-    		der[j] = perm[1 + medio + j];
-    		derD[j] = b[1 + medio + j];
-    	}
-
-    	int a = 0; int c = 0; int k = inicio;
-    	while(a < tam1 && c < tam2){
-    		if(izq[a] <= der[c]){
-    			perm[k] = izq[a];
-    			b[k] = izqD[a];
-    			a++;
-    		}
-    		else{
-    			perm[k] = der[c];
-    			b[k] = derD[c];
-    			c++;
-    		}
-    		k++;
-    	}
-
-    	while(a < tam1){
-    		perm[k] = izq[a];
-    		b[k] = izqD[a];
-    		a++;
-    		k++;
-    	}
-    	while(c < tam2){
-    		perm[k] = der[c];
-    		b[k] = derD[c];
-    		c++;
-    		k++;
-    	}
-    }
 };
 
 #endif
