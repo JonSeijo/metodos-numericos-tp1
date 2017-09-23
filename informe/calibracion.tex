@@ -13,7 +13,7 @@
 
 \section{Calibración}
 
-El paso anterior al cálculo de las profundidades es el cálculo de los vectores normales a todo punto de la superficie. Para esto, se eligen tres luces diferentes (por ejemplo si elegimos 1, 2 y 3, nuestros vectores luz serán $s^{1}$, $s^{2}$ y $s^{3}$ respectivamente) y utilizando las intensidades ya registradas ($I_i$) queremos encontrar los $m$ que son solución, donde $m$ es un vector que depende del vector normal y de una constante del objeto. Cabe aclarar que el sistema se deberá resolver para cada pixel de la imagen, por lo que ya conocemos las intensidades del pixel dado para toda imagen. Nos encontramos entonces con el primer problema, porque los vectores luz no son un dato conocido. \\
+El paso anterior al cálculo de las profundidades es el cálculo de los vectores normales a todo punto de la superficie. Para esto, se eligen tres luces diferentes (por ejemplo si elegimos 1, 2 y 3, nuestros vectores luz serán $s^{1}$, $s^{2}$ y $s^{3}$ respectivamente) y utilizando las intensidades ya registradas ($I_i$) queremos encontrar los $m$ que son solución, donde $m$ es un vector que depende del vector normal y de una constante del objeto. Cabe aclarar que el sistema se deberá resolver para cada pixel de la imagen, por lo que ya conocemos las intensidades del pixel dado para toda imagen. Nos encontramos entonces con el primer problema, porque los vectores de luz no son un dato conocido. \\
 
 El sistema que queremos resolver es el siguiente: \\
 
@@ -40,20 +40,20 @@ El sistema que queremos resolver es el siguiente: \\
 
 Pero no conocemos los $s_{j}^{i}$. \\
 
-Tenemos que $S = (s_{x}^{i}, s_{y}^{i}, s_{z}^{i})$ es el vector luz en la imagen $i$. Dado que vamos a explicar el cálculo para una imagen cualquiera, omitiremos el supraíndice $i$ para una notación mas relajada.
+Tenemos que $S = (s_{x}^{i}, s_{y}^{i}, s_{z}^{i})$ es el vector luz en la imagen $i$. Dado que vamos a explicar el cálculo para una imagen cualquiera, omitiremos el supraíndice $i$ para una notación más relajada.
 
 Llamemos $c = (c_{x}, c_{y}, c_{z})$ al centro de la esfera. Pensemos la luz como un vector que apunta hacia el centro. El vector $S$ toca la superficie en un cierto punto $p = (p_{x}, p_{y}, p_{z})$, pero $p$ no es un punto al azar, sino que es el punto más iluminado de la esfera. Por lo tanto, la dirección de luz que nos interesa es $S =  c - p$.\\
 
 {\centering
     \includegraphics[scale=0.9]{informe/imagenes/esfera/esferaModelo.png} \\
-    \captionof{figure}{Vemos que el vector que nos interesa es $S = c - p$}
+    \captionof{figure}{Imagen del vector que nos interesa, $S = c - p$}
 }
 
 $ $\newline
 
-Mas precisamente, $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$ En principio no conocemos ninguno de estos valores, pero concentrémonos en calcular sobre el eje $x$ e $y$. De la imagen de la esfera (2D) podemos conocer algunos datos. En la implementación utilizamos la máscara provista por la cátedra para simplificar los cálculos. \\
+Más precisamente, $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$ En principio no conocemos ninguno de estos valores, pero concentrémonos en calcular sobre el eje $x$ e $y$. De la imagen de la esfera (2D) podemos conocer algunos datos. En la implementación utilizamos la máscara provista por la cátedra para simplificar los cálculos. \\
 
-Como los píxeles en la máscara son blancos o negros, es muy sencillo identificar los puntos que pertenecen a la esfera con sólo ver su color. Recorriendo todos los puntos y tomando máximos y mínimos obtenemos 4 puntos clave: El punto del círculo que está mas a arriba $A$, el más abajo $A'$, el de más a la izquierda $B$ y el de más a la derecha $B'$. \\
+Como los píxeles en la máscara son blancos o negros, es muy sencillo identificar los puntos que pertenecen a la esfera con sólo ver su color. Recorriendo todos los puntos y tomando máximos y mínimos obtenemos 4 puntos clave: El punto del círculo que está mas arriba $A$, el más abajo $A'$, el de más a la izquierda $B$ y el de más a la derecha $B'$. \\
 
 {\centering
     \includegraphics[scale=0.5]{informe/imagenes/esfera/circulo.png} \\
@@ -72,9 +72,9 @@ Además, sabiendo que $c$ es el centro del círculo,
     $c_{y} = A_y + R$
 \end{center}
 
-Necesitamos encontrar también quién es $p$. Una primera idea fue recorrer todos los píxeles y quedarnos con el de mayor intensidad. Esto nos trajo problemas pues en una imagen no hay un único píxel mas blanco que el resto, sino que existe un pequeño sector que se encuentra más iluminado. Nos encontramos con imagenes diferentes (pero con similares intensidades de luz) para los cuales se calculaba el mismo punto $p$. \\
+Necesitamos encontrar también quién es $p$. Una primera idea fue recorrer todos los píxeles y quedarnos con el de mayor intensidad. Esto nos trajo problemas pues en una imagen no hay un único píxel más brillante que el resto, sino que existe un pequeño sector que se encuentra más iluminado. Nos encontramos con imágenes diferentes (pero con similares intensidades de luz) para los cuales se calculaba el mismo punto $p$. \\
 
-Para resolver esto consideramos para cada píxel una pequeña vecindad (en principio de 5 x 5, pero se fueron probando otras) y nos quedamos con el píxel que tuviese la vecindad mas iluminada. Utilizando este metodo podemos hallar el $p = (p_x, p_y)$ que queríamos. \\
+Para resolver esto consideramos para cada píxel una pequeña vecindad (en principio de 5 x 5, pero se fueron probando otras) y nos quedamos con el píxel que tuviese la vecindad más iluminada. Utilizando este método podemos hallar el $p = (p_x, p_y)$ que queríamos. \\
 
 Tenemos entonces los datos de $c_x$, $c_y$, $p_x$, $p_y$ y $R$. Veamos cómo podemos despejar lo que nos falta. Recordemos lo que queríamos calcular:
 \begin{center}
@@ -87,7 +87,7 @@ Sólo la tercer componente de $S$ es una incógnita. Sabemos que el radio del c�
     $\norm{c - p} = R$ \\
 \end{center}
 
-Despejando..
+Despejando,
 
 \begin{center}
     $\sqrt{(c_{x} - p_{x})^{2} + (c_{y} - p_{y})^{2} + (c_{z} - p_{z})^{2}} = R$ \\ $ $
