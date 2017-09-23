@@ -4,6 +4,8 @@
 *.toc
 *.pdf
 
+/pruebas
+
 # Ejecutable
 testlu
 testld
