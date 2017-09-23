@@ -71,7 +71,7 @@ El pseudocódigo del algoritmo de Gauss es el siguiente:
 \end{algorithmic}
 \end{algorithm}
 
-Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay ceros en la diagonal}. Es claro que puede modificarse para que realice intercambios de filas y no tenga el problema del cero, pero veremos que para nuestro problema no es importante. En nuestra implementación aplicaremos el algoritmo de Gauss en la siguiente matriz ampliada:
+Como puede verse, funciona correctamente sólo \textbf{suponiendo que no hay ceros en la diagonal}. Es claro que puede modificarse para que realice intercambios de filas y no tenga el problema del cero, pero veremos que para nuestro problema no es importante. En nuestra implementación aplicaremos el algoritmo de Gauss en la siguiente matriz ampliada:
 
 % Matriz ampliada
 \[
@@ -82,9 +82,9 @@ Como puede verse, funciona correctamente solo \textbf{suponiendo que no hay cero
 \end{pmatrix}
 \]
 
-Para empezar, nuestros $s_{j}^{i}$ incialmente son todos distintos de cero, asi que nunca habrá un cero en la primer fila. Dado que son solo 12 vectores de luces, tomamos todas las posibles combinaciones de tres luces y corrimos el algoritmo de gauss sin pivoteos. En ningun caso se realizó división por cero ni tampoco apareció ningún cero en la diagonal. (El código de lo realizado puede encontrarse en \textit{TestTieneLU.cpp}). Esto cobrará importancia cuando querramos encontrar factorización LU. \\
+Para empezar, nuestros $s_{j}^{i}$ incialmente son todos distintos de cero, asi que nunca habrá un cero en la primer fila. Dado que son sólo 12 vectores de luces, tomamos todas las posibles combinaciones de tres luces y corrimos el algoritmo de gauss sin pivoteos. En ningun caso se realizó división por cero ni tampoco apareció ningún cero en la diagonal. El código de lo realizado puede encontrarse en \textit{TestTieneLU.cpp}. Esto cobrará importancia cuando querramos encontrar factorización LU. \\
 
-Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamos en condiciones de despejar de nuestra matriz de 3 x 4:
+Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamos en condiciones de despejar nuestra matriz extendida de 3 x 4:
 
 \[
 \begin{pmatrix}[ccc|c]
@@ -149,7 +149,7 @@ Sabiendo esto, podemos despejar y obtener el valor de $n$ (con $m \neq 0$):
 $n = \frac{m}{\norm{m}}$
 \end{center}
 
-Obtuvimos así para cada píxel vector normal a la superficie.
+Obtuvimos así para cada píxel el vector normal a la superficie.
 
 \subsection{Factorización LU}
 
@@ -175,7 +175,7 @@ Recordemos nuestro sistema para hallar las normales:
 
 Una vez fijas las luces a utilizar (en este caso 1,2 y 3) para despejar la normal en cada píxel, debemos resolver el sistema en cada píxel. Es decir, estaremos traingulando una y otra vez una matriz dónde lo único que cambia es el término a la derecha de la igualdad. Por lo tanto, es interesante plantearse si existe una forma de evitar aplicar Gauss en cada punto. \\
 
-La factorización LU podría no existir, pero veámos de que se trata. Dada una matriz $A$, la factorización LU consiste en encontrar dos matrices: una matriz $L$ triangular inferior con unos en la diagonal y una matriz $U$ triangular superior, de forma que se cumpla
+La factorización LU podría no existir, pero veamos de qué se trata. Dada una matriz $A$, la factorización LU consiste en encontrar dos matrices: una matriz $L$ triangular inferior con unos en la diagonal y una matriz $U$ triangular superior, de forma que se cumpla
 
 \begin{center}
 $A$ = $L$.$U$
@@ -206,7 +206,7 @@ Obteniendo así el $x$ que queríamos encontrar inicialmente. \\
 
 Por lo expuesto en la sección anterior, experimentalmente comprobamos que en nuestra matriz de luces podemos aplicar Gauss normalmente sin encontrarnos con ceros en la diagonal y sin tener que hacer ninguna permutación de filas. \\
 
-Por lo visto en la clase teórica, si podemos triangular una matriz usando Gauss sin tener que permutar filas, es suficiente para afirmar que la factorización LU existe, entonces con el procedimiento explicado podemos hallar la descomposicion de nuestra matriz de luces y resolver el sistema mas eficientemente. \\
+Por lo visto en la clase teórica, si podemos triangular una matriz usando Gauss sin tener que permutar filas, es suficiente para afirmar que la factorización LU existe, entonces con el procedimiento explicado podemos hallar la descomposicion de nuestra matriz de luces y resolver el sistema más eficientemente. \\
 
 \newpage
 \section{Estimación de profundidades}
@@ -217,7 +217,7 @@ Utilizando los métodos anteriores pudimos resolver el sistema que incluye las l
 $n^{(a,b)} = (n_{x}^{a,b}, n_{y}^{a,b}, n_{z}^{a,b})$
 \end{center}
 
-A partir de aquí en ocasiones omitiremos el supraíndice $(a,b)$ para relajar la notación cuando es claro cuál es el píxel del cual hablamos. Siguiendo con la técnica de fotometría estéreo, el siguiente paso a realizar es el cálculo de las profundidades utilizando estas normales. Para esto, consideramos una aproximación al plano tangente de cada píxel. La ecuaciones que tenemos que resolver son las siguientes, para cada píxel $(x ,y)$:
+A partir de aquí en ocasiones omitiremos el supraíndice $(a,b)$ para relajar la notación cuando es claro cuál es el píxel del cual hablamos. Siguiendo con la técnica de fotometría estéreo, el siguiente paso a realizar es el cálculo de las profundidades utilizando estas normales. Para esto, consideramos una aproximación al plano tangente de cada píxel. Las ecuaciones que tenemos que resolver son las siguientes, para cada píxel $(x ,y)$:
 
 \begin{center}
 \[
@@ -236,7 +236,7 @@ O equivalentemente
 \]
 \end{center}
 
-Consideremos como sería el sistema matricial para una imagen de 2x3 pixeles, y veremos como puede generalizarse: \\
+Consideremos cómo sería el sistema matricial para una imagen de 2x3 pixeles, y veremos cómo puede generalizarse: \\
 
 % \dots \ddots \vdots
 
@@ -315,7 +315,7 @@ Si bien la matriz está planteada con unas dimensiones en particular, por su for
 \end{pmatrix}
 \]
 
-Para cada píxel tenemos la primer ecuacion correspondiente a $n_y$, donde los dos $n_z$ están separados a $m'$ de distancia (\textit{ancho de la imagen original}), y en la segunda ecuación se encuentra la correspondiente a $n_x$ donde los dos $n_z$ se encuentran juntos. También puede verse que cada vez que pasamos al siguiente píxel bajando de fila se produce un corrimiento en una columna hacia la derecha. Hay que tener especial cuidado con los bordes de la imagen, porque el producto dará como resultado una ecuación erronea. Para que esto no sea un problema, colocamos ceros en los lugares problemáticos. \\
+Para cada píxel tenemos la primer ecuacion correspondiente a $n_y$, donde los dos $n_z$ están separados a $m'$ de distancia (\textit{ancho de la imagen original}), y en la segunda ecuación se encuentra la correspondiente a $n_x$ donde los dos $n_z$ se encuentran juntos. También puede verse que cada vez que pasamos al siguiente píxel bajando de fila se produce un corrimiento en una columna hacia la derecha. Hay que tener especial cuidado con los bordes de la imagen, porque el producto dará como resultado una ecuación errónea. Para que esto no sea un problema, colocamos ceros en los lugares problemáticos. \\
 
 Queremos entonces resolver el sistema:
 
@@ -333,7 +333,7 @@ Para así llegar al sistema final que nos interesa resolver
 $A z = b$
 \end{center}
 
-La matriz $A$ no es cualquier cosa, sino que tiene una forma particular.
+La matriz $A$ no tiene cualquier forma, sino que tiene una forma particular.
 
 En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^{a,b}$ para no confundir con el exponente que está potenciando al elemento. Veamos como es la forma de $A$, obtenida simplemente haciendo la cuenta $M^t M$
 
@@ -356,13 +356,13 @@ En este caso si $(a, b)$ es nuestro píxel escribiremos  $n_{a,b}$ en vez de $n^
 \end{pmatrix}
 \]
 
-Es fácil darse cuenta del patrón. Vamos tomando $p$ el pixel actual, pensando en los píxeles ordenados ($(1,1), (1,2), (1,3), .. $) Colocamos $2p^2$ en la diagonal. Colocamos $-p^2$ una celda a la derecha, $m'$ celdas a la derecha, una celda abajo, $m'$ celdas abajo. Sumamos $p^2$ una celda siguiente sobre la diagonal y en la celda $m'$ siguiente sobre la diagonal. El único cuidado es cuando llegamos al borde de la imagen, de no colocar ese píxel en el borde inmediato.
+Es fácil darse cuenta del patrón. Vamos tomando $p$ el píxel actual, pensando en los píxeles ordenados ($(1,1), (1,2), (1,3), .. $) Colocamos $2p^2$ en la diagonal. Colocamos $-p^2$ una celda a la derecha, $m'$ celdas a la derecha, una celda abajo, $m'$ celdas abajo. Sumamos $p^2$ una celda siguiente sobre la diagonal y en la celda $m'$ siguiente sobre la diagonal. El único cuidado es cuando llegamos al borde de la imagen, de no colocar ese píxel en el borde inmediato.
 
 Toda matriz multiplicada por su traspuesta es simétrica, por lo que nuestra $A$ tambien es simétrica, como corroboramos en la cuenta. Nos gustaría ver que además es definida positiva, esto nos será de ultilidad en la siguiente sección cuando querramos aplicar Cholesky. \\
 
-Antes de meternos a hacer cuentas, analicemos un poco como son los valores de los elementos de nuestra matriz. Para todo píxel $a, b$, tenemos que $n_{a, b}^2 \geq 0$ por ser números reales elevados al cuadrado. Recodemos que los $n$ que aparecen en la matriz $A$ son en realidad la componente $z$ del vector normal $n$. \\
+Antes de meternos a hacer cuentas, analicemos un poco cómo son los valores de los elementos de nuestra matriz. Para todo píxel $a, b$, tenemos que $n_{a, b}^2 \geq 0$ por ser números reales elevados al cuadrado. Recodemos que los $n$ que aparecen en la matriz $A$ son en realidad la componente $z$ del vector normal $n$. \\
 
-Veamos que pasa en la ecuación original si para algun $x,y$ tenemos que $n_{z} = 0$.
+Veamos qué pasa en la ecuación original si para algun $x,y$ tenemos que $n_{z} = 0$.
 
 \begin{center}
 \[\begin{dcases}
@@ -386,7 +386,7 @@ $\iff$
 
 Pero eso no puede pasar en ningún punto de la imagen, porque $n$ fue elegido para que $\norm{n} = 1$. \\
 
-Llevándo la cuenta a nuestro problema, podrían aparecer $n_z = 0$ pero solo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen. \\
+Llevándo la cuenta a nuestro problema, podrían aparecer $n_z = 0$ pero sólo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen. \\
 
 Calculemos determinantes :) \\
 
@@ -431,7 +431,7 @@ $ $ \hspace{30pt}
 
 Si bien sabemos que lo expuesto arriba no es una demostración formal, podemos asegurar que los determinantes de las submatrices principales son siempre $> 0$, ya que la matriz respeta siempre el mismo patrón. Por lo visto en clase, sabemos que si los menores principales de una matriz son positivos la matriz es definida positiva. Por lo tanto, \textit{$A$ es simétrica definida positiva}. \\
 
-Aunque lo que mostramos fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen mas grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
+Aunque lo que mostramos fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen más grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
 \begin{center}
     $(250*270)^2 = 4 556 250 000$
 \end{center}
@@ -445,7 +445,7 @@ Como no pudimos conseguir esa cantidad de memoria ni juntando a todos los miembr
 
 Aprovechándonos de la gran cantidad de ceros en la matriz, implementamos cada fila de la matriz con la estructura \textit{map}. Cada fila de la matriz es del tipo \textit{map$<$int, double$>$} donde el \textit{int} es utilizado para representar el número de columna del elemento, y el \textit{double} es el elemento en cuestión. Los elementos que no se encuentran en el \textit{map} los asumimos como que valen 0. \\
 
-Utilizando esta idea redujimos ampliamente el tamaño que nos ocupa la matriz en memoria y solucionamos nuestro problema original, \textbf{pero no es gratis}: el acceso a un elemento de la matriz ya no será en tiempo constante, sino logarítmico en la cantidad de elementos de la fila. Como tenemos \textit{muy pocos} elementos distintos de cero en cada fila, estamos mas que dispuestos a pagar este precio. Además, cuando accedemos a un elemento en general lo hacemos porque estamos recorriendo la matriz, por lo que para recorrer una fila (anteriormente enorme) ahora accedemos a poquitos elementos, compensando ampliamente. \\
+Utilizando esta idea redujimos ampliamente el tamaño que nos ocupa la matriz en memoria y solucionamos nuestro problema original, \textbf{pero no es gratis}: el acceso a un elemento de la matriz ya no será en tiempo constante, sino logarítmico en la cantidad de elementos de la fila. Como tenemos \textit{muy pocos} elementos distintos de cero en cada fila, estamos más que dispuestos a pagar este precio. Además, cuando accedemos a un elemento en general lo hacemos porque estamos recorriendo la matriz, por lo que para recorrer una fila (anteriormente enorme) ahora accedemos a poquitos elementos, compensando ampliamente. \\
 
 \subsection{Cholesky}
 
@@ -455,7 +455,7 @@ $M = L L^t$
 \end{center}
 
 Es importante aclarar que \textbf{no toda matriz tiene descomposición de Cholesky}.
-La ventaja que esto es que si tenemos que resolver un sistema podemos aprovechar que conocemos una descomposición para resolver el sistema sin necesidad de triangular, aprovechando que $L$ es triangular inferior y $L^t$ es triangular superior.
+La ventaja que tiene esto es que si tenemos que resolver un sistema podemos aprovechar que conocemos una descomposición para resolver el sistema sin necesidad de triangular, aprovechando que $L$ es triangular inferior y $L^t$ es triangular superior.
 
 \begin{center}
 \[
@@ -467,8 +467,8 @@ M x = b \iff L \underbrace{L^t x}_{\text{y}} = b \iff
 \]
 \end{center}
 
-A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la $L$ basandose en realizar operaciones sobre los elementos de la matriz original. \\
+A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la matriz $L$ basándose en realizar operaciones sobre los elementos de la matriz original. \\
 
-Como nuestra matriz $A$ es simétrica y definida positiva (\textit{por lo analizado en la sección anterior}) puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes mas baja que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
+Como nuestra matriz $A$ es simétrica y definida positiva (\textit{por lo analizado en la sección anterior}) puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes más bajas que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
 
 Es importante aclarar que aunque no lo resolvimos con Gauss, la resolución en teoría es perfectamente posible. Como esta matriz es definida positiva, tiene determinante mayor a cero, por lo que es inversible. Entonces podríamos aplicar Gauss sin dejar ceros en la diagonal.
