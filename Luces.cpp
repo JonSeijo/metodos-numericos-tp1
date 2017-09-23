@@ -1,7 +1,7 @@
 #ifndef LUCES_CPP
 #define LUCES_CPP
 
-string filepathLuces_catedra = "recursos/resultados_y_ejemplos/luces.txt";
+string filepathLuces_catedra = "luces_catedra.txt";
 string filepathLuces_propia = "luces_calibradas.txt";
 
 // Una luz seria un vector de 3 coordenadas
