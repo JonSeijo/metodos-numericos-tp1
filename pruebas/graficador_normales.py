@@ -13,8 +13,8 @@ def calcular_ancho_alto(catedra=False):
             alto += 1
             ancho = len(line.split(","))
 
-    if (catedra):
-        ancho -= 1 # por el formateo que tiene
+    # if (catedra):
+        # ancho -= 1 # por el formateo que tiene
 
 def pos(dato):
     if (dato == "x"):
@@ -93,10 +93,15 @@ v = np.array(ny)
 # Ploteo
 # ----------------------
 
-plt.title("Normales - Luces 0,1,2")
+
+string_autor = " propias "
+if (normales_catedra):
+    string_autor = " cátedra "
+
+plt.title("Normales - Luces" + string_autor + "4,5,6")
 
 mult = 2
-escala = None
+escala = 150
 
 if (normales_catedra):
     mult = 2
@@ -105,11 +110,11 @@ if (normales_catedra):
 plt.quiver(x, y, mult*u, mult*v, scale=escala)
 axes = plt.gca()
 
-if not normales_catedra:
-    plt.gca().invert_yaxis()
+# if not normales_catedra:
+    # plt.gca().invert_yaxis()
 
 # Plot de caballo consistente
-axes.set_xlim([200,500])
-axes.set_ylim([250,50])
+axes.set_xlim([30,275])
+axes.set_ylim([175,0])
 
 plt.show()
