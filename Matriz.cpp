@@ -358,7 +358,7 @@ class Matriz {
     Matriz sumaM(const Matriz B){
         Matriz res = Matriz(this->filas, this->columnas);
         if(this->columnas != B.filas || this->filas <= 0 || this->columnas <= 0 || B.columnas <= 0){
-            throw std::runtime_error("PRODUCTO MATRICIAL INDEFINIDO");
+            throw std::runtime_error("SUMA MATRICIAL INDEFINIDO");
         }
         else{
             for(int i = 0; i < this->filas; i++){
@@ -440,34 +440,34 @@ class Matriz {
     }
 
     void cholesky(){
-            for(int i = 0; i < this->cantFilas(); i++){
-                for(int j = 0; j < this->cantColumnas();j++){
-                    double suma1 = sumatoria1(j);
-                    // if (m[i][j] - suma1 <= 0) {
-                    //     cout << "RAIZ CEROATIVA\n";
-                    //     cout << m[i][j] << "    " << suma1 << "\n";
-                    // }
-                    if(i == j) this->m[i][j] = sqrt(this->m[i][j] - suma1);
-                    if(i > j) this->m[i][j] = (1/this->m[j][j]) * (this->m[i][j] - sumatoria2(i,j));
-                    if(i < j) this->m[i][j] = 0;
-                }
+        for(int i = 0; i < this->cantFilas(); i++){
+            for(int j = 0; j < this->cantColumnas();j++){
+                double suma1 = sumatoria1(j);
+                // if (m[i][j] - suma1 <= 0) {
+                //     cout << "RAIZ CEROATIVA\n";
+                //     cout << m[i][j] << "    " << suma1 << "\n";
+                // }
+                if(i == j) this->m[i][j] = sqrt(this->m[i][j] - suma1);
+                if(i > j) this->m[i][j] = (1/this->m[j][j]) * (this->m[i][j] - sumatoria2(i,j));
+                if(i < j) this->m[i][j] = 0;
             }
         }
+    }
 
 
-        double sumatoria1(int j){
-            double res = 0;
-            for(int k = 0; k < j; k++){
-                res += pow (this->m[j][k], 2.0);
-            }
+    double sumatoria1(int j){
+        double res = 0;
+        for(int k = 0; k < j; k++){
+            res += pow (this->m[j][k], 2.0);
         }
+    }
 
-        double sumatoria2(int i, int j){
-            double res = 0;
-            for(int k = 0; k < j; k++){
-                res += this->m[i][k] * this->m[j][k];
-            }
+    double sumatoria2(int i, int j){
+        double res = 0;
+        for(int k = 0; k < j; k++){
+            res += this->m[i][k] * this->m[j][k];
         }
+    }
 
     bool operator==(const Matriz B){
         if(this->filas != B.filas || this->columnas != B.columnas){

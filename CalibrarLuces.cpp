@@ -16,13 +16,6 @@ Pasos a seguir:
     : identificar Px Py el punto mas iluminado
     : hacer el calculo de vector luz para esta imagen
 
-Hay *pequeños* cambios con respecto a las luces de la catedra.
-El mas notorio es la esfera 7.
-La razon creo que es porque hay unas malformaciones mas blancas
- que no se corresponden con la iluminacion mayor,
-Entonces el algoritmo considera que esa es la direccion de la luz
- y puede no serlo exactamente.
-
 @Jonno
 */
 
@@ -38,16 +31,20 @@ double valorVecindad(int filaInicial, int columnaInicial, int rango, int filas, 
 
 
 int main() {
-    Imagen mascara(getFotoPath("mate", "mask"));
-    // Imagen mascara(getFotoPath("cromada", "mask"));
+    string tipo_cromada = "cromada";
+    string tipo_mate = "mate";
+
+    // La esfera cromada da resultados mas exactos pues el brillo maximo es muchisimo mas notorio
+    string tipo = tipo_cromada;
+
+    Imagen mascara(getFotoPath(tipo, "mask"));
     vector<Imagen> fotos;
     for (int i = 0; i < 12; i++) {
-        // fotos.push_back(Imagen(getFotoPath("cromada", i)));
-        fotos.push_back(Imagen(getFotoPath("mate", i)));
+        fotos.push_back(Imagen(getFotoPath(tipo, i)));
     }
 
-    int ancho = mascara.ancho;
-    int alto = mascara.alto;
+    double ancho = mascara.ancho;
+    double alto = mascara.alto;
 
     double min_fila = 1e8;
     double max_fila = 0;
@@ -70,12 +67,13 @@ int main() {
         }
     }
 
-    // double radio = (max_col - min_col) / 2.0 + 1.0;
-    // double radio = (max_col - min_col) / 2.0;
-    double radio = (max_col - min_col) / 2.0 - 1.0;
+    double radio = (max_col -  min_col + 1.0) / 2.0 + 1;
+    double radioFila = (max_fila - min_fila + 1.0) / 2.0 + 1;
 
-    double center_y = min_fila + (max_fila - min_fila) / 2.0;
-    double center_x = min_col + (max_col - min_col) / 2.0;
+    double center_y = min_fila + radio + 1;
+    double center_x = min_col + radio + 1;
+
+    // cout << "center_y: " << center_y << "    center_x: " << center_x << "\n";
 
     // ---------------------------------------
     // Tomo los Px Py de cada imagen (maximo punto de luminosidad)
@@ -109,29 +107,19 @@ int main() {
         double py = maxima_luminosidad[i].first; // fila es eje y
         double px = maxima_luminosidad[i].second;
 
-        double luz_x = (px - center_x);
-
-        // Recordar que eje y comienza desde arriba
-        // double luz_y = py - center_y;
+        double luz_x = (center_x - px);
         double luz_y = (center_y - py);
 
-        // Explicacion en el informe, confirmado por docente
-        double luz_z = sqrt(radio*radio - luz_x*luz_x - luz_y*luz_y);
+        // Explicacion en el informe
+        double luz_z = sqrt ((radio*radio) - (luz_x*luz_x) - (luz_y*luz_y));
 
-        // cout << "\n\n";
-        // debug(luz_x, "luz_x");
-        // debug(luz_y, "luz_y");
-        // debug(luz_z, "luz_z");
+        // Re-traslado. (Eje y es inverso)
+        px = px - center_x;
+        py = center_y - py;
+        luz_z = luz_z - radio/2;
 
-        // fila, columna, zeta
-        luz luz_raw = {luz_y, luz_x, luz_z};
-
-        luz_y /= NormaVectorial(luz_raw);
-        luz_x /= NormaVectorial(luz_raw);
-        luz_z /= NormaVectorial(luz_raw);
-
-        // {fila, columna, zeta}
-        luces[i] = {luz_x, luz_y, luz_z};
+        double norma = NormaVectorial({px, py, luz_z});
+        luces[i] = {px/norma, py/norma, luz_z/norma};
     }
 
     cout << 12 << "\n";

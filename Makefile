@@ -8,7 +8,7 @@ main: main.cpp MatrizEspecialFunciones.cpp $(LIBS)
 	$(CPP) $(FLAGS) -o $@ $(LIBS) $<
 
 calibracion: CalibrarLuces.cpp Imagen.cpp Auxiliares.cpp
-	$(CPP) $(FLAGS) -o $@ Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
+	$(CPP) -std=c++11 -o $@ Imagen.cpp recursos/ppmloader/ppmloader.cpp $<
 
 testlu: TestTieneLU.cpp Matriz.cpp Imagen.cpp
 	$(CPP) $(FLAGS) -o $@ Matriz.cpp Imagen.cpp recursos/ppmloader/ppmloader.cpp $<

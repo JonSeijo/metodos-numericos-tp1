@@ -31,28 +31,23 @@ void debug(double &v, string msg = "Debug: ") {
 }
 
 double NormaVectorial(const vector<double>& v){
-	if(v.size() <= 0){
-		return 0;
+	double suma = 0;
+	for(int k = 0; k < v.size(); k++){
+		suma += (v[k]*v[k]);
 	}
-	else{
-		double suma = v[0]*v[0];
-		for(int k = 1; k < v.size(); k++){
-			suma += (v[k]*v[k]);
-		}
-		return sqrt(suma);
-	}
+	return sqrt(suma);
 }
 
 Matriz obtenerMatrizEcuaciones(Matriz& M){
-	
-	vector<vector<double> > v; 
+
+	vector<vector<double> > v;
     //VAMOS A RRECORRER LA MATRIZ COLUMNA POR COLUMNA, LA CACHÉ SE VA A ENOJAR
     for(int i = 0; i < M.cantColumnas() - 1; i++){
         for(int j = 0; j < M.cantFilas() - 1; j++){
             //ESTARÍA BUENO INICIALIZARLOS CON TAMAÑO (FILAS*COLUMNAS)-1
             vector<double> v_fila;
-            vector<double> v_fila2; 
-            //PONER CEROS CORRIESPONDIENTES A LA FILA 
+            vector<double> v_fila2;
+            //PONER CEROS CORRIESPONDIENTES A LA FILA
             for(int cerosLocos = 0; cerosLocos < j + i*(M.cantFilas()); cerosLocos++){
                 v_fila.push_back(0);
                 v_fila2.push_back(0);
@@ -68,12 +63,12 @@ Matriz obtenerMatrizEcuaciones(Matriz& M){
             //PONEMOS LO QUE CORRESPONDE
             v_fila.push_back(M[j][i]);
 
-            //Y AHORA A RELLENAR DE CEROS 
+            //Y AHORA A RELLENAR DE CEROS
             for(int l = j + i*(M.cantFilas()) + 2 + M.cantFilas(); l < (M.cantColumnas())*(M.cantFilas()); l++){
                 v_fila.push_back(0);
             }
 
-            //AHORA LA SEGUNDA FILA 
+            //AHORA LA SEGUNDA FILA
 
             v_fila2.push_back(M[j][i]); v_fila2.push_back(M[j][i]);
 
@@ -108,7 +103,7 @@ void MostrarVectorString(vector<string>& v){
         if(v[i] != "." && v[i] != ".."){
             std::cout << v[i];
             if(i != v.size() - 1){
-                std::cout << ", "; 
+                std::cout << ", ";
             }
         }
     }
