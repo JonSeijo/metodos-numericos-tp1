@@ -42,7 +42,8 @@ def guardar_dato():
                     print(c)
                     continue
 
-                limit = 1.5
+                # limit = 1.5
+                limit = 2
                 if (abs(c) > limit):
                     c = limit/c
 
@@ -74,11 +75,11 @@ ax = fig.gca(projection='3d')
 ax.axis('off')
 
 colores = [cm.magma, cm.gray, cm.bone, cm.binary, cm.coolwarm, cm.copper]
-color = 4
+color = 1
 
-stride = 3
+stride = 10
 
-# ax.plot_surface(x, y, Z, cmap=cm.coolwarm, linewidth=1, cstride=stride, rstride=stride)
-cset = ax.contour(x, y, Z[::-1], cmap=colores[color])
+# ax.plot_surface(x, y, Z[::-1], cmap=colores[color], linewidth=1, cstride=stride, rstride=stride)
+cset = ax.contour(x, y, Z[::-1], cmap=cm.coolwarm)
 
 plt.show()
