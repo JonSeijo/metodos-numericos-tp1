@@ -4,45 +4,37 @@
 % 1. Comparar las direcciones de iluminacion obtenidas por el metodo de calibracion con las provistas por la catedra \\
 \subsection{Calibración de luces}
 
+Lo primero que analizaremos será la calidad de nuestra calibración. Nos parece importante conseguir un buen resultado de luces ya que serán utilizadas en todos los pasos siguientes. Muy amablemente la cátedra nos cedió los datos de las luces reales con las cuales podremos comprarar. \\
+
+Dado que nuestro método de calibración se basa en utilizar imágenes de esferas, utlizaremos las esperas \textit{mate} y la \textit{cromada} para ver con cuál conseguimos mejores resultados. Como ambas son esferas, esperamos obtener los mismos resultados con ambas. \\
+
+En primer lugar veremos la esfera \textit{mate}. Para cada imagen estimamos el vector de luz correspondiente y graficamos los tres ejes. No es demasiado importante el valor que toma cada eje, sino que lo que nos interesa es ver la diferencia con los valores de la cátedra. \\
+
+Graficamos del mismo color cada eje. La línea llena se corresponde a los valores de la cátedra mientras que la punteada son los valores obtenidos por nosotros. \\
+
+{\centering
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.80]{informe/imagenes/lucesComparacionFinalMate.pdf}
+    \captionof{figure}{Calibración de luces utilizando la esfera mate.}
+    \end{figure}
+}
+
+Lo que observamos es que en líneas generales los valores nuestros y los de la cátedra dan parecidos, las curvas son similares. El eje X es el que más se aproxima al valor real, pero no sabemos por qupe sucede esto sólo con este eje. Las diferencias que existen son de hasta 0.30 puntos (sobre 1.00), que si bien no parece demasiado, creemos que esto puede afectar el resultado final. \\
+
+Veamos qué sucede si consideramos la esfera \textit{cromada}:
 
 {\centering
 \begin{figure}[H]
 \centering
     \includegraphics[scale=0.80]{informe/imagenes/lucesComparacionFinal.pdf}
-    \captionof{figure}{COMPLETAR}
+    \captionof{figure}{Calibración de luces utilizando la esfera cromada.}
     \end{figure}
 }
 
+Para nuestra sorpresa, es claro que obtuvimos mejores resultados con la esfera cromada. Esperábamos obtener valores similares en ambas. Creemos que la razon por la que esto sucede, es porque en la esfera cromada es extremadamente notorio cuál es el punto mas brillante, por lo que es más exacta la identificación. En la esfera mate, en cambio, se tienen blancos muy similares en toda la imagen. \\
 
-\todo[inline]{ESTE NUEVO GRAFICO TIENE LA RE POSTA @jonno}
-
-\todo[inline]{Lo anterior de luces ya no sirve mas, rehacer. Ahora tenemos luces propias casi identicas a las de la catedra, se supone que vamos a obtener resultados mucho mejores.}
-
-% Mencionamos anteriormente que se encontraron diferencias entre las luces calibradas por nosotros y las luces  de la cátedra. Veamos los resultados que obtuvimos. En general, ninguna luz quedó \textit{exactamente} igual, pero sí quedaron similares. \\
-
-% Dado que es complicado visulizar diferencias entre vectores tridimensionales, analizaremos por un lado el eje $z$ y por el otro los ejes $x$ e $y$. En el siguiente gráfico tomamos para cada luz, los ejes $z$ y calculamos su diferencia. \\
-
-% {\centering
-% \begin{figure}[H]
-% \centering
-%     \includegraphics[scale=0.7]{informe/imagenes/lucesEjezDiferencias.pdf}
-%     \captionof{figure}{}
-%     \end{figure}
-% }
-
-% Podemos observar que la diferencia máxima es aproximadamente $0.1$ mientras que la diferencia mínima está cercana a cero (es exactamente $0.001821$ en la luz $1$). Creemos que si bien no es perfecto, es una diferencia aceptable. Dado que todos los vectores son unitarios (pues fueron normalizados) es lógico esperar diferencias entre los ejes x e y. A continuación puede verse el gráfico resultante. Las luces que se corresponden con las propias y las de la cátedra están señaladas con el mismo color. \\
-
-% Podemos observar que aunque las diferencias son notorias, todas se encuentran en el mismo rango en inclinación. No hay ninguna que haga cosas extrañas, como por ejemplo apuntar en sentido inverso. Creemos entonces que las diferencias no afectaron demasiado el resultado final.
-
-% {\centering
-%     \includegraphics[scale=0.8]{informe/imagenes/lucesCatedraProyeccionXY.pdf} \\
-%     % \captionof{figure}{Luces de la cátedra en la proyección x,y}
-% }
-% {\centering
-%     \includegraphics[scale=0.8]{informe/imagenes/lucesPropiasProyeccionXY.pdf} \\
-%     % \captionof{figure}{Luces propias en la proyección x,y}
-% }
-
+A partir de ahora, en todos los experimentos siguientes utilizaremos los datos que obtuvimos con la esfera cromada. \\
 
 
 % 2. Como afecta la calibracion del sistema en el resto de las etapas \\
