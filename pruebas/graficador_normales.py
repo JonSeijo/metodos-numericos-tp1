@@ -98,14 +98,10 @@ string_autor = " propias "
 if (normales_catedra):
     string_autor = " cátedra "
 
-plt.title("Normales - Luces" + string_autor + "4,5,6")
+plt.title("Normales - Luces" + string_autor + ": CROMADA - 1, 4, 5")
 
 mult = 2
 escala = 150
-
-if (normales_catedra):
-    mult = 2
-    escala = 150
 
 plt.quiver(x, y, mult*u, mult*v, scale=escala)
 axes = plt.gca()

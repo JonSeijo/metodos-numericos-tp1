@@ -41,56 +41,84 @@ A partir de ahora, en todos los experimentos siguientes utilizaremos los datos q
 \newpage
 \subsection{Normales}
 
-\todo[inline]{AHORA COMO LAS LUCES SON MEJORES, LAS NORMALES SON DISTINTAS, semi rehacer esta seccion}
-\todo[inline]{PD: los graficos de normales estan bien porque son con los datos nuevos}
+En esta sección veremos cómo la calibración y elección de las luces afecta el resultado de las normales. En primer lugar, aprovecharemos que encontramos diferencias entre las luces obtenidas por la esfera mate y la esfera cromada para ver los errores que producen un set de luces 'desviado'. Por simplicidad, llamaremos a las luces de las tres categorías simplemente como: luces mate, cromadas y cátedra. \\
 
-Dado que las luces son utilizadas para el cálculo de las normales, queremos ver cómo nos afecta la calibración en esta etapa. Para eso, resolveremos el sistema de ecuaciones y guardaremos los vectores normales obtenidos. Como las mayores diferencias entre luces podían verse en los ejes $x, y$ estos ejes serán los que usaremos en la comparación. \\
+Sería muy razonable encontrarnos con algo de diferencia entre los sets de mate y cromada. Esperamos tambien que no haya diferencias entre cromada y cátedra, ya que los valores de luces eran prácticamente iguales. \\
 
-En los gráficos que se encuentran a continuación, para cada píxel se grafica un vector que corresponde a la normal en ese punto. Como son \textit{miles} de normales, puede dar la impresión de que se grafican puntos pero no es así: son los vectores en forma de 'flechas'. \\
+En los gráficos que se encuentran a continuación, para cada píxel se grafica un vector que corresponde a la normal en ese punto. Como son \textit{miles} de normales, puede dar la impresión de que se grafican puntos pero no es así: son los vectores en forma de 'flechas'. Hay cientos de posibles combinaciones de luces a elegir, asi que sólo mostramos algunas. \\
 
-En todos los gráficos se utiliza exactamente la misma área de la imagen para que sean comparables. Para la resolución del sistema que calcula las normales se ultiliza eliminación gaussiana con pivoteo parcial para tratar de minimizar el error numérico. Para el primer experimento tomaremos nuestra 'mejor luz', la $1$ junto con las luces $4$ y $5$ que parecen ser las 'peores' (Consideramos como mejor a las luces que más se acercan a las provistas por la cátedra, o sea las que tienen menor diferencia en el gráfico de la Figura 5). Esperábamos obtener malos resultados ya que dos luces no eran buenas, sin embargo los resultados fueron bastante buenos. \\
+{\centering
+    \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesCatedra145.png}
+    \captionof{figure}{Luces cátedra 1,4,5}
+}
 
-Las diferencias más notorias se encuentran en el ojo y en la oreja del caballo. Creemos que tiene que ver porque son las áreas con más detalle pero menor iluminación. Sin embargo, no creemos que sea una diferencia demasiado significativa.
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropias145.png}
+  \captionof{figure}{Luces cromadas 1,4,5}
+  \label{fig:test1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropiasMate145.png}
+  \captionof{figure}{Luces mate 1,4,5}
+  \label{fig:test2}
+\end{minipage}
+\end{figure}
 
+Con este set de luces podemos ver que no hay ninguna diferencia notable entre las normales producidas por el set de luces de la cátedra y el set de luces cromada. La mate es muy similar tambien, pero tiene zonas que son un poco mas claras, como por ejemplo en el rostro del caballo. De todos modos, las tres son similares entre sí. \\
+
+% Este es medio similar creo que no vale la pena
 % {\centering
-%     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesPropias145.pdf} \\
-%     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesCaballoLucesCatedra145.pdf}
+%     \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesCatedra7811.png}
+%     \captionof{figure}{Luces cátedra 7,8,11}
 % }
 
+% \begin{figure}[H]
+% \centering
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropias7811.png}
+%   \captionof{figure}{Luces cromadas 7,8,11}
+%   \label{fig:test1}
+% \end{minipage}%
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropiasMate7811.png}
+%   \captionof{figure}{Luces mate 7,8,11}
+%   \label{fig:test2}
+% \end{minipage}
+% \end{figure}
+
+En la mayoría de los sets que probamos obtuvimos resultados similares, con las luces cromada y cátedra obtenemos resultados casi idénticos y un poco de diferencia con el set mate. A continuación uno de los ejemplos un poco mas extremos que encontramos: \\
+
+{\centering
+    \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesCatedra369.png}
+    \captionof{figure}{Luces cátedra 3,6,9}
+}
 
 \begin{figure}[H]
 \centering
 \begin{minipage}{.5\textwidth}
-    \centering
-        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesCatedra145.png}
-    \captionof{figure}{Nomales con luces cátedra: 1, 4, 5}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropias369.png}
+  \captionof{figure}{Luces cromadas 3,6,9}
+  \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
-    \centering
-        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesPropias145.png} \\
-    \captionof{figure}{Normales con luces propias: 1, 4, 5}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/normales/normalesLucesPropiasMate369.png}
+  \captionof{figure}{Luces mate 3,6,9}
+  \label{fig:test2}
 \end{minipage}
 \end{figure}
 
-Aprovecharemos las siguientes imágenes podremos observar dos cosas. La primera es ver un poco más sobre las diferencias entre las luces de la cátedra y las calculadas por nosotros, y lo segundo es cómo cambian las normales cuando se toma un set de luces diferentes. \\
+En este caso es muy notoria la diferencia con el set mate. Esto muestra que no usar un set de luces correcto trae consecuencias notorias para el cálculo de las normales. Una calibración errónea acarrea errores notorios para el resto de las etapas. La similaritud entre los sets cromadas y cátedra se sigue mateniendo siempre, por lo que en los siguientes experimentos sólo consideraremos nuestro set de luces cromadas. \\
 
-En el siguiente caso no tomamos la luz número $1$, que era la mejor que teníamos y en su lugar tomamos otra de las 'malas'. En este caso, consideraremos las luces $4, 5$ y $6$. Podemos observar que tanto las de la cátedra como las propias son demasiado oscuras, sin embargo la nuestra lo es mucho más. Los rasgos faciales dejaron de apreciarse. \\
 
-\begin{figure}[H]
-\centering
-\begin{minipage}{.5\textwidth}
-    \centering
-        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesCatedra456.png}
-    \captionof{figure}{Nomales con luces cátedra: 4, 5, 6}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-    \centering
-        \includegraphics[scale=0.5]{informe/imagenes/normales/normalesLucesPropias456.png} \\
-    \captionof{figure}{Normales con luces propias: 4, 5, 6}
-\end{minipage}
-\end{figure}
 
-Al haber tomado otro set de luces, la forma general de la imagen no cambia demasiado, pero sí hay bastante diferencia entre los rasgos más finos.
 
 
 
