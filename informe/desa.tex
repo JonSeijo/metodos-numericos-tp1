@@ -363,17 +363,23 @@ Toda matriz multiplicada por su traspuesta es simétrica, por lo que nuestra $A$
 En nuestra matriz podrían aparecer $n_z = 0$ pero sólo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen, por lo que nuestra matriz no tendrá ningún $n_z = 0$ \\
 
 %No me convence esto jajajaj
-La matriz M, por lo dicho anteriormente, no tiene columnas con 0 en todos sus componentes. Se puede observar que sus columnas son linealmente independientes, dado que en cada una de ellas aparecen elementos distintos de cero en posiciones en las que las otras columnas o tienen ceros, o tienen al mismo elemento con el signo opuesto pero no ceros en las mismas posiciones, no existe combinación lineal de una de ellas formada por las otras. \\
+La matriz M, por lo dicho anteriormente, no tiene columnas nulas.
 
+Además, si tomamos una fila cualquiera veremos que solo hay dos columnas que tienen algún elemento distinto de cero en esa fila, y los demás elementos de las columnas estarán en posiciones diferentes. Es decir, por la forma en la que construimos la matriz y la cantidad de ceros que existen, no hay ninguna columna que sea combinació lineal de otra. Por lo tanto, las columnas de $M$ son linealmente independientes. \\
 
-Entonces, el rango columna de M es completo. Al serlo, sabemos que su núcleo será solo el vector nulo dado que tomando una combinación lineal de las columnas de M (que son linealmente independientes), las coordenadas serán todas 0. Utilizando esto, podemos observar que:
+Entonces, el rango columna de $M$ es completo, por lo que su núcleo será solo el vector nulo. Es fácil ver esto, pues como las columnas de $M$ son LI la única combinación lineal que forma al cero es aquella con coordenadas únicamente cero. Utilizando esto, podemos observar que:
+
+$$\forall x \neq 0,    Mx \neq 0 $$
+
+Queremos probar que $A$ es definida positiva. Recordando que $A = M^t M$ tenemos que: \\
 
 \begin{center}
 $x^{t}$$A$$x$ = $x^{t}$$M^{t}$$M$$x$ = $(Mx)^{t}$$M$$x$ = $\norm{Mx}^2_{2}$ $\geq$ $0$ $\forall$ $x$
 $\iff$ $\norm{Mx}_{2}$ $\geq$ $0$ $\forall$ $x$
 \end{center}
 
-Como el núcleo de M es $0$ y una norma es $0$ sí y solo sí se le es aplicada al $0$, entonces:
+
+Pero por lo desarrollado anteriormente, $Mx \neq 0$ pues $x \neq 0$, y una norma es $0$ sí y solo sí se le es aplicada al $0$, entonces:
 
 \begin{center}
 $\norm{Mx}_{2}$ $>$ $0$ $\forall$ $x$ $\not=$ $0$
