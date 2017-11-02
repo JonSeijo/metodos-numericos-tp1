@@ -248,12 +248,32 @@ En los resultados que presentamos utilizamos el promedio de los colores para obt
 
 Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. Tomemos entonces una imagen con colores, como es el caso del gato. Creemos que seguirá sin haber diferencias apreciables, pues el promedio de los colores de cierta forma engloba a todos los datos. \\
 
-\todo[inline]{Profundidades de gato mismo set de luces, diferentes tomas de colores}
 
-\todo[inline]{QUIZA, Profundidades de gato con otro set de luces, diferentes tomas de colores, para descartar que sea cosa de este set en particular}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/gato369Azul.png}
+  \captionof{figure}{Luces 3,6,9 - Componente Azul}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/gato369Verde.png}
+    \captionof{figure}{Luces 3,6,9 - Componente Verde}
+\end{minipage}
+\end{figure}
 
+{\centering
+  \includegraphics[width=0.5\linewidth]{informe/imagenes/profundidades/gato369Rojo.png}
+  \captionof{figure}{Luces 3,6,9 - Componente Roja}
+}
 
+$ $\newline
+Las tres componentes se ven bastante similares, aunque hay algunas diferencias. La componente azul es la que parece tener los detalles maás marcados, ver por ejemplo en los ojos del gato. La componente roja tiene menos detalles y en todo el modelo se vé de un color más claro que los demás, es decir la profundidad obtenida es un poco diferente. Entonces en una imagen en color, contrario a lo que sucede con una imagen blanco y negro, las diferentes componentes de color tienen inferencia en el resultado final, aunque no demasiada. \\
 
+Más allá de las diferencias entre componentes, es claro que en la figura del gato hay una sombra muy extraña en la mitad derecha del rostro, que parece ser muy similar al contorno de una oreja izquierda. Para descartar que sea problemas con el set de luces elegido, repetimos el mismo experimento con un set de luces diferentes. Aprovechamos además para ver si los colores influyes de diferente manera con otro set. \\
+
+\todo[inline]{Profundidades de gato con otro set de luces, diferentes tomas de colores, para descartar que sea cosa de este set en particular}
 
 
 Es interesante notar que utilizando diferentes combinaciones de luces obtuvimos diferentes resultados.
