@@ -360,78 +360,104 @@ Es fácil darse cuenta del patrón. Vamos tomando $p$ el píxel actual, pensando
 
 Toda matriz multiplicada por su traspuesta es simétrica, por lo que nuestra $A$ tambien es simétrica, como corroboramos en la cuenta. Nos gustaría ver que además es definida positiva, esto nos será de ultilidad en la siguiente sección cuando querramos aplicar Cholesky. \\
 
-Antes de meternos a hacer cuentas, analicemos un poco cómo son los valores de los elementos de nuestra matriz. Para todo píxel $a, b$, tenemos que $n_{a, b}^2 \geq 0$ por ser números reales elevados al cuadrado. Recodemos que los $n$ que aparecen en la matriz $A$ son en realidad la componente $z$ del vector normal $n$. \\
+En nuestra matriz podrían aparecer $n_z = 0$ pero sólo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen, por lo que nuestra matriz no tendrá ningún $n_z = 0$ \\
 
-Veamos qué pasa en la ecuación original si para algun $x,y$ tenemos que $n_{z} = 0$.
+%No me convence esto jajajaj
+La matriz M, por lo dicho anteriormente, no tiene columnas con 0 en todos sus componentes. Se puede observar que sus columnas son linealmente independientes, dado que en cada una de ellas aparecen elementos distintos de cero en posiciones en las que las otras columnas o tienen ceros, o tienen al mismo elemento con el signo opuesto pero no ceros en las mismas posiciones, no existe combinación lineal de una de ellas formada por las otras. \\
+
+
+Entonces, el rango columna de M es completo. Al serlo, sabemos que su núcleo será solo el vector nulo dado que tomando una combinación lineal de las columnas de M (que son linealmente independientes), las coordenadas serán todas 0. Utilizando esto, podemos observar que:
 
 \begin{center}
-\[\begin{dcases}
-        n_{z} * z_{x, y+1} - n_{z} *  z_{x, y} = n_{y}  \\
-        n_{z} * z_{x+1, y} - n_{z} *  z_{x, y} = n_{x}
-    \end{dcases}
-\]
-$\iff$
-\[\begin{dcases}
-        0 * z_{x, y+1} - 0 *  z_{x, y} = n_{y}  \\
-        0 * z_{x+1, y} - 0 *  z_{x, y} = n_{x}
-    \end{dcases}
-\]
-$\iff$
-\[\begin{dcases}
-        0 = n_{y}  \\
-        0 = n_{x}
-    \end{dcases}
-\]
+$x^{t}$$A$$x$ = $x^{t}$$M^{t}$$M$$x$ = $(Mx)^{t}$$M$$x$ = $\norm{Mx}^2_{2}$ $\geq$ $0$ $\forall$ $x$
+$\iff$ $\norm{Mx}_{2}$ $\geq$ $0$ $\forall$ $x$
 \end{center}
 
-Pero eso no puede pasar en ningún punto de la imagen, porque $n$ fue elegido para que $\norm{n} = 1$. \\
+Como el núcleo de M es $0$ y una norma es $0$ sí y solo sí se le es aplicada al $0$, entonces:
 
-Llevándo la cuenta a nuestro problema, podrían aparecer $n_z = 0$ pero sólo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen. \\
+\begin{center}
+$\norm{Mx}_{2}$ $>$ $0$ $\forall$ $x$ $\not=$ $0$
+\end{center}
 
-Calculemos determinantes :) \\
+De esta manera:
+\begin{center}
+$x^{t}$$A$$x$ $>$ $0$ $\forall$ $x$ $\not=$ $0$
+\end{center}
 
-det $A_{11} = 2 n_{1,1}^2 > 0$ \\
+Por lo tanto, A es definida positva. Sumado a que es simétrica, demostramos que A es simétrica definida positiva, de lo cual concluimos que tiene factorización de Cholesky.\\
 
-{\setlength{\baselineskip}{2em}
-det $A_{22} = 2n_{1,1}^2 (n_{1,1}^2 + 2n_{1,2}^2) - ((-n_{1,1}^2)).(-n_{1,1}^2))) $
+%Antes de meternos a hacer cuentas, analicemos un poco cómo son los valores de los elementos de nuestra matriz. Para todo píxel $a, b$, tenemos que $n_{a, b}^2 \geq 0$ por ser números reales elevados al cuadrado. Recodemos que los $n$ que aparecen en la matriz $A$ son en realidad la componente $z$ del vector normal $n$. \\
 
-$ $ \hspace{30pt} $= 2n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2 - n_{1,1}^2$
+%Veamos qué pasa en la ecuación original si para algun $x,y$ tenemos que $n_{z} = 0$.
 
-$ $ \hspace{30pt} $= n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2 > 0$
+%\begin{center}
+%\[\begin{dcases}
+ %       n_{z} * z_{x, y+1} - n_{z} *  z_{x, y} = n_{y}  \\
+ %       n_{z} * z_{x+1, y} - n_{z} *  z_{x, y} = n_{x}
+ %   \end{dcases}
+%\]
+%$\iff$
+%\[\begin{dcases}
+%        0 * z_{x, y+1} - 0 *  z_{x, y} = n_{y}  \\
+%        0 * z_{x+1, y} - 0 *  z_{x, y} = n_{x}
+%    \end{dcases}
+%\]
+%$\iff$
+%\[\begin{dcases}
+%        0 = n_{y}  \\
+%        0 = n_{x}
+%    \end{dcases}
+%\]
+%\end{center}
 
-$ $ \hspace{30pt}
-}
+%Pero eso no puede pasar en ningún punto de la imagen, porque $n$ fue elegido para que $\norm{n} = 1$. \\
 
-{\setlength{\baselineskip}{2em}
-det $A_{33} = -(-n_{1,2}^2).(2 n_{1,1}^2 . (-n_{1,2}^2)) + (n_{1,2}^2 + 2 n_{1,3}^2) . $ det $A_{22}$
+%Llevándo la cuenta a nuestro problema, podrían aparecer $n_z = 0$ pero sólo para aquellos píxeles que están fuera de la imagen, los píxeles sin profundidad. Esto podemos saberlo porque tenemos la máscara que nos permite conocer cuáles píxeles pertenecen a la imagen y cuáles no. Por lo tanto, podemos construir nuestra matriz $A$ utilizando $n_{x, y} > 0$ para todo $x, y$ perteneciente a la imagen. \\
 
-$ $ \hspace{30pt} $= -2 n_{1,1}^4 n_{1,2}^2 + (n_{1,2}^2 + 2 n_{1,3}^2) . (n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2)$
+%Calculemos determinantes :) \\
 
-$ $ \hspace{30pt} $= -2 n_{1,1}^4 n_{1,2}^2 + n_{1,1}^4 n_{1,2}^2 + 4 n_{1,2}^4 n_{1,2}^2 + 2 n_{1,3}^2 n_{1,1}^2 + 8 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2$
+%det $A_{11} = 2 n_{1,1}^2 > 0$ \\
 
-$ $ \hspace{30pt} $= n_{1,1}^4 n_{1,2}^2 + 2 n_{1,1}^4 n_{1,2}^2 + 2 n_{1,3}^2 n_{1,1}^2 + 8 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2 > 0$
+%{\setlength{\baselineskip}{2em}
+%det $A_{22} = 2n_{1,1}^2 (n_{1,1}^2 + 2n_{1,2}^2) - ((-n_{1,1}^2)).(-n_{1,1}^2))) $
 
-$ $ \hspace{30pt}
-}
+%$ $ \hspace{30pt} $= 2n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2 - n_{1,1}^2$
+
+%$ $ \hspace{30pt} $= n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2 > 0$
+
+%$ $ \hspace{30pt}
+%}
+
+%{\setlength{\baselineskip}{2em}
+%det $A_{33} = -(-n_{1,2}^2).(2 n_{1,1}^2 . (-n_{1,2}^2)) + (n_{1,2}^2 + 2 n_{1,3}^2) . $ det $A_{22}$
+
+%$ $ \hspace{30pt} $= -2 n_{1,1}^4 n_{1,2}^2 + (n_{1,2}^2 + 2 n_{1,3}^2) . (n_{1,1}^4 + 4 n_{1,1}^2 n_{1,2}^2)$
+
+%$ $ \hspace{30pt} $= -2 n_{1,1}^4 n_{1,2}^2 + n_{1,1}^4 n_{1,2}^2 + 4 n_{1,2}^4 n_{1,2}^2 + 2 n_{1,3}^2 n_{1,1}^2 + 8 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2$
+
+%$ $ \hspace{30pt} $= n_{1,1}^4 n_{1,2}^2 + 2 n_{1,1}^4 n_{1,2}^2 + 2 n_{1,3}^2 n_{1,1}^2 + 8 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2 > 0$
+
+%$ $ \hspace{30pt}
+%}
 
 
-{\setlength{\baselineskip}{2em}
-det $A_{44} = n_{1,1}^2 . ( -n_{1,1}^2 . (  (n_{1,1}^2 + 2 n_{1,2}^2) . (n_{1,2}^2 + 2 n_{1,3}^2) - (n_{1,2}^2 . n_{1,2}^2 ) ) ) + (n_{1,1}^2 + 2 n_{2,1}^2) .$ det $A_{33}$
+%{\setlength{\baselineskip}{2em}
+%det $A_{44} = n_{1,1}^2 . ( -n_{1,1}^2 . (  (n_{1,1}^2 + 2 n_{1,2}^2) . (n_{1,2}^2 + 2 n_{1,3}^2) - (n_{1,2}^2 . n_{1,2}^2 ) ) ) + (n_{1,1}^2 + 2 n_{2,1}^2) .$ det $A_{33}$
 
-$ $ \hspace{30pt} $= .. $
+%$ $ \hspace{30pt} $= .. $
 
-$ $ \hspace{30pt} $= n_{1,1}^4 n_{1,2}^4 + 4 n_{1,1}^4 n_{1,2}^2 n_{1,3}^2 + 2 n_{2,1}^2 n_{1,1}^2 n_{1,1}^4 + 4 n_{2,1}^2 n_{1,2}^4 n_{1,1}^2 + 4 n_{2,1}^2 n_{1,3}^2 n_{1,1}^4 + 16 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2 n_{2,1}^2$
+%$ $ \hspace{30pt} $= n_{1,1}^4 n_{1,2}^4 + 4 n_{1,1}^4 n_{1,2}^2 n_{1,3}^2 + 2 n_{2,1}^2 n_{1,1}^2 n_{1,1}^4 + 4 n_{2,1}^2 n_{1,2}^4 n_{1,1}^2 + 4 n_{2,1}^2 n_{1,3}^2 n_{1,1}^4 + 16 n_{1,1}^2 n_{1,2}^2 n_{1,3}^2 n_{2,1}^2$
 
-$ $ \hspace{30pt} $> 0$
+%$ $ \hspace{30pt} $> 0$
 
-$ $ \hspace{30pt}
-}
+%$ $ \hspace{30pt}
+%}
 
-...
+%...
 
-Si bien sabemos que lo expuesto arriba no es una demostración formal, podemos asegurar que los determinantes de las submatrices principales son siempre $> 0$, ya que la matriz respeta siempre el mismo patrón. Por lo visto en clase, sabemos que si los menores principales de una matriz son positivos la matriz es definida positiva. Por lo tanto, \textit{$A$ es simétrica definida positiva}. \\
+%Si bien sabemos que lo expuesto arriba no es una demostración formal, podemos asegurar que los determinantes de las submatrices principales son siempre $> 0$, ya que la matriz respeta siempre el mismo patrón. Por lo visto en clase, sabemos que si los menores principales de una matriz son positivos la matriz es definida positiva. Por lo tanto, \textit{$A$ es simétrica definida positiva}. \\
 
-Aunque lo que mostramos fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen más grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
+Aunque lo que mostramos antes de la demostración fue un pequeño ejemplo, la matriz en caso general contiene \textbf{muchos} ceros. Originalmente nuestras matrices estaban hechas utilizando simples vectores. Esto es un problema \textbf{enorme} para la implementación, porque si tomamos una imagen más grande, por ejemplo de $250*270$ px (como el tamaño de las normales provistas por la cátedra) la cantidad de elementos en la matriz será de
 \begin{center}
     $(250*270)^2 = 4 556 250 000$
 \end{center}

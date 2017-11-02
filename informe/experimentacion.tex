@@ -281,7 +281,7 @@ Una de las ventajas más importantes de las descomposiciones utilizadas es la de
 
 Lo esperado es que Gauss sea el método más lento en este tipo de pruebas, ya que debe re-triangular la matriz cada vez que quiere resolver para un nuevo $b$. En cambio, Cholesky y LU una vez que su descomposición es encontrada, sólo deben realizarse despejes. Sobre el eje $x$ puede verse la \textit{cantidad acumulada} de términos independientes, y en el eje $y$ el tiempo en segundos. \\
 % Por un lado simplemente medimos el tiempo total que tardaba cada iteracion de resolucion y por el otro sumamos los tiempos tomados en resolver todos los sistemas anteriores.
-\hspace*{-2cm} \includegraphics[scale=0.55]{informe/imagenes/tytalus/DistintosBSuma-Dim500.pdf}
+%\hspace*{-2cm} \includegraphics[scale=0.55]{informe/imagenes/tytalus/DistintosBSuma-Dim500.pdf}
 
 Podemos observar en el gráfico que se cumple lo esperado. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos.
 
