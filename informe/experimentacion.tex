@@ -34,9 +34,6 @@ Veamos qué sucede si consideramos la esfera \textit{cromada}:
 
 Para nuestra sorpresa, es claro que obtuvimos mejores resultados con la esfera cromada. Esperábamos obtener valores similares en ambas. Creemos que la razon por la que esto sucede, es porque en la esfera cromada es extremadamente notorio cuál es el punto mas brillante, por lo que es más exacta la identificación. En la esfera mate, en cambio, se tienen blancos muy similares en toda la imagen. \\
 
-A partir de ahora, en todos los experimentos siguientes utilizaremos los datos que obtuvimos con la esfera cromada. \\
-
-
 % 2. Como afecta la calibracion del sistema en el resto de las etapas \\
 \newpage
 \subsection{Normales}
@@ -165,78 +162,111 @@ A continuación mostramos algunos de los resultados obtenidos, la mayoría se ve
 
 En la mayoría de los casos se obtuvieron resultados similares. Las excepciones se ven en la \textit{Figura \ref{fig:normalesluz2}} y la \textit{Figura \ref{fig:normalesluz11}} dónda la tercera luz es la 2 y la 11 respectivamente. Observando las imágenes reales, la imagen con luz 11 es muy similar a la que tiene luz 4, mientras que la imagen con luz 2 es similar a la de luz 1. Para el resto de las imágenes hay diferencias más notorias entre los ángulos de luz. Esto último nos da la pauta de que se obtienen mejores resultados si los ángulos de luces son mas variados.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Profundidades}
+
+En esta sección analizaremos los resultados finales de la aplicación del método. Más precisamente, analizaremos las profundidades que obtuvimos siguiendo el proceso descripto en la sección desarrolo, utilizando nuestras luces de calibración (que resultaron casi idénticas a las de la cátedra). \\
+
+En primer lugar queremos darnos una idea general de qué tan correctos son nuestros valores. Para esto tomaremos las profundidades obtenidas y graficaremos las curvas de nivel, marcando con diferentes colores cada capa de profundidades. \\
+
+
+% \todo[inline]{Graficos curvas de nivel}
+
+% {\centering
+%     \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N1.pdf} \\
+% }
+% {\centering
+%     \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N2.pdf} \\
+% }
+% {\centering
+%     \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.pdf}
+%     \captionof{figure}{\textit{Curvas de nivel de la función de profundidad (para cada píxel, su profundidad estimada) Los valores fueron calculados utilizando las luces que obtuvimos en nuestra calibración.}}
+% }
+
+{\centering
+    \includegraphics[width=0.80\linewidth]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N1.png}
+    \captionof{figure}{Superficies de nivel, vista superior}
+}
+
+{\centering
+    \includegraphics[width=0.80\linewidth]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.png}
+    \captionof{figure}{Superficies de nivel, vista lateral\\}
+}
+
+$ $\newline
+Con esto podemos ver que las profundidades son adecuadas y la figura original del caballo es distinguible. Notamos que en los bordes de la imagen hay gran cantidad de rojos: creemos tiene que ver con que al haber usado la máscara, la diferencia de alturas es muy brusca entre la figura y el plano del fondo.  \\
+
+Si consideramos la superficie completa de profundidad en un modelo 3D, los resultados no fueron del todo satisfactorios. Los sets de luces utilizados fueron elegidos arbitrariamente. \\
+
+\todo[inline]{Al menos dos imagenes normales de profundidad, con sets diferentes}
+
+Aunque las profundidades son distinguibles, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los clanos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
+
+% En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes. Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
+
+% {\centering
+%     \includegraphics[scale=0.65]{informe/imagenes/profundidadesCaballoNormalescatedra.pdf} \\
+% }
+
+% Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobretodo en los bordes, parece ser una superficie un poco más suave que la obtenida por nosotros. Dado que no sabemos cuáles fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos más adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
+
+Otra cosa a notar es que los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos da la pauta de que nuestras aproximaciones parecen no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
+
+
+En los resultados que presentamos utilizamos el promedio de los colores para obtener los datos de la imagen origial. Veremos qué sucede si en vez del promedio consideramos las diferentes componenetes de color por separado. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
+
+\todo[inline]{Profundidades de caballo mismo set de luces, diferentes tomadas de colores}
+
+
+% {\centering
+%     \includegraphics[scale=0.5]{informe/imagenes/profundidades/profCaballo012ColorProm.pdf}
+%     \captionof{figure}{$\uparrow$ Luces 0,1,2, promedio de colores}
+%     \includegraphics[scale=0.49]{informe/imagenes/profundidades/profCaballo012ColorAzul.pdf}
+%     % \captionof{figure}{\textit{Luces 0,1,2, componente azul}}
+%     \includegraphics[scale=0.54]{informe/imagenes/profundidades/profCaballo012ColorRojo.pdf}
+%     % \captionof{figure}{\textit{Luces 0,1,2, componente roja}}
+% }
+% \begin{center}
+%     Luces 0,1,2, componente azul (izq), componente roja (der)
+% \end{center}
+
+Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. Tomemos entonces una imagen con colores, como es el caso del gato. Creemos que seguirá sin haber diferencias apreciables, pues el promedio de los colores de cierta forma engloba a todos los datos. \\
+
+\todo[inline]{Profundidades de gato mismo set de luces, diferentes tomas de colores}
+
+\todo[inline]{QUIZA, Profundidades de gato con otro set de luces, diferentes tomas de colores, para descartar que sea cosa de este set en particular}
+
+
+
+
+
+Es interesante notar que utilizando diferentes combinaciones de luces obtuvimos diferentes resultados.
+\todo[inline]{hablar de diferencias vistas en los sets} Siguen sin verse correctamente los detalles en el rostro del caballo. En el siguiente experimento intentaremos ver cómo la elección de luces repercute en las profundidades finales. Para ello, realizamos los cálculos de profundidad con una imagen que tiene más detalles. \\
+
+Los siguientes son gráficos con las profundidades de Buda, fijando las dos primeras luces y haciendo variar una tercera, al igual que hicimos con el experimento de las normas en la sección anterior. \\
+
+\todo[inline]{Imagenes de buda fijando dos luces y haciendo variar las demás}
+
+\todo[inline]{Conclusiones sobre los detalles y las cosas de buda}
+
+
 \newpage
-\subsection{Resultados}
-
-\todo[inline]{TEXTO INTRODUCTORIO Y REHACER GRAFICOS CON EJES}
-
-\todo[inline]{HAY QUE REHACER LOS GRAFICOS PORQUE AHORA TENEMOS UN SET DE NORMALES/LUCES MEJOR}
-
-\todo[inline]{Experimentar con combinaciones de luces}
-
-\todo[inline]{Experimentar con otras imagenes aunque se vea horrible}
-
-{\centering
-    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N1.pdf} \\
-}
-{\centering
-    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N2.pdf} \\
-}
-{\centering
-    \includegraphics[scale=0.6]{informe/imagenes/supnivel/supNivelCaballoLucesPropias578N3.pdf}
-    \captionof{figure}{\textit{Curvas de nivel de la función de profundidad (para cada píxel, su profundidad estimada) Los valores fueron calculados utilizando las luces que obtuvimos en nuestra calibración.}}
-}
-
-\newpage
-Si bien esperábamos obtener una superficie mucho mas \textit{suave}, creemos que los resultados fueron satisfactorios. Puede observarse perfectamente en los gráficos de curvas de nivel de arriba que en cada píxel la profundidad estimada es adecuada y se corresponde con la iluminación de las fotos originales. Veamos una representación de la función de profundidad con los mismos datos en un modelado 3D:
-
-
-{\centering
-\begin{figure}[H]
-    \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesCaballoLucesPropias578.pdf} \\
-    \captionof{figure}{Profundidades calculadas con luces propias, 5, 7, 8}
-    \end{figure}
-}
-
-En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes. Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
-
-{\centering
-    \includegraphics[scale=0.65]{informe/imagenes/profundidadesCaballoNormalescatedra.pdf} \\
-}
-
-Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobretodo en los bordes, parece ser una superficie un poco más suave que la obtenida por nosotros. Dado que no sabemos cuáles fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos más adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
-
-Otra cosa a notar, es que en ambas, los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos da la pauta de que nuestras aproximaciones pueden no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
-
-Nos gustaría ver qué sucede cuando utilizamos otras luces sobre la misma figura y así observar, por ejemplo, si obtenemos la misma cantidad de picos. Además, es importante notar que para obtener las intensidades de iluminosidad estábamos utilizando el promedio de los colores, así que aprovecharemos la siguiente prueba para ver qué diferencias podemos encontrar si consideramos alguna componente en particular. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
-
-
-
-{\centering
-    \includegraphics[scale=0.5]{informe/imagenes/profundidades/profCaballo012ColorProm.pdf}
-    \captionof{figure}{$\uparrow$ Luces 0,1,2, promedio de colores}
-    \includegraphics[scale=0.49]{informe/imagenes/profundidades/profCaballo012ColorAzul.pdf}
-    % \captionof{figure}{\textit{Luces 0,1,2, componente azul}}
-    \includegraphics[scale=0.54]{informe/imagenes/profundidades/profCaballo012ColorRojo.pdf}
-    % \captionof{figure}{\textit{Luces 0,1,2, componente roja}}
-}
-\begin{center}
-    Luces 0,1,2, componente azul (izq), componente roja (der)
-\end{center}
-
-Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. \\
-
-Es interesante notar que utilizando estas combinaciones de luces obtenemos diferentes resultados que la usando la primer combinación. En la primera había muchos picos y la diferencia entre blancos y negros era muy pronunciada. Con esta nueva combinación, los colores visibles son mucho más uniformes y la cantidad de picos disminuyó, aunque siguen manteniéndose los picos en los bordes. Siguen sin verse correctamente los detalles en el rostro del caballo. \\
-
-Realizamos los cálculos de profundidad con una imagen que tiene más detalles, para ver si sucede lo mismo que con el rostro del caballo. La siguiente es un gráfico con las profundidades de Buda, con las luces $0, 1$ y $2$ calibradas por nosotros.
-
-{\centering
-    \includegraphics[scale=0.8]{informe/imagenes/profundidades/profundidadesBudaLucesPropias012.pdf} \\
-}
-
-Los detalles del cuerpo se mantuvieron bastante bien, y el área central e inferior tiene más suavidad que la que habíamos logrado con la anterior imagen. En los bordes nuevamente tenemos picos, se deben a la diferencia brusca que hay con el plano. Es interesante notar que se produjo una deformación en el sector superior, creemos que tiene que ver con la gran cantidad de cambios de luz en un área tan pequeña. \\
-
-
 \subsection{Eliminacion gaussiana y Factorización LU}
 
 Lo que queremos lograr con esta experimentación es comparar el resultado del cálculo sobre todos los píxeles usando el método de eliminación gaussiana vs factorizar la matriz y resolver los dos sistemas triangulados.
