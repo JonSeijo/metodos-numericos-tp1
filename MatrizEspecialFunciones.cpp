@@ -74,8 +74,8 @@ vector<map<int, double> > dameCholesky(vector<map<int, double> > &A) {
         }
         // Fin Sumatoria 1
 
-        // La diagonal de A siempre deberia estar ... (MENTIRA, que onda?)
-        if (A[j][j] - suma1 <= EPSILON) {
+        // La diagonal de A siempre deberia estar ...
+        if (abs(A[j][j] - suma1) <= EPSILON) {
             // cout << "owfuck " << j << "  fabs(A[j][j]): " << fabs(A[j][j]) << "   suma: " << suma1 << "\n";
         } else {
 
@@ -216,7 +216,7 @@ vector<map<int, double> > matrizPorMatriz(vector<map<int, double> > &A, vector<m
                 }
             }
 
-            if (suma != 0) {
+            if (abs(suma) > EPSILON) {
                 R[f][c] = suma;
                 R[c][f] = suma;
             }
@@ -233,8 +233,6 @@ vector<double> vectorNormalesXY(vector<vector<vector<double> > > &normales) {
 
     int filas = normales.size();
     int columnas = normales[0].size();
-
-    int cantBlancas = 0;
 
     for (int f = 0; f < filas; f++) {
         for (int c = 0; c < columnas; c++) {
@@ -298,18 +296,20 @@ vector<vector<double> > recuperarZetas(vector<double> Z, int alto, int ancho) {
     int f = 0;
     int c = 0;
     for (int index = 0; index < Z.size(); index++) {
-
         zetas[f][c] = Z[index];
-
         if (c+1 < ancho) {
             c++;
         } else {
             c = 0;
             f++;
         }
-
+        // if (f+1 < alto) {
+        //     f++;
+        // } else {
+        //     c++;
+        //     f = 0;
+        // }
     }
-
     return zetas;
 }
 

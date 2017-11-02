@@ -86,7 +86,7 @@ vector<vector<vector<double> > > calcularNormales(Matriz &S,
         for (int c = 0; c < ancho; c++) {
 
             // Si (x,y) NO esta en la mascara, no resuelvo nada, la normal es 0
-            if (mascara.prom[f + min_f][c + min_c] == 0) {
+            if (abs(mascara.prom[f + min_f][c + min_c]) < EPSILON) {
                 normales[f][c] = vector<double>(3, 1);
 
                 // Lo clavo en cero porque no esta en la mascara
@@ -103,10 +103,10 @@ vector<vector<vector<double> > > calcularNormales(Matriz &S,
             vector<double> b = {foto1.prom[f + min_f][c + min_c], foto2.prom[f + min_f][c + min_c], foto3.prom[f + min_f][c + min_c]};
 
             // Esto resuelve usando gauss con pivoteo
-            // vector<double> X = A.resolverSistemaGauss(b, true);
+            vector<double> X = A.resolverSistemaGauss(b, true);
 
             // Resuelve el sistema utilizando LU
-            vector<double> X = S.resolverSistemaLU(b);
+            // vector<double> X = S.resolverSistemaLU(b);
 
             normales[f][c][0] = X[1];
             normales[f][c][1] = X[0];
@@ -124,14 +124,14 @@ vector<vector<vector<double> > > calcularNormales(Matriz &S,
     return normales;
 }
 
-    bool pertenece(vector<string>& v, string& s){
-        for(int i = 0; i < v.size(); i++){
-            if(v[i] == s && v[i] != "." && v[i] != ".."){
-                return true;
-            }
+bool pertenece(vector<string>& v, string& s){
+    for(int i = 0; i < v.size(); i++){
+        if(v[i] == s && v[i] != "." && v[i] != ".."){
+            return true;
         }
-        return false;
     }
+    return false;
+}
 
 int main() {
 
@@ -252,62 +252,60 @@ int main() {
 
         std::cout << "\n Calculando profundidad...0%" << std::endl;
 
-        // cout << "Armo la matriz de profundidades M usando las normales\n";
+        cout << "Armo la matriz de profundidades M usando las normales\n";
         vector<map<int, double> > M = armarMatrizProfundidades(normales);
 
         std::cout << "\n Calculando profundidad...10%" << std::endl;
 
-        // // cout << "Traspongo M con las dimensiones adecuadas\n";
+        cout << "Traspongo M con las dimensiones adecuadas\n";
         vector<map<int, double> > MT = traspuestaEspecial(M, alto*ancho);
 
         std::cout << "\n Calculando profundidad...20%" << std::endl;
 
-        // // cout << "Armo la matriz de profundidades A usando formula para no tenes que multiplicar\n";
+        cout << "Armo la matriz de profundidades\n";
         vector<map<int, double> > A = armarMatrizProfundidadesPosta(normales);
-        //vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho);
+        // vector<map<int, double> > A = matrizPorMatriz(MT, M, alto*ancho);
 
         std::cout << "\n Calculando profundidad...30%" << std::endl;
 
-        // // cout << "Encuentro la L de cholesky";
+        cout << "Encuentro la L de cholesky";
         vector<map<int, double> > L_choles = dameCholesky(A);
 
         std::cout << "\n Calculando profundidad...40%" << std::endl;
 
-        // // cout << "Traspongo la L de cholesky";
+        cout << "Traspongo la L de cholesky";
         vector<map<int, double> > L_choles_T = traspuestaEspecial(L_choles, L_choles.size());
 
         std::cout << "\n Calculando profundidad...50%" << std::endl;
 
-        // // Creo vector de normales a la derecha de la igualdad
+        // Creo vector de normales a la derecha de la igualdad
         vector<double> v = vectorNormalesXY(normales);
 
         std::cout << "\n Calculando profundidad...60%" << std::endl;
 
-        // // cout << "b = Mt * v\n";
+        cout << "b = Mt * v\n";
         vector<double> b = matrizPorVector(MT, v);
 
         std::cout << "\n Calculando profundidad...70%" << std::endl;
 
-        // // cout << "Resuelvo para L de la izquierda\n";
+        cout << "Resuelvo para L de la izquierda\n";
         vector<double> y = resolverInferior(L_choles, b);
 
         std::cout << "\n Calculando profundidad...80%" << std::endl;
 
-        // // cout << "Resuelvo para Lt con el resultado anterior\n";
+        cout << "Resuelvo para Lt con el resultado anterior\n";
         vector<double> Z = resolverSuperior(L_choles_T, y);
 
         std::cout << "\n Calculando profundidad...90%" << std::endl;
 
-
-
-        // // cout << "Guardo mi vector de zetas como una matriz\n";
+        cout << "Guardo mi vector de zetas como una matriz\n";
         vector<vector<double> > zetas = recuperarZetas(Z, alto, ancho);
 
         std::cout << "\n Calculando profundidad...100%" << std::endl;
         std::cout << "\n ¡Calculado!" << std::endl;
 
         ofstream outputFile;
-        outputFile.open("Profundidades.txt");
+        outputFile.open("profundidades.txt");
 
         std::cout << "\n Escribiendo archivo..." << std::endl;
 
@@ -315,9 +313,9 @@ int main() {
             throw std::runtime_error("Matriz de profundidades vacia.\n");
         }
 
-        outputFile << alto << " " << ancho << "\n";
-        for (int i = 0; i < alto; i++) {
-            for (int j = 0; j < ancho; j++) {
+        outputFile << zetas.size() << " " << zetas[0].size() << "\n";
+        for (int i = 0; i < zetas.size(); i++) {
+            for (int j = 0; j < zetas[0].size(); j++) {
                 outputFile << fixed << zetas[i][j] << (j + 1 == ancho ? "" : ",");
             }
             outputFile << "\n";
@@ -349,5 +347,6 @@ int main() {
         else{
             std::cout << "\nTener en cuenta que se sobreescribira el archivo 'profundidades.txt'" << std::endl;
         }
+
     }
 }

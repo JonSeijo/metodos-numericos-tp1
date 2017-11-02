@@ -94,11 +94,11 @@ v = np.array(ny)
 # ----------------------
 
 
-string_autor = " propias "
+string_autor = " propias"
 if (normales_catedra):
     string_autor = " cátedra "
 
-plt.title("Normales - Luces" + string_autor + ": CROMADA - 1, 4, 5")
+plt.title("Normales - Luces" + string_autor + ": Cromada - 1, 4, 10")
 
 mult = 2
 escala = 150
@@ -110,7 +110,7 @@ axes = plt.gca()
     # plt.gca().invert_yaxis()
 
 # Plot de caballo consistente
-axes.set_xlim([30,275])
-axes.set_ylim([175,0])
+axes.set_xlim([-70,230])
+axes.set_ylim([210,0])
 
 plt.show()
