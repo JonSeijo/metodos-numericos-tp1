@@ -6,7 +6,7 @@
 
 Lo primero que analizaremos será la calidad de nuestra calibración. Nos parece importante conseguir un buen resultado de luces ya que serán utilizadas en todos los pasos siguientes. Muy amablemente la cátedra nos cedió los datos de las luces reales con las cuales podremos comprarar. \\
 
-Dado que nuestro método de calibración se basa en utilizar imágenes de esferas, utlizaremos las esperas \textit{mate} y la \textit{cromada} para ver con cuál conseguimos mejores resultados. Como ambas son esferas, esperamos obtener los mismos resultados con ambas. \\
+Dado que nuestro método de calibración se basa en utilizar imágenes de esferas, utlizaremos las imágenes \textit{mate} y la \textit{cromada} para ver con cuál conseguimos mejores resultados. Como ambas son esferas, esperamos obtener los mismos resultados con ambas. \\
 
 En primer lugar veremos la esfera \textit{mate}. Para cada imagen estimamos el vector de luz correspondiente y graficamos los tres ejes. No es demasiado importante el valor que toma cada eje, sino que lo que nos interesa es ver la diferencia con los valores de la cátedra. \\
 
@@ -20,7 +20,7 @@ Graficamos del mismo color cada eje. La línea llena se corresponde a los valore
     \end{figure}
 }
 
-Lo que observamos es que en líneas generales los valores nuestros y los de la cátedra dan parecidos, las curvas son similares. El eje X es el que más se aproxima al valor real, pero no sabemos por qupe sucede esto sólo con este eje. Las diferencias que existen son de hasta 0.30 puntos (sobre 1.00), que si bien no parece demasiado, creemos que esto puede afectar el resultado final. \\
+Lo que observamos es que en líneas generales los valores nuestros y los de la cátedra dan parecidos, las curvas son similares. El eje X es el que más se aproxima al valor real, pero no sabemos por qué sucede esto sólo con este eje. Las diferencias que existen son de hasta 0.30 puntos (sobre 1.00), que si bien no parece demasiado, creemos que esto puede afectar el resultado final. \\
 
 Veamos qué sucede si consideramos la esfera \textit{cromada}:
 
@@ -32,7 +32,7 @@ Veamos qué sucede si consideramos la esfera \textit{cromada}:
     \end{figure}
 }
 
-Para nuestra sorpresa, es claro que obtuvimos mejores resultados con la esfera cromada. Esperábamos obtener valores similares en ambas. Creemos que la razon por la que esto sucede, es porque en la esfera cromada es extremadamente notorio cuál es el punto mas brillante, por lo que es más exacta la identificación. En la esfera mate, en cambio, se tienen blancos muy similares en toda la imagen. \\
+Para nuestra sorpresa, es claro que obtuvimos mejores resultados con la esfera cromada. Esperábamos obtener valores similares en ambas. Creemos que la razón por la que esto sucede, es porque en la esfera cromada es extremadamente notorio cuál es el punto mas brillante, por lo que es más exacta la identificación. En la esfera mate, en cambio, se tienen blancos muy similares en toda la imagen. \\
 
 % 2. Como afecta la calibracion del sistema en el resto de las etapas \\
 \newpage
@@ -110,7 +110,7 @@ En la mayoría de los sets que probamos obtuvimos resultados similares, con las 
 \end{minipage}
 \end{figure}
 
-En este caso es muy notoria la diferencia con el set mate. Esto muestra que no usar un set de luces correcto trae consecuencias notorias para el cálculo de las normales. Una calibración errónea acarrea errores notorios para el resto de las etapas. La similaritud entre los sets cromadas y cátedra se sigue mateniendo siempre, por lo que en los siguientes experimentos sólo consideraremos nuestro set de luces cromadas. \\
+En este caso es muy notoria la diferencia con el set mate. Esto muestra que no usar un set de luces correcto puede traer consecuencias notorias para el cálculo de las normales. Una calibración errónea acarrea errores notorios para el resto de las etapas. La similaritud entre los sets cromadas y cátedra se sigue mateniendo siempre, por lo que en los siguientes experimentos sólo consideraremos nuestro set de luces cromadas. \\
 
 Lo siguiente que nos interesa ver es cómo afecta la elección de las tres luces en el cálculo de las normales. Para esto dejaremos fijas dos luces y moveremos una tercera. Elegimos para dejar fijas las luces 1 y 4 pues en las imágenes parecieran que apuntan en sentido inverso. \\
 
@@ -212,11 +212,26 @@ En primer lugar queremos darnos una idea general de qué tan correctos son nuest
 $ $\newline
 Con esto podemos ver que las profundidades son adecuadas y la figura original del caballo es distinguible. Notamos que en los bordes de la imagen hay gran cantidad de rojos: creemos tiene que ver con que al haber usado la máscara, la diferencia de alturas es muy brusca entre la figura y el plano del fondo.  \\
 
-Si consideramos la superficie completa de profundidad en un modelo 3D, los resultados no fueron del todo satisfactorios. Los sets de luces utilizados fueron elegidos arbitrariamente. \\
+Si consideramos la superficie completa de profundidad en un modelo 3D, los resultados no fueron perfectos tampoco. Los sets de luces utilizados fueron elegidos arbitrariamente. \\
 
-\todo[inline]{Al menos dos imagenes normales de profundidad, con sets diferentes}
+{\centering
+    \includegraphics[width=0.80\linewidth]{informe/imagenes/profundidades/profsCaballo369.png}
+    \captionof{figure}{Profundidades utilizando luces 3,6,9}
+}
 
-Aunque las profundidades son distinguibles, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los clanos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
+$ $\newline
+Aquí podemos ver como la forma general se distingue bastante bien, y que las zonas mas iluminadas del modelo se corresponden con las zonas iluminadas de las imágenes originales. Sin embargo, hay muy pocos detalles presentes, sobre todo en el rostro del caballo. Es posible que el problema sea la elección de las luces, pero no es el caso, pues se obtienen modelos similares también con otras elecciones: \\
+
+{\centering
+    \includegraphics[width=0.80\linewidth]{informe/imagenes/profundidades/profsCaballo578.png}
+    \captionof{figure}{Profundidades utilizando luces 5,7,8}
+}
+
+\todo[inline]{Probar algunas combinaciones mas pues probablemente haya alguna mejor}
+
+
+$ $\newline
+Aunque las profundidades son distinguibles en los casos que mostramos, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los clanos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
 
 % En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes. Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
 
@@ -226,7 +241,7 @@ Aunque las profundidades son distinguibles, los resultados no son lo que esperá
 
 % Si bien las luces con las que fueron obtenidas las normales de la cátedra son desconocidas para nosotros, podemos hacer algunas comparaciones. Aunque esté llena de \textit{picos}, sobretodo en los bordes, parece ser una superficie un poco más suave que la obtenida por nosotros. Dado que no sabemos cuáles fueron las luces utilizadas en el cálculo, no podemos descartar que sea un tema de elección de luces. Sin embargo, incluso aunque fuesen las mismas, veremos más adelante que lo calibrado por nosotros no se corresponde en un 100\% por lo que es esperable que se observen diferencias. \\
 
-Otra cosa a notar es que los detalles del rostro del caballo se pierden. Si bien era esperable ya que son áreas delicadas, nos da la pauta de que nuestras aproximaciones parecen no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
+Otra cosa clara es que los detalles (por ejemplo el rostro) se pierden. Si bien era esperable ya que son áreas delicadas, nos da la pauta de que nuestras aproximaciones parecen no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
 
 En los resultados que presentamos utilizamos el promedio de los colores para obtener los datos de la imagen origial. Veremos qué sucede si en vez del promedio consideramos las diferentes componenetes de color por separado. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
