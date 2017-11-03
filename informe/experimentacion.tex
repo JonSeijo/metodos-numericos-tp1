@@ -273,11 +273,29 @@ Las tres componentes se ven bastante similares, aunque hay algunas diferencias. 
 
 Más allá de las diferencias entre componentes, es claro que en la figura del gato hay una sombra muy extraña en la mitad derecha del rostro, que parece ser muy similar al contorno de una oreja izquierda. Para descartar que sea problemas con el set de luces elegido, repetimos el mismo experimento con un set de luces diferentes. Aprovechamos además para ver si los colores influyes de diferente manera con otro set. \\
 
-\todo[inline]{Profundidades de gato con otro set de luces, diferentes tomas de colores, para descartar que sea cosa de este set en particular}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/gato5810Azul.png}
+  \captionof{figure}{Luces 5,8,10 - Componente Azul}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/gato5810Verde.png}
+    \captionof{figure}{Luces 5,8,10 - Componente Verde}
+\end{minipage}
+\end{figure}
 
+{\centering
+  \includegraphics[width=0.5\linewidth]{informe/imagenes/profundidades/gato5810Rojo.png}
+  \captionof{figure}{Luces 5,8,10 - Componente Roja}
+}
 
-Es interesante notar que utilizando diferentes combinaciones de luces obtuvimos diferentes resultados.
-\todo[inline]{hablar de diferencias vistas en los sets} Siguen sin verse correctamente los detalles en el rostro del caballo. En el siguiente experimento intentaremos ver cómo la elección de luces repercute en las profundidades finales. Para ello, realizamos los cálculos de profundidad con una imagen que tiene más detalles. \\
+$ $\newline
+En las últimas tres figuras utilizamos un set diferente pero tenemos un comportamiento similar al de antes: la componente azul maneja una cantidad de detalles un poco mayor que las demás, notorios en la parte inferior de la figura. Sin embargo con este set de luces la diferencias entre las componentes son mucho menores. Además, seguimos observando la sombra extraña en el lado derecho del rostro, que ahora estamos bastante seguros que es algún problema con nuestro sistema. Lamentablemete no pudimos hallar su causa para solucionarlo y obtener mejores resultados. \\
+
+Es interesante notar que en los ejemplos anteriores utilizamos diferentes combinaciones de luces y obtuvimos profundidades diferentes (pero similares) entre los sets. En el ejemplo del gato, con el primer set de luces logramos conseguir más detalles que con el segundo set, pero pensábamos que las diferencias iban a ser más contundentes. En el siguiente experimento intentaremos ver cómo la elección de luces repercute en las profundidades finales. Para ello, realizamos los cálculos de profundidad con una imagen que tiene más detalles. \\
 
 Los siguientes son gráficos con las profundidades de Buda, fijando las dos primeras luces y haciendo variar una tercera, al igual que hicimos con el experimento de las normas en la sección anterior. \\
 
