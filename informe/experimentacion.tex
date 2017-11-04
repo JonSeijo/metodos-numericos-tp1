@@ -231,7 +231,7 @@ Aquí podemos ver como la forma general se distingue bastante bien, y que las zo
 
 
 $ $\newline
-Aunque las profundidades son distinguibles en los casos que mostramos, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los clanos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
+Aunque las profundidades son distinguibles en los casos que mostramos, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los planos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
 
 % En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes. Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
 
@@ -284,7 +284,7 @@ Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes
 }
 
 $ $\newline
-Las tres componentes se ven bastante similares, aunque hay algunas diferencias. La componente azul es la que parece tener los detalles maás marcados, ver por ejemplo en los ojos del gato. La componente roja tiene menos detalles y en todo el modelo se vé de un color más claro que los demás, es decir la profundidad obtenida es un poco diferente. Entonces en una imagen en color, contrario a lo que sucede con una imagen blanco y negro, las diferentes componentes de color tienen inferencia en el resultado final, aunque no demasiada. \\
+Las tres componentes se ven bastante similares, aunque hay algunas diferencias. La componente azul es la que parece tener los detalles más marcados, ver por ejemplo en los ojos del gato. La componente roja tiene menos detalles y en todo el modelo se vé de un color más claro que los demás, es decir la profundidad obtenida es un poco diferente. Entonces en una imagen en color, contrario a lo que sucede con una imagen blanco y negro, las diferentes componentes de color tienen inferencia en el resultado final, aunque no demasiada. \\
 
 Más allá de las diferencias entre componentes, es claro que en la figura del gato hay una sombra muy extraña en la mitad derecha del rostro, que parece ser muy similar al contorno de una oreja izquierda. Para descartar que sea problemas con el set de luces elegido, repetimos el mismo experimento con un set de luces diferentes. Aprovechamos además para ver si los colores influyes de diferente manera con otro set. \\
 
