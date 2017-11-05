@@ -242,7 +242,7 @@ Aunque las profundidades son distinguibles en los casos que mostramos, los resul
 Otra cosa clara es que los detalles (por ejemplo el rostro) se pierden. Si bien era esperable ya que son áreas delicadas, nos da la pauta de que nuestras aproximaciones parecen no ser del todo correctas. De todos modos, no podemos saber si en una estimación 'bien hecha' los detalles se mantienen o no. \\
 
 
-En los resultados que presentamos utilizamos el promedio de los colores para obtener los datos de la imagen origial. Veremos qué sucede si en vez del promedio consideramos las diferentes componenetes de color por separado. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
+En los resultados que presentamos utilizamos el promedio de los colores para obtener los datos de la imagen origial. Veremos qué sucede si en vez del promedio consideramos diferentes componentes de color por separado. No esperamos obtener diferencias significativas entre diferentes componentes.
 
 \begin{figure}[H]
 \centering
@@ -414,10 +414,16 @@ A continuación presentamos un análisis temporal de los métodos utilizados com
 Una de las ventajas más importantes de las descomposiciones utilizadas es la de no tener que recalcular la matriz a resolver en cada iteración realizada si sólo se cambia el término independiente. Para observar este comportamiento utilizamos matrices de dimensión $500*500$ y resolvimos el sistema $Ax = b$ varias veces midiendo el tiempo que se tomaba en resolver el mismo. \\
 
 Lo esperado es que Gauss sea el método más lento en este tipo de pruebas, ya que debe re-triangular la matriz cada vez que quiere resolver para un nuevo $b$. En cambio, Cholesky y LU una vez que su descomposición es encontrada, sólo deben realizarse despejes. Sobre el eje $x$ puede verse la \textit{cantidad acumulada} de términos independientes, y en el eje $y$ el tiempo en segundos. \\
-% Por un lado simplemente medimos el tiempo total que tardaba cada iteracion de resolucion y por el otro sumamos los tiempos tomados en resolver todos los sistemas anteriores.
-\hspace*{-2cm} \includegraphics[scale=0.55]{informe/imagenes/tytalus/DistintosBSuma-Dim500.pdf}
 
-Podemos observar en el gráfico que se cumple lo esperado. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos.
+% Por un lado simplemente medimos el tiempo total que tardaba cada iteracion de resolucion y por el otro sumamos los tiempos tomados en resolver todos los sistemas anteriores.
+
+{\centering
+    \includegraphics[scale=0.70]{informe/imagenes/choleskyCantB.png}
+    \captionof{figure}{Comparación logarítmica de tiempo acumulado en la resolución de sistemas.}
+}
+
+$ $\newline
+Podemos observar en el gráfico que se cumple lo esperado, Gauss es por lejos el más lento de los métodos. Retriangular la matriz cada vez hace que tenga orden cúbico, mientras que con LU y Cholesky al tener la factorización solo debemos realizar despejes. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos. \\
 
 % \hspace*{-2cm} \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosBSuma-soloCholeskyLU-Dim500.pdf}
 

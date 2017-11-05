@@ -228,6 +228,30 @@ vector<map<int, double> > matrizPorMatriz(vector<map<int, double> > &A, vector<m
 }
 
 
+// Pre: es triangulable, no hay cero en la diagonal
+vector<map<int, double> > triangularGaussEsparsa(vector<map<int, double> > &M, vector<double> b) {
+    int filas = M.size();
+    if (filas == 0) {
+        throw std::runtime_error("No se puede triangular esta matriz");
+    }
+
+    for (int k = 0; k < filas-1; k++) {
+        for (int i = k+1; i < filas; i++) {
+
+            if (fabs(M[k][k]) < EPSILON) {
+                throw std::runtime_error("DIVISION POR CERO");
+            }
+            double mult = M[i][k] / M[k][k];
+
+            for (auto valor : M[i]) {
+                int j = valor.first;
+                M[i][j] -= mult * (esta(M[k], j) ? M[k][j] : 0);
+            }
+        }
+    }
+}
+
+
 vector<double> vectorNormalesXY(vector<vector<vector<double> > > &normales) {
     vector<double> vect;
 
@@ -303,14 +327,10 @@ vector<vector<double> > recuperarZetas(vector<double> Z, int alto, int ancho) {
             c = 0;
             f++;
         }
-        // if (f+1 < alto) {
-        //     f++;
-        // } else {
-        //     c++;
-        //     f = 0;
-        // }
     }
     return zetas;
 }
+
+
 
 #endif

@@ -1,36 +1,84 @@
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import matplotlib.pyplot as plt
 import pandas as pd
+# from seaborn import *
+
+
+# gauss = []
+# with open('gauss-1000b-dimension1000.txt') as my_file:
+#     for line in my_file:
+#         gauss.append(float(line.rstrip()))
+
+# lu = []
+# with open('lu-1000b-dimension1000.txt') as my_file:
+#     for line in my_file:
+#         lu.append(float(line.rstrip()))
+# cholesky = []
+# with open('cholesky-1000b-dimension1000.txt') as my_file:
+#     for line in my_file:
+#         cholesky.append(float(line.rstrip()))
+
+# rango = []
+# with open('range-b.txt') as my_file:
+#     for line in my_file:
+#         rango.append(float(line.rstrip()))
 
 
 gauss = []
-with open('gaussDim.txt') as my_file:
+with open('gauss-dim500-promedio10.txt') as my_file:
     for line in my_file:
-        gauss.append(float(line.rstrip()))
+        gauss.append(float(line.rstrip().split()[1]))
 
 lu = []
-with open('LUDIM.txt') as my_file:
+with open('lu-dim500-promedio10.txt') as my_file:
     for line in my_file:
-        lu.append(float(line.rstrip()))
+        lu.append(float(line.rstrip().split()[1]))
+
 cholesky = []
-with open('cholesky.txt') as my_file:
+with open('cholesky-dim500-promedio10.txt') as my_file:
     for line in my_file:
-        cholesky.append(float(line.rstrip()))
+        cholesky.append(float(line.rstrip().split()[1]))
 
-range = []
-with open('range.txt') as my_file:
-    for line in my_file:
-        range.append(float(line.rstrip()))
+rango = [i for i in range(210)]
+
+# Los 10 primeros son basura
+
+rango = rango[11:]
+lu = lu[11:]
+gauss = gauss[11:]
+cholesky = cholesky[11:]
 
 
 
+tope = 100
+rango = rango[:tope]
+lu = lu[:tope]
+gauss = gauss[:tope]
+cholesky = cholesky[:tope]
 
-plt.plot(range, gauss, '-o', label="gauss")
-plt.plot(range, lu, '-o', label="lu")
-plt.plot(range, cholesky, '-o',  label="cholesky")
-plt.ylabel('time (s)')
-plt.xlabel('dimension (n)')
-#plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
-           ncol=2, mode="expand", borderaxespad=0.)
+
+espaciado = 5
+rango = rango[::espaciado]
+lu = lu[::espaciado]
+gauss = gauss[::espaciado]
+cholesky = cholesky[::espaciado]
+
+tipoPlot = "--"
+
+
+ax = plt.plot(rango, gauss, tipoPlot)
+plt.plot(rango, lu, tipoPlot)
+plt.plot(rango, cholesky, tipoPlot)
+plt.ylabel('Tiempo (s)')
+plt.xlabel('Dimensión')
+
+# plt.yscale("log")
+# plt.title("Tiempos Cholesky, LU y Gauss. Escala logarítmica.")
+
+plt.legend([
+    "Gauss",
+    "LU",
+    "Cholesky"
+])
+
 plt.show()
