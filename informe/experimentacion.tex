@@ -244,7 +244,19 @@ Otra cosa clara es que los detalles (por ejemplo el rostro) se pierden. Si bien 
 
 En los resultados que presentamos utilizamos el promedio de los colores para obtener los datos de la imagen origial. Veremos qué sucede si en vez del promedio consideramos las diferentes componenetes de color por separado. No esperamos obtener diferencias significativas entre tomar el promedio o una sola componente del color.
 
-\todo[inline]{Profundidades de caballo mismo set de luces, diferentes tomadas de colores}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/caballo058Azul.png}
+  \captionof{figure}{Luces 0,5,8 - Componente Azul}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \includegraphics[width=1\linewidth]{informe/imagenes/profundidades/caballo058Rojo.png}
+    \captionof{figure}{Luces 0,5,8 - Componente Roja}
+\end{minipage}
+\end{figure}
 
 
 % {\centering
@@ -259,7 +271,7 @@ En los resultados que presentamos utilizamos el promedio de los colores para obt
 %     Luces 0,1,2, componente azul (izq), componente roja (der)
 % \end{center}
 
-Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. Tomemos entonces una imagen con colores, como es el caso del gato. Creemos que seguirá sin haber diferencias apreciables, pues el promedio de los colores de cierta forma engloba a todos los datos. \\
+Cómo sospechabamos, no hay ninguna diferencia apreciable en tomar las imágenes con diferentes componentes de color. Pensamos que una posibilidad es que la nula diferencia se deba al color del objeto original. Tomemos entonces una imagen con colores, como es el caso del gato. Creemos que seguirá sin haber diferencias apreciables, pues intuitivamente la luminosidad no depende de un color en particular. \\
 
 
 \begin{figure}[H]
