@@ -34,6 +34,7 @@ class Cholesky{
 			for(int k = 0; k < j; k++){
 				res += pow (m[j][k], 2.0);
 			}
+            return res;
 		}
 
 		double sumatoria2(Matriz m, int i, int j){
@@ -41,6 +42,7 @@ class Cholesky{
 			for(int k = 0; k < j; k++){
 				res += m[i][k] * m[j][k];
 			}
+            return res;
 		}
 
 		void mostrar(std::ostream& os){

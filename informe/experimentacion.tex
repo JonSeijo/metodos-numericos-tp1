@@ -359,7 +359,7 @@ Con cambiar una única luz los resultados son bastantes diferentes entre sí. En
 De las profundidades mostradas, las que usan las luces 2 y 10 son con las que peores resultados obtuvimos. Para entender de mejor manera por qué sucede esto, revisamos las imágenes originales. Ambas luces apuntan de frente a la figura. Creemos que esta es la razón de los malos resultados: al apuntar de frente hay pocas sombras lo que intuitivamente hace que sea difícil darse cuenta de las profundidades reales. \\
 
 \newpage
-Nos planteamos entonces un último experimento. Queremos ver qué sucede cuando tomamos las 3 luces de frente, en las cuales se vean la menor cantidad de sombras. Elegimos entonces las luces 1, 2 y 10. Por lo observado anteriormente, esperamos obtener muy malos resultados. \\
+Nos planteamos entonces un último experimento. Queremos ver qué sucede cuando tomamos las 3 luces de frente, en las cuales se verá una baja cantidad de sombras. Elegimos entonces las luces 1, 2 y 10. Por lo observado anteriormente, esperamos obtener muy malos resultados. \\
 
 {\centering
     \includegraphics[width=0.7\linewidth]{informe/imagenes/profundidades/buda1210.png}
@@ -368,7 +368,7 @@ Nos planteamos entonces un último experimento. Queremos ver qué sucede cuando 
 
 $ $\newline
 % @jonno - Me rei mas de lo necesario con la frase, estoy muy mal
-``\textit{El dolor es inevitable, el sufrimiento opcional}'' dijo Buda, y tomando ese set de luces vemos cuánta razón tuvo. Pobre Buda. Efectivamente obtuvimos peores resultados con ese set de luces particular. Sabiendo que la elección de luces produce variaciones significativas, concluimos que lo mejor es evitar elegir luces que provengan de frente. \\
+``\textit{El dolor es inevitable. El sufrimiento, opcional}'' dijo Buda, y tomando ese set de luces vemos cuánta razón tuvo. Pobre Buda. Efectivamente obtuvimos peores resultados con ese set de luces particular. Sabiendo que la elección produce variaciones significativas, concluimos que lo mejor es evitar elegir luces que provengan de frente. \\
 
 \newpage
 \subsection{Eliminacion gaussiana y Factorización LU}
@@ -423,7 +423,7 @@ Lo esperado es que Gauss sea el método más lento en este tipo de pruebas, ya q
 }
 
 $ $\newline
-Podemos observar en el gráfico que se cumple lo esperado, Gauss es por lejos el más lento de los métodos. Retriangular la matriz cada vez hace que tenga orden cúbico, mientras que con LU y Cholesky al tener la factorización solo debemos realizar despejes. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos. \\
+Podemos observar en el gráfico que se cumple lo esperado, Gauss es por lejos el más lento de los métodos. Retriangular la matriz cada vez hace que tenga orden cúbico, mientras que con LU y Cholesky al tener la factorización sólo debemos realizar despejes. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos. \\
 
 % \hspace*{-2cm} \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosBSuma-soloCholeskyLU-Dim500.pdf}
 

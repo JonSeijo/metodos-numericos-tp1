@@ -460,6 +460,7 @@ class Matriz {
         for(int k = 0; k < j; k++){
             res += pow (this->m[j][k], 2.0);
         }
+        return res;
     }
 
     double sumatoria2(int i, int j){
@@ -467,6 +468,7 @@ class Matriz {
         for(int k = 0; k < j; k++){
             res += this->m[i][k] * this->m[j][k];
         }
+        return res;
     }
 
     bool operator==(const Matriz B){
