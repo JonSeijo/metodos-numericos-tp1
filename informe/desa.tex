@@ -54,7 +54,7 @@ El pseudocódigo del algoritmo de Gauss es el siguiente:
     \For{$k \in [1..min(n,m)]$ }
         \For{$i \in [k+1..m]$ }
 
-            \If{M[$k$][$k$] $\neq 0$}
+            \If{$\|$M[$k$][$k$]$\|$ $> \epsilon$}
                 \State $mult \gets $M[$i$][$k$] $/$ M[$k$][$k$]
                 \For{$j \in [k+1..n]$}
 
@@ -104,7 +104,7 @@ Dado que pudimos triangular correctamente la matriz ampliada, entonces ya estamo
 
     \For{$j \in [1..m-1]$ }  (j es indice de columna)
 
-        \If{M[$j$][$j$] $\neq 0$}
+        \If{$\|$M[$j$][$j$]$\|$ $> \epsilon$}
 
             \State X[$j$] $\gets$ M[$j$][$m$] / M[$j$][$j$]
 
@@ -502,5 +502,3 @@ M x = b \iff L \underbrace{L^t x}_{\text{y}} = b \iff
 A diferencia de la descomposición LU, no es necesario que realicemos el método de eliminacion gaussiano para conseguir nuestra $L$, sino que existe un algoritmo que calcula la matriz $L$ basándose en realizar operaciones sobre los elementos de la matriz original. \\
 
 Como nuestra matriz $A$ es simétrica y definida positiva (\textit{por lo analizado en la sección anterior}) puede verse que utilizar la factorización de Cholesky es una buena idea, ya que tiene constantes más bajas que la eliminación gaussiana por lo que estaríamos reduciendo cálculos. Además, como nuestras matrices ya no son \textit{vectores de vectores}, sino \textit{maps},  no es trivial la implementación de la eliminación gaussiana para nuestro nuevo tipo. Sin embargo, sumar y multiplicar elementos es algo que sabemos hacer muy bien. \\
-
-Es importante aclarar que aunque no lo resolvimos con Gauss, la resolución en teoría es perfectamente posible. Como esta matriz es definida positiva, tiene determinante mayor a cero, por lo que es inversible. Entonces podríamos aplicar Gauss sin dejar ceros en la diagonal.

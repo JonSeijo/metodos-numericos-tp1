@@ -227,11 +227,9 @@ Aquí podemos ver como la forma general se distingue bastante bien, y que las zo
     \captionof{figure}{Profundidades utilizando luces 5,7,8}
 }
 
-\todo[inline]{Probar algunas combinaciones mas pues probablemente haya alguna mejor}
-
 
 $ $\newline
-Aunque las profundidades son distinguibles en los casos que mostramos, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los clanos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
+Aunque las profundidades son distinguibles en los casos que mostramos, los resultados no son lo que esperábamos. Los modelos obtenidos no se corresponden con el modelo propuesto en el enunciado. Podemos ver que nuestro modelo esta lleno de picos, sobre todo en el borde de la figura. Creemos que los resultados tienen que ver con una combinación de errores numéricos y los cálculos de los planos tangentes, no pudimos detectar una falla específica y obtener resultados mejores. Aún así, consideramos que lo que obtuvimos son resultados razonables. \\
 
 % En la imagen de arriba podemos ver lo que mencionamos sobre la \textit{suavidad} de la superficie. Es claro que es diferente a lo visto en la imagen de ejemplo del enunciado, pero incluso así son distinguibles las alturas de los diferentes píxeles. El \textit{fondo} del modelo es un plano perfecto por el hecho de haber utilizado la máscara para no realizar cálculos innecesarios. Sospechamos que los picos tiene que ver con la forma en que aproximamos los planos tangentes. Veamos que obtenemos si partimos directamente de las \textbf{normales} provistas por la cátedra:
 
@@ -310,9 +308,9 @@ Más allá de las diferencias entre componentes, es claro que en la figura del g
 $ $\newline
 En las últimas tres figuras utilizamos un set diferente pero tenemos un comportamiento similar al de antes: la componente azul maneja una cantidad de detalles un poco mayor que las demás, notorios en la parte inferior de la figura. Sin embargo con este set de luces la diferencias entre las componentes son mucho menores. Además, seguimos observando la sombra extraña en el lado derecho del rostro, que ahora estamos bastante seguros que es algún problema con nuestro sistema. Lamentablemete no pudimos hallar su causa para solucionarlo y obtener mejores resultados. \\
 
-Es interesante notar que en los ejemplos anteriores utilizamos diferentes combinaciones de luces y obtuvimos profundidades diferentes (pero similares) entre los sets. En el ejemplo del gato, con el primer set de luces logramos conseguir más detalles que con el segundo set, pero pensábamos que las diferencias iban a ser más contundentes. En el siguiente experimento intentaremos ver cómo la elección de luces repercute en las profundidades finales. Para ello, realizamos los cálculos de profundidad con una imagen que tiene más detalles. \\
+Notamos que en los ejemplos anteriores utilizamos diferentes combinaciones de luces y obtuvimos profundidades diferentes entre los sets. En el ejemplo del gato, con el primer set de luces logramos conseguir más detalles que con el segundo set. Esto nos dá la pauta de que la elección de las luces es importante, aunque no sabemos qué tanto. \\
 
-Los siguientes son gráficos con las profundidades de Buda, fijando las dos primeras luces y haciendo variar una tercera, al igual que hicimos con el experimento de las normas en la sección anterior. \\
+En el siguiente experimento intentaremos ver cómo la elección de luces repercute en las profundidades finales. Para ello, realizamos los cálculos de profundidad las imágenes de Buda, pues consideramos que nos será útil la gran cantidad de detalles que tiene. En los siguientes gráficos fijamos las dos primeras luces y haremos variar una tercera. No esperamos que variando una única luz consigamos resultados demasiado distintos. \\
 
 \begin{figure}[H]
 \centering
@@ -344,8 +342,21 @@ Los siguientes son gráficos con las profundidades de Buda, fijando las dos prim
 \end{figure}
 
 
-\todo[inline]{CONCLUIR ALGO SOBRE LOS GRAFICOS DE BUDA}
+Con cambiar una única luz los resultados son bastantes diferentes entre sí. En primer lugar, al igual que con las anteriores figuras, los detalles se pierden y aparecen bastantes picos sobre todo en los bordes, pero consideramos que eso es un defecto en nuestro sistema. En segundo lugar, no esperábamos obtener resultados \textit{tan} diferentes modificando una única luz. Concluimos con esto que el sistema es extremadamente sensible a la elección de las luces, incluso cambiando una única. \\
 
+De las profundidades mostradas, las que usan las luces 2 y 10 son con las que peores resultados obtuvimos. Para entender de mejor manera por qué sucede esto, revisamos las imágenes originales. Ambas luces apuntan de frente a la figura. Creemos que esta es la razón de los malos resultados: al apuntar de frente hay pocas sombras lo que intuitivamente hace que sea difícil darse cuenta de las profundidades reales. \\
+
+\newpage
+Nos planteamos entonces un último experimento. Queremos ver qué sucede cuando tomamos las 3 luces de frente, en las cuales se vean la menor cantidad de sombras. Elegimos entonces las luces 1, 2 y 10. Por lo observado anteriormente, esperamos obtener muy malos resultados. \\
+
+{\centering
+    \includegraphics[width=0.7\linewidth]{informe/imagenes/profundidades/buda1210.png}
+    \captionof{figure}{Profundidades - Luces 1,2,10}
+}
+
+$ $\newline
+% @jonno - Me rei mas de lo necesario con la frase, estoy muy mal
+``\textit{El dolor es inevitable, el sufrimiento opcional}'' dijo Buda, y tomando ese set de luces vemos cuánta razón tuvo. Pobre Buda. Efectivamente obtuvimos peores resultados con ese set de luces particular. Sabiendo que la elección de luces produce variaciones significativas, concluimos que lo mejor es evitar elegir luces que provengan de frente. \\
 
 \newpage
 \subsection{Eliminacion gaussiana y Factorización LU}
@@ -397,8 +408,6 @@ Lo esperado es que Gauss sea el método más lento en este tipo de pruebas, ya q
 Podemos observar en el gráfico que se cumple lo esperado. Algo quizá no contemplado es la pequeña diferencia de tiempos entre LU y Cholesky, que sospechamos fuertemente que está relacionada con la forma en que los implementamos.
 
 % \hspace*{-2cm} \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosBSuma-soloCholeskyLU-Dim500.pdf}
-
-
 
 % {\centering
 %     \includegraphics[scale=0.5]{informe/imagenes/tytalus/DistintosB-Dim500.pdf}
