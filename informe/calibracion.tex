@@ -13,7 +13,7 @@
 
 \section{Calibración}
 
-El paso anterior al cálculo de las profundidades es el cálculo de los vectores normales a todo punto de la superficie. Para esto, se eligen tres luces diferentes (por ejemplo si elegimos 1, 2 y 3, nuestros vectores luz serán $s^{1}$, $s^{2}$ y $s^{3}$ respectivamente) y utilizando las intensidades ya registradas ($I_i$) queremos encontrar los $m$ que son solución, donde $m$ es un vector que depende del vector normal y de una constante del objeto. Cabe aclarar que el sistema se deberá resolver para cada pixel de la imagen, por lo que ya conocemos las intensidades del pixel dado para toda imagen. Nos encontramos entonces con el primer problema, porque los vectores de luz no son un dato conocido. \\
+El paso anterior al cálculo de las profundidades es el cálculo de los vectores normales a todo punto de la superficie. Para esto, se eligen tres luces diferentes (por ejemplo si elegimos 1, 2 y 3, nuestros vectores luz serán $s^{1}$, $s^{2}$ y $s^{3}$ respectivamente) y utilizando las intensidades ya registradas ($I_i$) queremos encontrar los $m$ que son solución, donde $m$ es un vector que depende del vector normal y de una constante del objeto. Cabe aclarar que el sistema se deberá resolver para cada píxel de la imagen, por lo que ya conocemos las intensidades del píxel dado para toda imagen. Nos encontramos entonces con el primer problema, porque los vectores de luz no son un dato conocido. \\
 
 El sistema que queremos resolver es el siguiente: \\
 
@@ -53,7 +53,7 @@ $ $\newline
 
 Más precisamente, $S = (c_{x} - p_{x}, c_{y} - p_{y}, c_{z} - p_{z}).$ En principio no conocemos ninguno de estos valores, pero concentrémonos en calcular sobre el eje $x$ e $y$. De la imagen de la esfera (2D) podemos conocer algunos datos. En la implementación utilizamos la máscara provista por la cátedra para simplificar los cálculos. \\
 
-Como los píxeles en la máscara son blancos o negros, es muy sencillo identificar los puntos que pertenecen a la esfera con sólo ver su color. Recorriendo todos los puntos y tomando máximos y mínimos obtenemos 4 puntos clave: El punto del círculo que está mas arriba $A$, el más abajo $A'$, el de más a la izquierda $B$ y el de más a la derecha $B'$. \\
+Como los píxeles en la máscara son blancos o negros, es muy sencillo identificar los puntos que pertenecen a la esfera con sólo ver su color. Recorriendo todos los puntos y tomando máximos y mínimos obtenemos 4 puntos clave: El punto del círculo que está más arriba $A$, el más abajo $A'$, el de más a la izquierda $B$ y el de más a la derecha $B'$. \\
 
 {\centering
     \includegraphics[scale=0.5]{informe/imagenes/esfera/circulo.png} \\
