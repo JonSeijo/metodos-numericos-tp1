@@ -22,34 +22,3 @@ Hay un Makefile naive que deberia bastar por ahora.
 make && ./main
 ```
 
-
-## Y ahora que?
-
-```
-- Necesitamos pensar bien el calculo de profundidaes
-
-- Necesitamos plantear las super ecuaciones y resolverlas
-
-- Tenemos el tip de que son bandas, asi que hay que ver eso sino seguro son super grandes e ineficientes
-
-- Informe: mas sobre el desarrollo
-
-- Experimentacion: (nos faltan ideas)
-
-    : Ver graficos de normales con diferentes luces
-
-    : Ver resultados finales con diferentes luces
-    
-    : Comparaciones con mismas luces pero nuestras vs catedra
-    
-    : Tiempos, gauss vs lu sin usar mascara
-    
-    : Tiempos, gauss vs lu usando mascara
-    
-    : Algo con cholesky
-    
-    : Comparaciones haciendo con vs sin pivoteo por los errores numericos
-    
-    
-- Informe: conclusiones
-```
